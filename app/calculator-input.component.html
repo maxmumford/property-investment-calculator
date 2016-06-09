@@ -1,0 +1,9 @@
+<div>
+  Tenants: <input type="text" [(ngModel)]="calculator.tenantNumber">
+</div>
+<div>
+  Weekly Rent Per Tenant: <input type="text" [(ngModel)]="calculator.rentPerTenantWeekly">
+</div>
+<div *ngIf="advanced">
+  Advanced mode activated
+</div>

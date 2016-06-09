@@ -1,0 +1,6 @@
+<div>
+  Advanced mode? <input type="checkbox" [(ngModel)]="advanced">
+</div>
+
+<calculator-input [calculator]="calculator" [advanced]="advanced"></calculator-input>
+<calculator-output [calculator]="calculator" [advanced]="advanced"></calculator-output>
