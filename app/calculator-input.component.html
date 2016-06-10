@@ -1,9 +1,165 @@
-<div>
-  Tenants: <input type="text" [(ngModel)]="calculator.tenantNumber">
+<div class="row">
+  <h3>Tenants</h3>
+  <div class="col-md-6">
+    <widget-calculator-input 
+      label="Number of Tenants" 
+      type="number" 
+      tooltip="The total number of tenants that will live in the house" 
+      [(model)]="calculator.tenantNumber">
+    </widget-calculator-input>
+  </div>
+  <div class="col-md-6">
+    <widget-calculator-input 
+      label="Rent Per Tenant Weekly" 
+      type="currency" 
+      tooltip="test" 
+      [(model)]="calculator.rentPerTenantWeekly"
+      step="5">
+    </widget-calculator-input>
+  </div>
 </div>
-<div>
-  Weekly Rent Per Tenant: <input type="text" [(ngModel)]="calculator.rentPerTenantWeekly">
+
+<div class="row">
+  <h3>Bills</h3>
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="Yearly Bills"
+      type="currency"
+      tooltip="The amount paid in bills per year - gas, electricity, internet etc"
+      [(model)]="calculator.billsYearly"
+      step="100">
+    </widget-calculator-input>
+    <widget-calculator-input
+      label="Voids"
+      type="percent"
+      tooltip="The percentage of the year that the property will remain empty"
+      [(model)]="calculator.voids">
+    </widget-calculator-input>    
+  </div>
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="Management"
+      type="percent"
+      tooltip="The amount you will pay for property management as a percentage of your gross income. Usually 8-12%."
+      [(model)]="calculator.management">
+    </widget-calculator-input>
+    <widget-calculator-input
+      label="Maintenance Yearly"
+      type="currency"
+      tooltip="The amount of maintenance you will spend keeping the property per year. This includes fixing things like light bulbs, white goods, repaining etc."
+      [(model)]="calculator.maintenanceYearly"
+      step="100">
+    </widget-calculator-input>    
+  </div>
 </div>
-<div *ngIf="advanced">
-  Advanced mode activated
+
+<div class="row">
+  <h3>The Property</h3>
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="Purchase Price"
+      type="currency"
+      tooltip="The amount you'll spend to purchase the property"
+      [(model)]="calculator.purchasePrice"
+      step="2500">
+    </widget-calculator-input>
+  </div>
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="Conversion Cost"
+      type="currency"
+      tooltip="The amount you'll spend to convert the property so it is suitable to let out. For example rennovating, adding ensuites etc."
+      [(model)]="calculator.conversionCost"
+      step="1000">
+    </widget-calculator-input>
+  </div>
+</div>
+
+<div class="row">
+  <h3>Mortgage Information</h3>
+  <div class="col-md-6">
+    <widget-calculator-radio label="Payment Basis" 
+      tooltip="Will you repay the entire mortgage, or just pay the interest? If you are unsure, choose repayment."
+      [(model)]="calculator.paymentBasis"
+      [options]="[
+        {label: 'Repayment', value: 'repayment', class: 'primary' }, 
+        {label: 'Interest Only', value: 'interestOnly', class: 'default' } 
+      ]">
+    </widget-calculator-radio>
+  </div>
+  <div class="col-md-6">
+    <widget-calculator-radio label="Mortgage Type" 
+      tooltip="The type of mortgage you will take out. If you are unsure, choose 'Market Value'."
+      [(model)]="calculator.mortgageType"
+      [options]="[
+        {label: 'Buy To Let', value: 'buyToLet', class: 'primary' }, 
+        {label: 'Commercial', value: 'commercial', class: 'default' } 
+      ]">
+    </widget-calculator-radio>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12" *ngIf="calculator.mortgageType == 'buyToLet'">
+    <widget-calculator-input
+      label="Value After Conversion"
+      type="currency"
+      tooltip="What do you estimate your property will be worth after the conversion has been done? This determines how much the bank will loan to you."
+      [(model)]="calculator.valuation"
+      step="2500">
+    </widget-calculator-input>
+  </div>
+    <div class="col-md-6" *ngIf="calculator.mortgageType == 'commercial'">
+    <widget-calculator-radio 
+      label="Pull Out Extra Money" 
+      tooltip="If the banks offer to loan you more than your total capital investment, do you want to borrow the difference? For example, if you buy the property for 70k, the conversion costs 50k (total of 120k) and the banks offer to loan you 130k, do you want to borrow the extra 10k? This will effectively put you in negative equity."
+      [(model)]="calculator.pullOutExtraMoney"
+      [options]="[
+        {label: 'No', value: '', class: 'primary' }, 
+        {label: 'Yes', value: '1', class: 'default' } 
+      ]">
+    </widget-calculator-radio>
+  </div>
+  <div class="col-md-6">
+    <widget-calculator-input
+      *ngIf="calculator.mortgageType == 'commercial'"
+      label="Multiplier"
+      type="number"
+      tooltip="The multiplier is the number that the banks will multiply your yearly revenue by in order to arrive at a valuation. The closer your property is to London, the higher the multiplier (ie 12), the further away, the lower (ie Birmingham it's 7). Think of it as the return an investor expects on their money. They can earn more closer to London, because there is more competition."
+      [(model)]="calculator.multiplier"
+      min="4" max="16">
+    </widget-calculator-input>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <widget-calculator-input
+      label="Loan To Value"
+      type="percent"
+      tooltip="How much of the value of the property the banks will loan you. They will usually loan up to 75%."
+      [(model)]="calculator.loanToValue"
+      step="5">
+    </widget-calculator-input>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="APR"
+      type="percent"
+      tooltip="The interest rate the bank will charge."
+      [(model)]="calculator.apr"
+      step="0.25">
+    </widget-calculator-input>
+  </div>
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="Mortgage Length"
+      type="number"
+      tooltip="The length in years of the mortgage. Standard length is 25."
+      [(model)]="calculator.term"
+      max="50">
+    </widget-calculator-input>
+  </div>
 </div>

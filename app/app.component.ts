@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
+import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 import { ListComponent } from './list.component';
 import { CalculatorComponent } from './calculator.component';
 
@@ -26,7 +27,7 @@ import { CalculatorComponent } from './calculator.component';
     </nav>
     <router-outlet></router-outlet>
   `,
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, AlertComponent],
   providers: [
     ROUTER_PROVIDERS
   ]

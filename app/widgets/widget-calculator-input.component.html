@@ -1,0 +1,13 @@
+<div class="form-group">
+  <label class="control-label">
+    {{ label }}
+    <a href="#" [tooltip]="tooltip" tabindex="-1">
+      <span class="glyphicon glyphicon-question-sign"></span>
+    </a>
+  </label>
+  <div class="input-group">
+    <span class="input-group-addon">{{ inputSymbol }}</span>
+    <input type="{{ type }}" class="form-control" [ngModel]="model" (ngModelChange)="updateData($event)" 
+      max="{{ max }}" min="{{ min }}" step="{{ step }}">
+  </div>
+</div>

@@ -1,6 +1,34 @@
-<div>
-  Yearly Revenue: {{ calculator.revenueAnnual() }}
-</div>
-<div *ngIf="advanced">
-  Advanced mode activated
+<div class="output">
+  <h3>Gross Profit</h3>
+  <div>
+    Yearly Revenue: {{ calculator.revenueYearly() }}
+  </div>
+  <div>
+    Yearly Expenses: {{ calculator.expensesYearly() }}
+  </div>
+  <div>
+    Yearly Gross Profit: {{ calculator.grossProfitYearly() }}
+  </div>
+
+  <h3>Mortgage</h3>
+  <div>
+    Amount Borrowed: {{ calculator.mortgagePrincipal() }}
+  </div>
+  <div>
+    Yearly Mortgage Payments: {{ calculator.mortgagePaymentsYearly() | currency }}
+  </div>
+
+  <h3>Net Profit</h3>
+  <div>
+    Yearly Net Profit: {{ calculator.profitYearly() | currency }}
+  </div>
+
+  <h3>Capital</h3>
+  <div>
+    Money Left In: {{ calculator.moneyLeftIn() }}
+  </div>
+
+  <div *ngIf="calculator.advanced">
+    Advanced mode {{ calculator.advanced }}
+  </div>
 </div>

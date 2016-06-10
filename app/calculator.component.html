@@ -1,6 +1,20 @@
-<div>
-  Advanced mode? <input type="checkbox" [(ngModel)]="advanced">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group">
+        <label class="btn btn-success" [(ngModel)]="calculator.advanced" btnRadio=""
+               uncheckable>Simple Mode</label>
+        <label class="btn btn-success" [(ngModel)]="calculator.advanced" btnRadio="1"
+               uncheckable>Advanced Mode</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <calculator-input [calculator]="calculator"></calculator-input>
+    </div>
+    <div class="col-md-4">
+      <calculator-output [calculator]="calculator"></calculator-output>
+    </div>
+  </div>
 </div>
-
-<calculator-input [calculator]="calculator" [advanced]="advanced"></calculator-input>
-<calculator-output [calculator]="calculator" [advanced]="advanced"></calculator-output>
