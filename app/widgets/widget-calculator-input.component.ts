@@ -12,6 +12,7 @@ var ICONS = {
 @Component({
   selector: 'widget-calculator-input',
   templateUrl: 'app/widgets/widget-calculator-input.component.html',
+  styleUrls: ['app/widgets/widget-calculator-input.component.css'],
   directives: [ TOOLTIP_DIRECTIVES ],
   pipes: [LocaleCurrencyPipe]
 })
@@ -54,7 +55,6 @@ export class WidgetCalculatorInputComponent implements OnInit {
     }
     else if( this.type == "currency" ){
       this.type = "number";
-      this.inputSymbol = this.currency;
     }
   }
 }

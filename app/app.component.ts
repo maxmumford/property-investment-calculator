@@ -7,8 +7,8 @@ import { CalculatorComponent } from './calculator.component';
 
 @RouteConfig([
   {
-    path: '/list',
-    name: 'List',
+    path: '/',
+    name: 'Home',
     component: ListComponent
   },
   {

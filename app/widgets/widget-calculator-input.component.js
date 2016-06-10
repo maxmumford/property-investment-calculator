@@ -50,7 +50,6 @@ var WidgetCalculatorInputComponent = (function () {
         }
         else if (this.type == "currency") {
             this.type = "number";
-            this.inputSymbol = this.currency;
         }
     };
     __decorate([
@@ -89,6 +88,7 @@ var WidgetCalculatorInputComponent = (function () {
         core_1.Component({
             selector: 'widget-calculator-input',
             templateUrl: 'app/widgets/widget-calculator-input.component.html',
+            styleUrls: ['app/widgets/widget-calculator-input.component.css'],
             directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES],
             pipes: [angular2localization_1.LocaleCurrencyPipe]
         }), 

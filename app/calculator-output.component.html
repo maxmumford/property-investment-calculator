@@ -1,34 +1,80 @@
-<div class="output">
-  <h3>Gross Profit</h3>
-  <div>
-    Yearly Revenue: {{ calculator.revenueYearly() }}
-  </div>
-  <div>
-    Yearly Expenses: {{ calculator.expensesYearly() }}
-  </div>
-  <div>
-    Yearly Gross Profit: {{ calculator.grossProfitYearly() }}
-  </div>
+<div class="panel" [class.panel-danger]="calculator.profitYearly() < 0" [class.panel-success]="calculator.profitYearly() > 0" >
+  <div class="panel-heading">{{ calculator.propertyName || "Your Property Name" }}</div>
+  <div class="panel-body">
 
-  <h3>Mortgage</h3>
-  <div>
-    Amount Borrowed: {{ calculator.mortgagePrincipal() }}
-  </div>
-  <div>
-    Yearly Mortgage Payments: {{ calculator.mortgagePaymentsYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
-  </div>
+    <table class="table">
+      <tbody>
+        <tr>
+            <h3>Gross Profit</h3>
+        </tr>
+        <tr>
+          <th>Revenue</th>
+          <td>{{ calculator.revenueYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <th>Expenses</th>
+          <td>{{ calculator.expensesYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <th>Gross Profit</th>
+          <td>{{ calculator.grossProfitYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+      </tbody>
 
-  <h3>Net Profit</h3>
-  <div>
-    Yearly Net Profit: {{ calculator.profitYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
-  </div>
+      <tbody>
+        <tr>
+          <h3>Mortgage</h3>
+        </tr>
+        <tr>
+          <th>Amount Borrowed</th>
+          <td>{{ calculator.mortgagePrincipal() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <th>Mortgage Payments</th>
+          <td>{{ calculator.mortgagePaymentsYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+      </tbody>
 
-  <h3>Capital</h3>
-  <div>
-    Money Left In: {{ calculator.moneyLeftIn() }}
-  </div>
+      <tbody>
+        <tr>
+          <h3>Net Profit</h3>
+        </tr>
+        <tr>
+          <th>Net Profit</th>
+          <td>
+            <span class="label big" [class.label-danger]="calculator.profitYearly() < 0" [class.label-success]="calculator.profitYearly() > 0">
+              {{ calculator.profitYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th>Net Profit Monthly</th>
+          <td>
+              {{ calculator.profitMonthly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
+          </td>
+        </tr>
+      </tbody>
 
-  <div *ngIf="calculator.advanced">
-    Advanced mode {{ calculator.advanced }}
+      <tbody *ngIf="calculator.advanced">
+        <tr>
+          <h3>Capital</h3>
+        </tr>
+        <tr>
+          <th>Capital Invested</th>
+          <td>{{ calculator.capitalInvested() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <th>Money Left In</th>
+          <td>{{ calculator.moneyLeftIn() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+        <tr *ngIf="calculator.pullOutExtraMoney">
+          <th>Money Pulled Out</th>
+          <td>{{ calculator.moneyPulledOut() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <small>Note: All figures are yearly unless specified otherwise</small>
+
   </div>
 </div>

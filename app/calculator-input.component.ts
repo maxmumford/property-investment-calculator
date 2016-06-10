@@ -6,6 +6,7 @@ import { WidgetCalculatorRadioComponent } from './widgets/widget-calculator-radi
 @Component({
   selector: 'calculator-input',
   templateUrl: 'app/calculator-input.component.html',
+  styleUrls: ['app/calculator-input.component.css'],
   directives: [ WidgetCalculatorInputComponent, WidgetCalculatorRadioComponent ]
 })
 export class CalculatorInputComponent {

@@ -2,7 +2,8 @@ export class Calculator {
 
   // input with default values
   constructor(
-    private advanced: string = "",
+    private _advanced: string = "",
+    private propertyName: string = "",
 
     // tenant
     private tenantNumber: number = 5, 
@@ -15,19 +16,33 @@ export class Calculator {
     private maintenanceYearly: number = 1000,
 
     // property
-    private purchasePrice: number = 70000,
-    private conversionCost: number = 50000,
+    private purchasePrice: number = 140000,
+    private refurbCost: number = 20000,
 
     // mortgage
     private paymentBasis: string = 'repayment',
     private mortgageType: string = 'buyToLet',
-    private valuation: number = 120000,
+    private valuation: number = 180000,
     private multiplier: number = 7,
     private pullOutExtraMoney: string = "",
     private loanToValue: number = 75,
     private apr: number = 6,
     private term: number = 25
     ){
+  }
+
+  get advanced():Boolean {
+      return this._advanced;
+  }
+  set advanced(advanced:Boolean) {
+      this._advanced = advanced;
+      // reset hidden fields to their default values
+      if(!advanced){
+        this.paymentBasis = 'repayment';
+        this.mortgageType = 'buyToLet';
+        this.loanToValue = 75;
+        this.term = 25;
+      }
   }
 
   // calculations
@@ -47,11 +62,14 @@ export class Calculator {
   }
 
   expensesYearly(){
-    return +this.billsYearly + +this.voidsCost() + +this.managementCost() + +this.maintenanceYearly;
+    if(this.advanced)
+      return +this.billsYearly + +this.voidsCost() + +this.managementCost() + +this.maintenanceYearly;
+    else
+      return +this.billsYearly + +this.maintenanceYearly;
   }
 
   capitalInvested(){
-    return this.purchasePrice + this.conversionCost;
+    return +this.purchasePrice + +this.refurbCost;
   }
 
   mortgagePrincipal(){
@@ -59,20 +77,34 @@ export class Calculator {
       return this.valuation * (this.loanToValue / 100);
     }
     else if (this.mortgageType == 'commercial'){
-      return this.revenueYearly() * this.multiplier * (this.loanToValue / 100);
+      let financeAvailable = this.revenueYearly() * this.multiplier * (this.loanToValue / 100);
+      let capitalInvested = this.capitalInvested();
+      if( financeAvailable > capitalInvested && this.pullOutExtraMoney )
+        return financeAvailable;
+      else
+        return capitalInvested;
     }
   }
 
   moneyLeftIn(){
-    return this.capitalInvested() - this.mortgagePrincipal();
+    let moneyLeftIn = this.capitalInvested() - this.mortgagePrincipal();
+    return (moneyLeftIn >= 0) ? moneyLeftIn : 0;
   }
 
   moneyPulledOut(){
-
+    if(this.pullOutExtraMoney){
+      let moneyPulledOut = this.mortgagePrincipal() - this.capitalInvested();
+      return (moneyPulledOut >= 0) ? moneyPulledOut : 0;
+    }
+    else
+      return 0;
   }
 
   mortgagePaymentsMonthly(){
-    return - this.PMT( ((this.apr / 100) / 12), (this.term * 12), this.mortgagePrincipal() );
+    if( this.paymentBasis == 'repayment' )
+      return - this.PMT( ((this.apr / 100) / 12), (this.term * 12), this.mortgagePrincipal() );
+    else if ( this.paymentBasis == 'interestOnly' )
+      return this.mortgagePrincipal() * ((this.apr / 100) / 12);
   }
 
   mortgagePaymentsYearly(){
@@ -85,6 +117,10 @@ export class Calculator {
 
   profitYearly(){
     return this.grossProfitYearly() - this.mortgagePaymentsYearly();
+  }
+
+  profitMonthly (){
+    return this.profitYearly() / 12;
   }
 
   private PMT(ir, np, pv, fv = 0, type = 0) {
