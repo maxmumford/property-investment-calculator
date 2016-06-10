@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { LocaleService, LocaleCurrencyPipe } from 'angular2localization/angular2localization';
 import { TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 var ICONS = {
@@ -11,7 +12,8 @@ var ICONS = {
 @Component({
   selector: 'widget-calculator-input',
   templateUrl: 'app/widgets/widget-calculator-input.component.html',
-  directives: [ TOOLTIP_DIRECTIVES ]
+  directives: [ TOOLTIP_DIRECTIVES ],
+  pipes: [LocaleCurrencyPipe]
 })
 export class WidgetCalculatorInputComponent implements OnInit {
   @Input() label : string;
@@ -30,6 +32,17 @@ export class WidgetCalculatorInputComponent implements OnInit {
     this.modelChange.emit(event);
   }
 
+  constructor(public locale: LocaleService) {
+  }
+
+  get defaultLocale(): string {
+    return this.locale.getDefaultLocale();
+  }
+
+  get currency(): string {
+    return this.locale.getCurrentCurrency();
+  }
+
   ngOnInit() { 
     // dynamically set inputSymbol
     this.inputSymbol = ICONS[this.type];
@@ -41,6 +54,7 @@ export class WidgetCalculatorInputComponent implements OnInit {
     }
     else if( this.type == "currency" ){
       this.type = "number";
+      this.inputSymbol = this.currency;
     }
   }
 }

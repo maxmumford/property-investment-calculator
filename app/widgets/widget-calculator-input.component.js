@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var angular2localization_1 = require('angular2localization/angular2localization');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var ICONS = {
     "text": "A",
@@ -17,13 +18,28 @@ var ICONS = {
     "currency": "£",
 };
 var WidgetCalculatorInputComponent = (function () {
-    function WidgetCalculatorInputComponent() {
+    function WidgetCalculatorInputComponent(locale) {
+        this.locale = locale;
         this.modelChange = new core_1.EventEmitter();
     }
     WidgetCalculatorInputComponent.prototype.updateData = function (event) {
         this.model = event;
         this.modelChange.emit(event);
     };
+    Object.defineProperty(WidgetCalculatorInputComponent.prototype, "defaultLocale", {
+        get: function () {
+            return this.locale.getDefaultLocale();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WidgetCalculatorInputComponent.prototype, "currency", {
+        get: function () {
+            return this.locale.getCurrentCurrency();
+        },
+        enumerable: true,
+        configurable: true
+    });
     WidgetCalculatorInputComponent.prototype.ngOnInit = function () {
         // dynamically set inputSymbol
         this.inputSymbol = ICONS[this.type];
@@ -34,6 +50,7 @@ var WidgetCalculatorInputComponent = (function () {
         }
         else if (this.type == "currency") {
             this.type = "number";
+            this.inputSymbol = this.currency;
         }
     };
     __decorate([
@@ -72,9 +89,10 @@ var WidgetCalculatorInputComponent = (function () {
         core_1.Component({
             selector: 'widget-calculator-input',
             templateUrl: 'app/widgets/widget-calculator-input.component.html',
-            directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES]
+            directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES],
+            pipes: [angular2localization_1.LocaleCurrencyPipe]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [angular2localization_1.LocaleService])
     ], WidgetCalculatorInputComponent);
     return WidgetCalculatorInputComponent;
 }());

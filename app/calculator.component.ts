@@ -12,7 +12,7 @@ import { CalculatorOutputComponent } from './calculator-output.component';
   directives: [BUTTON_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, CalculatorInputComponent, CalculatorOutputComponent],
 })
 export class CalculatorComponent {
-  advanced = "";
+  calculator: Calculator;
   constructor (){
     this.calculator = new Calculator();
   }

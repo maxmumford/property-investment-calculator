@@ -15,12 +15,12 @@
     Amount Borrowed: {{ calculator.mortgagePrincipal() }}
   </div>
   <div>
-    Yearly Mortgage Payments: {{ calculator.mortgagePaymentsYearly() | currency }}
+    Yearly Mortgage Payments: {{ calculator.mortgagePaymentsYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
   </div>
 
   <h3>Net Profit</h3>
   <div>
-    Yearly Net Profit: {{ calculator.profitYearly() | currency }}
+    Yearly Net Profit: {{ calculator.profitYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
   </div>
 
   <h3>Capital</h3>

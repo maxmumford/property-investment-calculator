@@ -2,7 +2,7 @@ export class Calculator {
 
   // input with default values
   constructor(
-    private advanced: string = "";
+    private advanced: string = "",
 
     // tenant
     private tenantNumber: number = 5, 
@@ -12,7 +12,7 @@ export class Calculator {
     private billsYearly: number = 2000,
     private voids: number = 10,
     private management: number = 10,
-    private maintenanceYearly: number = 1000
+    private maintenanceYearly: number = 1000,
 
     // property
     private purchasePrice: number = 70000,
@@ -26,16 +26,16 @@ export class Calculator {
     private pullOutExtraMoney: string = "",
     private loanToValue: number = 75,
     private apr: number = 6,
-    private term: number = 25,
+    private term: number = 25
     ){
   }
 
   // calculations
-  revenueYearly(){
+  revenueYearly(): number{
     if(this.tenantNumber && this.rentPerTenantWeekly)
       return this.tenantNumber * this.rentPerTenantWeekly * 52;
     else 
-      return '';
+      return 0;
   }
 
   voidsCost(){
@@ -87,7 +87,7 @@ export class Calculator {
     return this.grossProfitYearly() - this.mortgagePaymentsYearly();
   }
 
-  private PMT(ir, np, pv, fv, type) {
+  private PMT(ir, np, pv, fv = 0, type = 0) {
       /*
        * ir   - interest rate per month
        * np   - number of periods (months)
@@ -98,9 +98,6 @@ export class Calculator {
        *        1: beginning of period
        */
       var pmt, pvif;
-
-      fv || (fv = 0);
-      type || (type = 0);
 
       if (ir === 0)
           return -(pv + fv)/np;
