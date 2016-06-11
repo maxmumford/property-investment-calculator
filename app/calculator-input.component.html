@@ -138,7 +138,7 @@
       label="Value After Conversion"
       type="currency"
       tooltip="What do you estimate your property will be worth after the conversion has been done? This determines how much the bank will loan to you."
-      [(model)]="calculator.valuation"
+      [(model)]="calculator.valuationBuyToLet"
       step="2500">
     </widget-calculator-input>
   </div>
@@ -148,8 +148,8 @@
       tooltip="If the banks offer to loan you more than your total capital investment, do you want to borrow the difference? For example, if you buy the property for 70k, the conversion costs 50k (total of 120k) and the banks offer to loan you 130k, do you want to borrow the extra 10k? This will effectively put you in negative equity."
       [(model)]="calculator.pullOutExtraMoney"
       [options]="[
-        {label: 'No', value: '', class: 'primary' }, 
-        {label: 'Yes', value: '1', class: 'default' } 
+        {label: 'No', value: false, class: 'primary' }, 
+        {label: 'Yes', value: true, class: 'default' } 
       ]">
     </widget-calculator-radio>
   </div>

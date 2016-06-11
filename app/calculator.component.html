@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-12">
     <div class="btn-group">
-      <label class="btn btn-primary" [(ngModel)]="calculator.advanced" btnRadio="">Simple Mode</label>
-      <label class="btn btn-danger" [(ngModel)]="calculator.advanced" btnRadio="1">Advanced Mode</label>
+      <label class="btn btn-primary" [(ngModel)]="calculator.advanced" [btnRadio]="false">Simple Mode</label>
+      <label class="btn btn-danger" [(ngModel)]="calculator.advanced" [btnRadio]="true">Advanced Mode</label>
     </div>
   </div>
 </div>

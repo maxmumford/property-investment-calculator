@@ -2,7 +2,7 @@ export class Calculator {
 
   // input with default values
   constructor(
-    private _advanced: string = "",
+    private _advanced: boolean = false,
     private propertyName: string = "",
 
     // tenant
@@ -22,9 +22,9 @@ export class Calculator {
     // mortgage
     private paymentBasis: string = 'repayment',
     private mortgageType: string = 'buyToLet',
-    private valuation: number = 180000,
+    private valuationBuyToLet: number = 180000,
     private multiplier: number = 7,
-    private pullOutExtraMoney: string = "",
+    private pullOutExtraMoney: boolean = false,
     private loanToValue: number = 75,
     private apr: number = 6,
     private term: number = 25
@@ -73,13 +73,16 @@ export class Calculator {
   }
 
   mortgagePrincipal(){
+    let valuation = this.valuation();
     if(this.mortgageType == 'buyToLet'){
-      return this.valuation * (this.loanToValue / 100);
+      return valuation * (this.loanToValue / 100);
     }
     else if (this.mortgageType == 'commercial'){
-      let financeAvailable = this.revenueYearly() * this.multiplier * (this.loanToValue / 100);
+      let financeAvailable = valuation * (this.loanToValue / 100);
       let capitalInvested = this.capitalInvested();
       if( financeAvailable > capitalInvested && this.pullOutExtraMoney )
+        return financeAvailable;
+      else if( financeAvailable < capitalInvested)
         return financeAvailable;
       else
         return capitalInvested;
@@ -109,6 +112,17 @@ export class Calculator {
 
   mortgagePaymentsYearly(){
     return this.mortgagePaymentsMonthly() * 12;
+  }
+
+  valuation(){
+    if( this.mortgageType == 'buyToLet' )
+      return this.valuationBuyToLet;
+    else if( this.mortgageType == 'commercial' )
+      return this.revenueYearly() * this.multiplier;
+  }
+
+  valueUplift(){
+    return this.valuation() - this.capitalInvested();
   }
 
   grossProfitYearly(){

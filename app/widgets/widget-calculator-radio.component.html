@@ -9,6 +9,6 @@
     <div class="btn-group">
       <label *ngFor="let option of options" class="btn btn-{{ option.class }}" 
         [(ngModel)]="model" (ngModelChange)="updateData($event)" 
-        btnRadio="{{ option.value }}">{{ option.label }}</label>
+        [btnRadio]="option.value">{{ option.label }}</label>
     </div>
 </div>
