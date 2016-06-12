@@ -19,7 +19,8 @@ import { CalculatorComponent } from './calculator.component';
 ])
 @Component({
   selector: 'app',
-  templateUrl: 'app/app.component.html',
+  moduleId: module.id,
+  templateUrl: 'app.component.html',
   directives: [ROUTER_DIRECTIVES],
   providers: [
     ROUTER_PROVIDERS, 

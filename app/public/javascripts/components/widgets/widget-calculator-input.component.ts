@@ -11,8 +11,9 @@ var ICONS = {
 
 @Component({
   selector: 'widget-calculator-input',
-  templateUrl: 'app/widgets/widget-calculator-input.component.html',
-  styleUrls: ['app/widgets/widget-calculator-input.component.css'],
+  moduleId: module.id,
+  templateUrl: 'widget-calculator-input.component.html',
+  styleUrls: ['widget-calculator-input.component.css'],
   directives: [ TOOLTIP_DIRECTIVES ],
   pipes: [LocaleCurrencyPipe]
 })

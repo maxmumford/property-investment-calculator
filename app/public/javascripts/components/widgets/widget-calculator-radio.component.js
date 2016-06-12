@@ -45,7 +45,8 @@ var WidgetCalculatorRadioComponent = (function () {
     WidgetCalculatorRadioComponent = __decorate([
         core_1.Component({
             selector: 'widget-calculator-radio',
-            templateUrl: 'app/widgets/widget-calculator-radio.component.html',
+            moduleId: module.id,
+            templateUrl: 'widget-calculator-radio.component.html',
             directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES, ng2_bootstrap_2.BUTTON_DIRECTIVES, common_1.CORE_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])

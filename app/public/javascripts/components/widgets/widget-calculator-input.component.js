@@ -87,8 +87,9 @@ var WidgetCalculatorInputComponent = (function () {
     WidgetCalculatorInputComponent = __decorate([
         core_1.Component({
             selector: 'widget-calculator-input',
-            templateUrl: 'app/widgets/widget-calculator-input.component.html',
-            styleUrls: ['app/widgets/widget-calculator-input.component.css'],
+            moduleId: module.id,
+            templateUrl: 'widget-calculator-input.component.html',
+            styleUrls: ['widget-calculator-input.component.css'],
             directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES],
             pipes: [angular2localization_1.LocaleCurrencyPipe]
         }), 

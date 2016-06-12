@@ -1,4 +1,5 @@
 import { Calculator } from './calculator';
+
 describe('Calculator Simple', () => {
   let calculator = new Calculator();
 

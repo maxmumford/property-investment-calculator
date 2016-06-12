@@ -8,7 +8,8 @@ import { CalculatorOutputComponent } from './calculator-output.component';
 
 @Component({
   selector: 'calculator',
-  templateUrl: 'app/calculator.component.html',
+  moduleId: module.id,
+  templateUrl: 'calculator.component.html',
   directives: [BUTTON_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, CalculatorInputComponent, CalculatorOutputComponent],
 })
 export class CalculatorComponent {

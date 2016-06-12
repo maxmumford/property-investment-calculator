@@ -3,38 +3,38 @@ export class Calculator {
   // input with default values
   constructor(
     private _advanced: boolean = false,
-    private propertyName: string = "",
+    public propertyName: string = "",
 
     // tenant
-    private tenantNumber: number = 5, 
-    private rentPerTenantWeekly: number = 100,
+    public tenantNumber: number = 5, 
+    public rentPerTenantWeekly: number = 100,
     
     // expenses
-    private billsYearly: number = 2000,
-    private voids: number = 10,
-    private management: number = 10,
-    private maintenanceYearly: number = 1000,
+    public billsYearly: number = 2000,
+    public voids: number = 10,
+    public management: number = 10,
+    public maintenanceYearly: number = 1000,
 
     // property
-    private purchasePrice: number = 140000,
-    private refurbCost: number = 20000,
+    public purchasePrice: number = 140000,
+    public refurbCost: number = 20000,
 
     // mortgage
-    private paymentBasis: string = 'repayment',
-    private mortgageType: string = 'buyToLet',
-    private valuationBuyToLet: number = 180000,
-    private multiplier: number = 7,
-    private pullOutExtraMoney: boolean = false,
-    private loanToValue: number = 75,
-    private apr: number = 6,
-    private term: number = 25
+    public paymentBasis: string = 'repayment',
+    public mortgageType: string = 'buyToLet',
+    public valuationBuyToLet: number = 180000,
+    public multiplier: number = 7,
+    public pullOutExtraMoney: boolean = false,
+    public loanToValue: number = 75,
+    public apr: number = 6,
+    public term: number = 25
     ){
   }
 
-  get advanced():Boolean {
+  get advanced():boolean {
       return this._advanced;
   }
-  set advanced(advanced:Boolean) {
+  set advanced(advanced:boolean) {
       this._advanced = advanced;
       // reset hidden fields to their default values
       if(!advanced){

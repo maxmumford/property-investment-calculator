@@ -3,8 +3,9 @@ import {LocaleService, LocaleCurrencyPipe} from 'angular2localization/angular2lo
 
 @Component({
   selector: 'calculator-output',
-  templateUrl: 'app/calculator-output.component.html',
-  styleUrls: ['app/calculator-output.component.css'],
+  moduleId: module.id,
+  templateUrl: 'calculator-output.component.html',
+  styleUrls: ['calculator-output.component.css'],
   pipes: [LocaleCurrencyPipe]
 })
 export class CalculatorOutputComponent {

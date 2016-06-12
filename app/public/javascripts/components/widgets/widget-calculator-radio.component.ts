@@ -5,7 +5,8 @@ import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
   selector: 'widget-calculator-radio',
-  templateUrl: 'app/widgets/widget-calculator-radio.component.html',
+  moduleId: module.id,
+  templateUrl: 'widget-calculator-radio.component.html',
   directives: [ TOOLTIP_DIRECTIVES, BUTTON_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class WidgetCalculatorRadioComponent implements OnInit {
