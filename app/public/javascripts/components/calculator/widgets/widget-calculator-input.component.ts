@@ -25,6 +25,8 @@ export class WidgetCalculatorInputComponent implements OnInit {
   @Input() min : number;
   @Input() max : number;
   @Input() step : number;
+  @Input() link : string;
+  @Input() linkIcon : string;
 
   @Output() modelChange: any = new EventEmitter();
   inputSymbol;

@@ -12,5 +12,10 @@
     </span>
     <input type="{{ type }}" class="form-control" [ngModel]="model" (ngModelChange)="updateData($event)" 
       max="{{ max }}" min="{{ min }}" step="{{ step }}">
+    <span class="input-group-addon" *ngIf="link">
+      <a href="{{ link }}" target="_blank">
+        <span class="{{ linkIcon }}"></span>
+      </a>
+    </span>
   </div>
 </div>
