@@ -41,6 +41,9 @@
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-express": "^0.3.5",
+    "gulp-shell": "^0.5.2",
     "jasmine-core": "2.4.1",
     "typescript": "^1.8.10",
     "typings": "^1.0.4"

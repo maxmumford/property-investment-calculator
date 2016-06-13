@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var fs = require('fs-extra')
 
 // setup app
 app.set('view engine', 'ejs');
@@ -22,3 +21,4 @@ app.get(['/', '/calculator'], function (req, res) {
 app.listen(3000, function () {
   console.log('Listening on port 3000');
 });
+ 
