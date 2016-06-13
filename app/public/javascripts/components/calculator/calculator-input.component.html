@@ -103,6 +103,27 @@
   </div>
 </div>
 
+<div class="row" *ngIf="calculator.advanced">
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="Legal Fees"
+      type="currency"
+      tooltip="The fees you will pay solicitors for conveyencing etc. Usually around £1,000 for a normal property purchase."
+      [(model)]="calculator.legalFees"
+      step="250">
+    </widget-calculator-input>
+  </div>
+  <div class="col-md-6">
+    <widget-calculator-input
+      label="Stamp Duty"
+      type="currency"
+      tooltip="The Government charges Stamp Duty tax each time you purchase a property. Click the calculator icon to the right of the stamp duty text box to calculate this figure, then enter it here."
+      [(model)]="calculator.stampDuty"
+      step="500">
+    </widget-calculator-input>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
     <h3>Mortgage Information</h3>

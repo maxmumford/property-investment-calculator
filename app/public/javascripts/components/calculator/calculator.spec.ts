@@ -3,13 +3,13 @@ import { Calculator } from './calculator';
 describe('Calculator Simple', () => {
   let calculator = new Calculator();
 
-  // setup simple calculation tests
   calculator.tenantNumber = 5;
   calculator.rentPerTenantWeekly = 100;
   calculator.billsYearly = 2000;
   calculator.maintenanceYearly = 1000;
   calculator.purchasePrice = 70000;
   calculator.refurbCost = 50000;
+  calculator.legalFees = 1000;
   calculator.paymentBasis = 'repayment';
   calculator.mortgageType = 'buyToLet';
   calculator.valuationBuyToLet = 180000;
@@ -24,7 +24,7 @@ describe('Calculator Simple', () => {
     expect(calculator.advanced).toEqual(false);
   });
 
-  // test simple calculations
+  // test calculations
   it('has correct yearly profit', () => {
     expect(calculator.profitYearly()).toEqual(12562.317295934623);
   });
@@ -65,6 +65,7 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
   calculator.voids = 10;
   calculator.purchasePrice = 140000;
   calculator.refurbCost = 20000;
+  calculator.legalFees = 1000;
   calculator.paymentBasis = 'repayment';
   calculator.mortgageType = 'buyToLet';
   calculator.valuationBuyToLet = 180000;
@@ -91,10 +92,10 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
     expect(calculator.mortgagePaymentsYearly()).toEqual(10437.682704065377);
   });
   it('has correct capital invested', () => {
-    expect(calculator.capitalInvested()).toEqual(160000);
+    expect(calculator.capitalInvested()).toEqual(165500);
   });
   it('has correct money left in', () => {
-    expect(calculator.moneyLeftIn()).toEqual(25000);
+    expect(calculator.moneyLeftIn()).toEqual(30500);
   });
 
 });
@@ -112,6 +113,7 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
   calculator.voids = 10;
   calculator.purchasePrice = 140000;
   calculator.refurbCost = 20000;
+  calculator.legalFees = 1000;
   calculator.paymentBasis = 'interestOnly';
   calculator.mortgageType = 'buyToLet';
   calculator.valuationBuyToLet = 180000;
@@ -138,10 +140,10 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
     expect(calculator.mortgagePaymentsYearly()).toEqual(8100);
   });
   it('has correct capital invested', () => {
-    expect(calculator.capitalInvested()).toEqual(160000);
+    expect(calculator.capitalInvested()).toEqual(165500);
   });
   it('has correct money left in', () => {
-    expect(calculator.moneyLeftIn()).toEqual(25000);
+    expect(calculator.moneyLeftIn()).toEqual(30500);
   });
 
 });
@@ -159,6 +161,7 @@ describe('Calculator Advanced Commercial Repayment', () => {
   calculator.voids = 10;
   calculator.purchasePrice = 140000;
   calculator.refurbCost = 20000;
+  calculator.legalFees = 1000;
   calculator.paymentBasis = 'repayment';
   calculator.mortgageType = 'commercial';
   calculator.valuationBuyToLet = 180000;
@@ -185,10 +188,10 @@ describe('Calculator Advanced Commercial Repayment', () => {
     expect(calculator.mortgagePaymentsYearly()).toEqual(10553.656956332768);
   });
   it('has correct capital invested', () => {
-    expect(calculator.capitalInvested()).toEqual(160000);
+    expect(calculator.capitalInvested()).toEqual(165500);
   });
   it('has correct money left in', () => {
-    expect(calculator.moneyLeftIn()).toEqual(23500);
+    expect(calculator.moneyLeftIn()).toEqual(29000);
   });
 
 });
@@ -206,6 +209,7 @@ describe('Calculator Advanced Commercial Interest Only', () => {
   calculator.voids = 10;
   calculator.purchasePrice = 140000;
   calculator.refurbCost = 20000;
+  calculator.legalFees = 1000;
   calculator.paymentBasis = 'interestOnly';
   calculator.mortgageType = 'commercial';
   calculator.valuationBuyToLet = 180000;
@@ -232,15 +236,15 @@ describe('Calculator Advanced Commercial Interest Only', () => {
     expect(calculator.mortgagePaymentsYearly()).toEqual(8190);
   });
   it('has correct capital invested', () => {
-    expect(calculator.capitalInvested()).toEqual(160000);
+    expect(calculator.capitalInvested()).toEqual(165500);
   });
   it('has correct money left in', () => {
-    expect(calculator.moneyLeftIn()).toEqual(23500);
+    expect(calculator.moneyLeftIn()).toEqual(29000);
   });
 
 });
 
-describe('Calculator Advanced Commercial Interst Only Pull Money Out', () => {
+describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
 
   // setup advanced test
   let calculator = new Calculator();
@@ -253,6 +257,7 @@ describe('Calculator Advanced Commercial Interst Only Pull Money Out', () => {
   calculator.voids = 10;
   calculator.purchasePrice = 140000;
   calculator.refurbCost = 20000;
+  calculator.legalFees = 1000;
   calculator.paymentBasis = 'interestOnly';
   calculator.mortgageType = 'commercial';
   calculator.valuationBuyToLet = 180000;
@@ -279,13 +284,13 @@ describe('Calculator Advanced Commercial Interst Only Pull Money Out', () => {
     expect(calculator.mortgagePaymentsYearly()).toEqual(10530);
   });
   it('has correct capital invested', () => {
-    expect(calculator.capitalInvested()).toEqual(160000);
+    expect(calculator.capitalInvested()).toEqual(165500);
   });
   it('has correct money left in', () => {
     expect(calculator.moneyLeftIn()).toEqual(0);
   });
   it('has correct money pulled out', () => {
-    expect(calculator.moneyPulledOut()).toEqual(15500);
+    expect(calculator.moneyPulledOut()).toEqual(10000);
   });
 
 });

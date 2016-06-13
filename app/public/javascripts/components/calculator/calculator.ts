@@ -18,6 +18,8 @@ export class Calculator {
     // property
     public purchasePrice: number = 140000,
     public refurbCost: number = 20000,
+    public legalFees: number = 1000,
+    public stampDuty: number = 4500,
 
     // mortgage
     public paymentBasis: string = 'repayment',
@@ -69,7 +71,10 @@ export class Calculator {
   }
 
   capitalInvested(){
-    return +this.purchasePrice + +this.refurbCost;
+    if(this.advanced)
+      return +this.legalFees + +this.stampDuty + +this.purchasePrice + +this.refurbCost;
+    else
+      return +this.purchasePrice + +this.refurbCost;
   }
 
   mortgagePrincipal(){
