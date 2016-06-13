@@ -1,8 +1,8 @@
 ##########
 # custom #
 ##########
-app/*.js
-app/*.map
+app/public/javascripts/components/**/*.js
+app/public/javascripts/components/**/*.js.map
 typings
 
 ################
