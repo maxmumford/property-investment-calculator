@@ -28,6 +28,7 @@ angular.xcodeproj
 .lvimrc
 libpeerconnection.log
 npm-debug.log
+npm-debug.log*
 /tmp/
 /scripts/bower/bower-*
 .vscode
