@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import {LocaleService} from 'angular2localization/angular2localization';
+import { LocaleService } from 'angular2localization/angular2localization';
 
-import { ListComponent } from './list.component';
-import { CalculatorComponent } from './calculator.component';
+import { ListComponent } from './pages/list.component';
+import { CalculatorComponent } from './pages/calculator.component';
 
 @RouteConfig([
   {
@@ -15,7 +15,7 @@ import { CalculatorComponent } from './calculator.component';
     path: '/calculator',
     name: 'Calculator',
     component: CalculatorComponent
-  },
+  }
 ])
 @Component({
   selector: 'app',

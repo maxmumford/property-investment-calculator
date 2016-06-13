@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
 var angular2localization_1 = require('angular2localization/angular2localization');
-var list_component_1 = require('./list.component');
-var calculator_component_1 = require('./calculator.component');
+var list_component_1 = require('./pages/list.component');
+var calculator_component_1 = require('./pages/calculator.component');
 var AppComponent = (function () {
     function AppComponent(locale) {
         this.locale = locale;
@@ -31,7 +31,7 @@ var AppComponent = (function () {
                 path: '/calculator',
                 name: 'Calculator',
                 component: calculator_component_1.CalculatorComponent
-            },
+            }
         ]),
         core_1.Component({
             selector: 'app',

@@ -10,7 +10,11 @@ app.use(express.static('app/public'));
 app.use('/node_modules', express.static('node_modules'));
 
 // routing
-app.get('/*', function (req, res) {
+app.get('/test', function (req, res) {
+  res.render('pages/unit-tests');
+});
+
+app.get(['/', '/calculator'], function (req, res) {
   res.render('pages/index');
 });
 
