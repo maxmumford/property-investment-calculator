@@ -1,3 +1,11 @@
 .label.big {
   font-size: 1.1em;
 }
+
+.simple-notification.error {
+  background: #d9534f !important;
+}
+
+.router-link-active {
+  color: #ffffff !important;
+}

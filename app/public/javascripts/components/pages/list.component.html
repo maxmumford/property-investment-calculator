@@ -1,1 +1,8 @@
-list component
+<ul>
+  <li *ngFor="let property of properties">
+    <a [routerLink]="['CalculatorLoad', {propertyId: property.id}]">{{ property.name }}</a>
+  </li>
+  <li>
+    <a [routerLink]="['Calculator']">New Property</a>
+  </li>
+</ul>

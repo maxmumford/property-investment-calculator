@@ -5,17 +5,19 @@
 (function(global) {
   // map tells the System loader where to look for things
   var map = {
-    'app':                        'javascripts/components', 
+    'app':                        'javascripts',
     '@angular':                   'node_modules/@angular',
     'moment':                     'node_modules/moment/moment.js',
     'rxjs':                       'node_modules/rxjs',
     'angular2localization':       'node_modules/angular2localization',
+    'angular2-notifications':     'node_modules/angular2-notifications'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2localization':       { format: 'cjs', defaultExtension: 'js' },
+    'angular2-notifications':     { main: 'components.js', defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',

@@ -1,5 +1,8 @@
-<div class="panel" [class.panel-danger]="calculator.profitYearly() < 0" [class.panel-success]="calculator.profitYearly() > 0" >
-  <div class="panel-heading">{{ calculator.propertyName || "Your Property Name" }}</div>
+<div class="panel" 
+  [class.panel-danger]="calculator.profitYearly() < 0" 
+  [class.panel-success]="calculator.profitYearly() > 0" 
+  [class.panel-info]="calculator.profitYearly() == 0">
+  <div class="panel-heading">{{ calculator.property.name || "Your Property Name" }}</div>
   <div class="panel-body">
 
     <table class="table">
@@ -42,7 +45,10 @@
         <tr>
           <th>Net Profit</th>
           <td>
-            <span class="label big" [class.label-danger]="calculator.profitYearly() < 0" [class.label-success]="calculator.profitYearly() > 0">
+            <span class="label big" 
+              [class.label-danger]="calculator.profitYearly() < 0" 
+              [class.label-success]="calculator.profitYearly() > 0"
+              [class.label-info]="calculator.profitYearly() == 0">
               {{ calculator.profitYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
             </span>
           </td>

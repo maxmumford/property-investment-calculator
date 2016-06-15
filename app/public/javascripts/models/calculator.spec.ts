@@ -1,23 +1,25 @@
 import { Calculator } from './calculator';
+import { Property } from './property';
 
 describe('Calculator Simple', () => {
-  let calculator = new Calculator();
 
-  calculator.tenantNumber = 5;
-  calculator.rentPerTenantWeekly = 100;
-  calculator.billsYearly = 2000;
-  calculator.maintenanceYearly = 1000;
-  calculator.purchasePrice = 70000;
-  calculator.refurbCost = 50000;
-  calculator.legalFees = 1000;
-  calculator.paymentBasis = 'repayment';
-  calculator.mortgageType = 'buyToLet';
-  calculator.valuationBuyToLet = 180000;
-  calculator.apr = 6;
+  let property = new Property();
+  property.tenantNumber = 5;
+  property.rentPerTenantWeekly = 100;
+  property.billsYearly = 2000;
+  property.maintenanceYearly = 1000;
+  property.purchasePrice = 70000;
+  property.refurbCost = 50000;
+  property.paymentBasis = 'repayment';
+  property.mortgageType = 'buyToLet';
+  property.valuationBuyToLet = 180000;
+  property.apr = 6;
+
+  let calculator = new Calculator(property, false);
 
   // test default values
   it('has property name', () => {
-    expect(calculator.propertyName).toEqual('');
+    expect(property.name).toEqual('');
   });
 
   it('has advanced', () => {
@@ -55,25 +57,26 @@ describe('Calculator Simple', () => {
 describe('Calculator Advanced BuyToLet Repayment', () => {
 
   // setup advanced test
-  let calculator = new Calculator();
-  calculator.advanced = true;
-  calculator.tenantNumber = 5;
-  calculator.rentPerTenantWeekly = 100;
-  calculator.billsYearly = 2000;
-  calculator.maintenanceYearly = 1000;
-  calculator.management = 10;
-  calculator.voids = 10;
-  calculator.purchasePrice = 140000;
-  calculator.refurbCost = 20000;
-  calculator.legalFees = 1000;
-  calculator.paymentBasis = 'repayment';
-  calculator.mortgageType = 'buyToLet';
-  calculator.valuationBuyToLet = 180000;
-  calculator.pullOutExtraMoney = false;
-  calculator.multiplier = 7;
-  calculator.loanToValue = 75;
-  calculator.apr = 6;
-  calculator.term = 25;
+  let property = new Property();
+  property.tenantNumber = 5;
+  property.rentPerTenantWeekly = 100;
+  property.billsYearly = 2000;
+  property.maintenanceYearly = 1000;
+  property.management = 10;
+  property.voids = 10;
+  property.purchasePrice = 140000;
+  property.refurbCost = 20000;
+  property.legalFees = 1000;
+  property.stampDuty = 4500;
+  property.paymentBasis = 'repayment';
+  property.mortgageType = 'buyToLet';
+  property.valuationBuyToLet = 180000;
+  property.pullOutExtraMoney = false;
+  property.loanToValue = 75;
+  property.apr = 6;
+  property.term = 25;
+
+  let calculator = new Calculator(property, true);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -103,25 +106,26 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
 describe('Calculator Advanced BuyToLet Interest Only', () => {
 
   // setup advanced test
-  let calculator = new Calculator();
-  calculator.advanced = true;
-  calculator.tenantNumber = 5;
-  calculator.rentPerTenantWeekly = 100;
-  calculator.billsYearly = 2000;
-  calculator.maintenanceYearly = 1000;
-  calculator.management = 10;
-  calculator.voids = 10;
-  calculator.purchasePrice = 140000;
-  calculator.refurbCost = 20000;
-  calculator.legalFees = 1000;
-  calculator.paymentBasis = 'interestOnly';
-  calculator.mortgageType = 'buyToLet';
-  calculator.valuationBuyToLet = 180000;
-  calculator.pullOutExtraMoney = false;
-  calculator.multiplier = 7;
-  calculator.loanToValue = 75;
-  calculator.apr = 6;
-  calculator.term = 25;
+  let property = new Property();
+  property.tenantNumber = 5;
+  property.rentPerTenantWeekly = 100;
+  property.billsYearly = 2000;
+  property.maintenanceYearly = 1000;
+  property.management = 10;
+  property.voids = 10;
+  property.purchasePrice = 140000;
+  property.refurbCost = 20000;
+  property.legalFees = 1000;
+  property.stampDuty = 4500;
+  property.paymentBasis = 'interestOnly';
+  property.mortgageType = 'buyToLet';
+  property.valuationBuyToLet = 180000;
+  property.pullOutExtraMoney = false;
+  property.multiplier = 7;
+  property.loanToValue = 75;
+  property.apr = 6;
+  property.term = 25;
+  let calculator = new Calculator(property, true);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -151,25 +155,25 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
 describe('Calculator Advanced Commercial Repayment', () => {
 
   // setup advanced test
-  let calculator = new Calculator();
-  calculator.advanced = true;
-  calculator.tenantNumber = 5;
-  calculator.rentPerTenantWeekly = 100;
-  calculator.billsYearly = 2000;
-  calculator.maintenanceYearly = 1000;
-  calculator.management = 10;
-  calculator.voids = 10;
-  calculator.purchasePrice = 140000;
-  calculator.refurbCost = 20000;
-  calculator.legalFees = 1000;
-  calculator.paymentBasis = 'repayment';
-  calculator.mortgageType = 'commercial';
-  calculator.valuationBuyToLet = 180000;
-  calculator.pullOutExtraMoney = false;
-  calculator.multiplier = 7;
-  calculator.loanToValue = 75;
-  calculator.apr = 6;
-  calculator.term = 25;
+  let property = new Property();
+  property.tenantNumber = 5;
+  property.rentPerTenantWeekly = 100;
+  property.billsYearly = 2000;
+  property.maintenanceYearly = 1000;
+  property.management = 10;
+  property.voids = 10;
+  property.purchasePrice = 140000;
+  property.refurbCost = 20000;
+  property.legalFees = 1000;
+  property.stampDuty = 4500;
+  property.paymentBasis = 'repayment';
+  property.mortgageType = 'commercial';
+  property.pullOutExtraMoney = false;
+  property.multiplier = 7;
+  property.loanToValue = 75;
+  property.apr = 6;
+  property.term = 25;
+  let calculator = new Calculator(property, true);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -199,25 +203,26 @@ describe('Calculator Advanced Commercial Repayment', () => {
 describe('Calculator Advanced Commercial Interest Only', () => {
 
   // setup advanced test
-  let calculator = new Calculator();
-  calculator.advanced = true;
-  calculator.tenantNumber = 5;
-  calculator.rentPerTenantWeekly = 100;
-  calculator.billsYearly = 2000;
-  calculator.maintenanceYearly = 1000;
-  calculator.management = 10;
-  calculator.voids = 10;
-  calculator.purchasePrice = 140000;
-  calculator.refurbCost = 20000;
-  calculator.legalFees = 1000;
-  calculator.paymentBasis = 'interestOnly';
-  calculator.mortgageType = 'commercial';
-  calculator.valuationBuyToLet = 180000;
-  calculator.pullOutExtraMoney = false;
-  calculator.multiplier = 7;
-  calculator.loanToValue = 75;
-  calculator.apr = 6;
-  calculator.term = 25;
+  let property = new Property();
+  property.tenantNumber = 5;
+  property.rentPerTenantWeekly = 100;
+  property.billsYearly = 2000;
+  property.maintenanceYearly = 1000;
+  property.management = 10;
+  property.voids = 10;
+  property.purchasePrice = 140000;
+  property.refurbCost = 20000;
+  property.legalFees = 1000;
+  property.stampDuty = 4500;
+  property.paymentBasis = 'interestOnly';
+  property.mortgageType = 'commercial';
+  property.valuationBuyToLet = 180000;
+  property.pullOutExtraMoney = false;
+  property.multiplier = 7;
+  property.loanToValue = 75;
+  property.apr = 6;
+  property.term = 25;
+  let calculator = new Calculator(property, true);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -247,25 +252,26 @@ describe('Calculator Advanced Commercial Interest Only', () => {
 describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
 
   // setup advanced test
-  let calculator = new Calculator();
-  calculator.advanced = true;
-  calculator.tenantNumber = 5;
-  calculator.rentPerTenantWeekly = 100;
-  calculator.billsYearly = 2000;
-  calculator.maintenanceYearly = 1000;
-  calculator.management = 10;
-  calculator.voids = 10;
-  calculator.purchasePrice = 140000;
-  calculator.refurbCost = 20000;
-  calculator.legalFees = 1000;
-  calculator.paymentBasis = 'interestOnly';
-  calculator.mortgageType = 'commercial';
-  calculator.valuationBuyToLet = 180000;
-  calculator.pullOutExtraMoney = true;
-  calculator.multiplier = 9;
-  calculator.loanToValue = 75;
-  calculator.apr = 6;
-  calculator.term = 25;
+  let property = new Property();
+  property.tenantNumber = 5;
+  property.rentPerTenantWeekly = 100;
+  property.billsYearly = 2000;
+  property.maintenanceYearly = 1000;
+  property.management = 10;
+  property.voids = 10;
+  property.purchasePrice = 140000;
+  property.refurbCost = 20000;
+  property.legalFees = 1000;
+  property.stampDuty = 4500;
+  property.paymentBasis = 'interestOnly';
+  property.mortgageType = 'commercial';
+  property.valuationBuyToLet = 180000;
+  property.pullOutExtraMoney = true;
+  property.multiplier = 9;
+  property.loanToValue = 75;
+  property.apr = 6;
+  property.term = 25;
+  let calculator = new Calculator(property, true);
 
   // test advanced calculations
   it('has correct yearly profit', () => {

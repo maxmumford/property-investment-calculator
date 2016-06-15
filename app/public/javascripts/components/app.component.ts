@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import 'rxjs/add/operator/catch';
+
 import { LocaleService } from 'angular2localization/angular2localization';
+import { NotificationsService, SimpleNotificationsComponent } from "angular2-notifications";
 
 import { ListComponent } from './pages/list.component';
 import { CalculatorComponent } from './pages/calculator.component';
@@ -12,6 +15,11 @@ import { CalculatorComponent } from './pages/calculator.component';
     component: ListComponent
   },
   {
+    path: '/calculator/:propertyId',
+    name: 'CalculatorLoad',
+    component: CalculatorComponent
+  },
+  {
     path: '/calculator',
     name: 'Calculator',
     component: CalculatorComponent
@@ -21,15 +29,21 @@ import { CalculatorComponent } from './pages/calculator.component';
   selector: 'app',
   moduleId: module.id,
   templateUrl: 'app.component.html',
-  directives: [ROUTER_DIRECTIVES],
-  providers: [
-    ROUTER_PROVIDERS, 
-    LocaleService
+  directives: [
+    ROUTER_DIRECTIVES,
+    SimpleNotificationsComponent
   ]
 })
 export class AppComponent {
   title = 'Property Investment Calculator';
-  constructor(public locale: LocaleService) {
+  notificationOptions = {
+    timeOut: 100000,
+    preventLastDuplicates: 'visible'
+  };
+
+  constructor(
+    public locale: LocaleService
+  ) {
     this.locale.definePreferredLocale('en', 'GB');
     this.locale.definePreferredCurrency('GBP');
   }
