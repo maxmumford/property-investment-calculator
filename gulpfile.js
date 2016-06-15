@@ -10,7 +10,7 @@ gulp.task('server', function () {
   server.run(['app.js']);
 
   // Restart the server when file changes 
-  gulp.watch(['app.js', 'routes/**/*.js'], [server.run]);
+  gulp.watch(['app.js', 'models/**/*.js', 'routes/**/*.js'], [server.run]);
 });
 
 // compile typescripts 

@@ -1,8 +1,30 @@
-<ul>
-  <li *ngFor="let property of properties">
-    <a [routerLink]="['CalculatorLoad', {propertyId: property.id}]">{{ property.name }}</a>
-  </li>
-  <li>
-    <a [routerLink]="['Calculator']">New Property</a>
-  </li>
-</ul>
+<table *ngIf="properties != null">
+  <tbody>
+    <tr *ngFor="let property of properties">
+      <td class="property-name">
+        {{ property.name }}
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" 
+          [routerLink]="['CalculatorLoad', {propertyId: property.id}]">
+          <span class="glyphicon glyphicon-circle-arrow-right"></span>
+          Load
+        </button>    
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="deleteProperty(property)">
+          <span class="glyphicon glyphicon-trash"></span>
+          Delete
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" class="new-calculation-container">
+        <button class="btn btn-primary btn-lg" [routerLink]="['Calculator']">
+          <span class="glyphicon glyphicon-plus"></span>
+          New Calculation
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

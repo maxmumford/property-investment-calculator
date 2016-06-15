@@ -15,7 +15,7 @@ describe('Calculator Simple', () => {
   property.valuationBuyToLet = 180000;
   property.apr = 6;
 
-  let calculator = new Calculator(property, false);
+  let calculator = new Calculator(property);
 
   // test default values
   it('has property name', () => {
@@ -75,8 +75,9 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
   property.loanToValue = 75;
   property.apr = 6;
   property.term = 25;
+  property.calculatorAdvanced = true;
 
-  let calculator = new Calculator(property, true);
+  let calculator = new Calculator(property);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -125,7 +126,9 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
   property.loanToValue = 75;
   property.apr = 6;
   property.term = 25;
-  let calculator = new Calculator(property, true);
+  property.calculatorAdvanced = true;
+  
+  let calculator = new Calculator(property);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -173,7 +176,9 @@ describe('Calculator Advanced Commercial Repayment', () => {
   property.loanToValue = 75;
   property.apr = 6;
   property.term = 25;
-  let calculator = new Calculator(property, true);
+  property.calculatorAdvanced = true;
+  
+  let calculator = new Calculator(property);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -222,7 +227,9 @@ describe('Calculator Advanced Commercial Interest Only', () => {
   property.loanToValue = 75;
   property.apr = 6;
   property.term = 25;
-  let calculator = new Calculator(property, true);
+  property.calculatorAdvanced = true;
+  
+  let calculator = new Calculator(property);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -271,7 +278,9 @@ describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
   property.loanToValue = 75;
   property.apr = 6;
   property.term = 25;
-  let calculator = new Calculator(property, true);
+  property.calculatorAdvanced = true;
+  
+  let calculator = new Calculator(property);
 
   // test advanced calculations
   it('has correct yearly profit', () => {

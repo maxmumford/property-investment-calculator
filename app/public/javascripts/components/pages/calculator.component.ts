@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouteParams } from '@angular/router-deprecated';
 
 import { CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
-import { BUTTON_DIRECTIVES, TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { Calculator } from '../../models/calculator';
 import { Property } from '../../models/property';
@@ -20,7 +20,6 @@ import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
   templateUrl: 'calculator.component.html',
   directives: [
     BUTTON_DIRECTIVES,
-    TOOLTIP_DIRECTIVES,
     CORE_DIRECTIVES,
     FORM_DIRECTIVES,
     CalculatorInputComponent,
@@ -30,7 +29,7 @@ import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
   ],
 })
 export class CalculatorComponent implements OnInit {
-  calculator: Calculator;
+  calculator: Calculator = null;
   propertyId: string = null;
 
   constructor(
@@ -38,8 +37,9 @@ export class CalculatorComponent implements OnInit {
     private propertyService: PropertyService,
     private notificationService: NotificationsService) {
     // start with an empty calculator
-    this.calculator = new Calculator();
-    this.propertyId = this.routeParams.get('propertyId');
+    this.propertyId = this.routeParams.get('propertyId') || null;
+    if (!this.propertyId)
+      this.calculator = new Calculator();
   }
 
   setCalculator(calculator:Calculator){
@@ -47,7 +47,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   setProperty(property:Property){
-    this.calculator = new Calculator(property, this.calculator.advanced);
+    this.calculator = new Calculator(property);
   }
 
   loadExampleProperty(){

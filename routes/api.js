@@ -8,22 +8,38 @@ module.exports = function(app){
   // create a property
   router.route('/property')
   .post(function(req, res) {
-    var property = new Property();      // create a new instance of the Property model
-    property.name = 'test' //req.body.name;  // set the property name (comes from the request)
-    property.save(function(err) {
-      if (err)
-        res.status(500).send(err);
+    delete req.body._id; // otherwise returned property._id === req.body._id
+    var property = new Property();
+    property = Object.assign(property, req.body);
+
+    property.save(function(error, property) {
+      if (error)
+        res.status(500).send(error);
+      else{
+        res.json({ message: 'Your property has been saved', data: property });
+      }
+    });
+  });
+
+  // update a property
+  router.route('/property/:id')
+  .put(function(req, res) {
+    delete req.body._id;
+    var id = req.params.id;
+    Property.findByIdAndUpdate(id, { $set: req.body }, function (error, property) {
+      if (error)
+        res.status(500).send(error);
       else
-        res.json({ message: 'Property created!' });
+        res.json({ message: 'Your property has been updated', data: property });
     });
   });
 
   // get a property
   router.route('/property/:id')
   .get(function(req, res) {
-    Property.findById(req.params.id, function(err, property) {
-      if (err)
-        res.status(500).send(err);
+    Property.findById(req.params.id, function(error, property) {
+      if (error)
+        res.status(500).send(error);
       else if (property == null)
         res.status(404).send();
       else
@@ -31,10 +47,23 @@ module.exports = function(app){
     });
   });
 
+  // delete a property
+  router.route('/property/:id')
+  .delete(function(req, res) {
+    var propertyId = req.params.id;
+
+    Property.findByIdAndRemove(propertyId, function (error,property){
+      if (error)
+        res.status(500).send(error);
+      else
+        res.json( {message: "Deleted", data: {id: req.params.id, _id: req.params.id} });
+    });
+  });
+
   // list properties
   router.route('/properties')
     .get(function(req, res){
-      Property.find({}, function(err, properties) {
+      Property.find({}, function(error, properties) {
         res.json({data: properties});
       });
     });

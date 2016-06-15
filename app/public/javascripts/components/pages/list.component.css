@@ -1,0 +1,16 @@
+table {
+  margin: auto;
+}
+
+table td {
+  padding: 5px;
+}
+
+table td.property-name {
+  text-align: right;
+}
+
+table td.new-calculation-container {
+  text-align: center;
+  padding-top: 30px;
+}

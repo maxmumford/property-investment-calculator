@@ -3,10 +3,7 @@ import { Property } from './property';
 export class Calculator {
 
   // properties
-  constructor(
-    private _property: Property = new Property(),
-    private _advanced: boolean = false
-    ){
+  constructor(private _property: Property = new Property()){
   }
 
   // getters and setters
@@ -18,17 +15,17 @@ export class Calculator {
   }
 
   get advanced():boolean {
-      return this._advanced;
+      return this._property.calculatorAdvanced;
   }
   set advanced(advanced:boolean) {
-      this._advanced = advanced;
-      // reset hidden fields to their default values
-      if(!advanced){
-        this._property.paymentBasis = 'repayment';
-        this._property.mortgageType = 'buyToLet';
-        this._property.loanToValue = 75;
-        this._property.term = 25;
-      }
+    this._property.calculatorAdvanced = advanced;
+    // reset hidden fields to their default values
+    if(!advanced){
+      this._property.paymentBasis = 'repayment';
+      this._property.mortgageType = 'buyToLet';
+      this._property.loanToValue = 75;
+      this._property.term = 25;
+    }
   }
 
   // calculations

@@ -8,35 +8,24 @@ import { Property } from '../models/property';
 @Injectable()
 export class PropertyService {
 
-  private propertiesUrl = '/api/1/properties';
-  private propertyGetByIdUrl = '/api/1/property/';
+  private propertiesUrl       = '/api/1/properties';
+  private propertyGetUrl      = '/api/1/property';
+  private propertyAddUrl      = '/api/1/property';
+  private propertyUpdateUrl   = '/api/1/property';
+  private propertyDeleteUrl   = '/api/1/property';
 
   constructor(private http: Http) { }
 
-  getProperties(): Observable<Property[]> {
+  public getProperties(): Observable<Property[]> {
     return this.http.get(this.propertiesUrl)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getProperty(id: string): Observable<Property> {
-    return this.http.get(this.propertyGetByIdUrl + id)
+  public getProperty(id: string): Observable<Property> {
+    return this.http.get(`${this.propertyGetUrl}/${id}`)
       .map(this.extractData)
       .catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
-    let extractDataSingle = function(property: Object) {
-      return Object.assign(new Property(), property);
-    }
-
-    let body = res.json();
-    let data = body.data || {};
-    
-    if (data instanceof Array)
-      return data.map(extractDataSingle);
-    else
-      return extractDataSingle(data);
   }
 
   public exampleProperty(): Property{
@@ -69,50 +58,65 @@ export class PropertyService {
     return property;
   }
 
-  // save(property: Property): Observable<Property > {
-  //   if (property.id) {
-  //     return this.put(property);
-  //   }
-  //   return this.post(property);
-  // }
+  public save(property: Property): Observable<Property> {
+    if (property.id) {
+      return this.put(property);
+    }
+    return this.post(property);
+  }
 
-  // delete(property: Property) {
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
+  public delete(property: Property) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
-  //   let url = `${this.propertiesUrl}/${property.id}`;
+    let url = `${this.propertyDeleteUrl}/${property.id}`;
 
-  //   return this.http
-  //     .delete(url, headers)
-  //     .catch(this.handleError);
-  // }
+    return this.http
+      .delete(url, headers)
+      .catch(this.handleError);
+  }
 
-  // // Add new Property
-  // private post(property: Property): Observable<Property > {
-  //   let headers = new Headers({
-  //     'Content-Type': 'application/json'
-  //   });
+  private extractData(res: Response) {
+    let extractDataSingle = function(property: Object) {
+      return Object.assign(new Property(), property);
+    }
 
-  //   return this.http
-  //     .post(this.propertiesUrl, JSON.stringify(property), { headers: headers })
-  //     .then(res => res.json())
-  //     .catch(this.handleError);
-  // }
+    let body = res.json();
+    let data = body.data || {};
 
-  // // Update existing Property
-  // private put(property: Property) {
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
+    if (data instanceof Array)
+      return data.map(extractDataSingle);
+    else
+      return extractDataSingle(data);
+  }
 
-  //   let url = `${this.propertiesUrl}/${property.id}`;
+  // Add new Property
+  private post(property: Property): Observable<Property > {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
 
-  //   return this.http
-  //     .put(url, JSON.stringify(property), { headers: headers })
-  //     .then(() => property)
-  //     .catch(this.handleError);
-  // }
+    return this.http
+      .post(this.propertyAddUrl, JSON.stringify(property), { headers: headers })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  // Update existing Property
+  private put(property: Property) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let url = `${this.propertyUpdateUrl}/${property.id}`;
+
+    return this.http
+      .put(url, JSON.stringify(property), { headers: headers })
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   private handleError (error: any) {
+    debugger;
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg);

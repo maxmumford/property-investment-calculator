@@ -1,7 +1,8 @@
 export class Property {
 
-  private _id: string = "";
+  private _id: string = null;
   public name: string = "";
+  public calculatorAdvanced: boolean = false;
 
   // tenant
   public tenantNumber: number = 0; 
@@ -34,6 +35,11 @@ export class Property {
   }
   set id(id){
     this._id = id;
+  }
+
+  // returns true if this object doesnt have an ID, ie hasnt been saved yet
+  isNewDocument(){
+    return (this._id === null);
   }
 
 }

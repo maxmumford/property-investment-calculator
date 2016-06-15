@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import 'rxjs/add/operator/catch';
 
@@ -36,14 +36,18 @@ import { CalculatorComponent } from './pages/calculator.component';
 })
 export class AppComponent {
   title = 'Property Investment Calculator';
+  viewContainerRef;
+  
   notificationOptions = {
-    timeOut: 100000,
+    timeOut: 10000,
     preventLastDuplicates: 'visible'
   };
 
   constructor(
-    public locale: LocaleService
+    public locale: LocaleService,
+    privateviewContainerRef: ViewContainerRef
   ) {
+    this.viewContainerRef = privateviewContainerRef;
     this.locale.definePreferredLocale('en', 'GB');
     this.locale.definePreferredCurrency('GBP');
   }

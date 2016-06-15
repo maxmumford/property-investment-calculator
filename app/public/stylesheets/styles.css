@@ -6,6 +6,10 @@
   background: #d9534f !important;
 }
 
+.simple-notification.success {
+  background: #5cb85c !important;
+}
+
 .router-link-active {
   color: #ffffff !important;
 }

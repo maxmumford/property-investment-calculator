@@ -1,4 +1,33 @@
-<div>
-    <a class="btn btn-primary" (click)="save()">Save</a>
-    <a class="btn btn-primary" (click)="reset()">Reset</a>
+<div class="text-center">
+  <a class="btn btn-primary btn-lg button-save" (click)="save()">
+    <span class="glyphicon glyphicon-floppy-saved"></span>
+    Save
+  </a>
+
+  <modal-info #shareModal title="Share your Calculation">
+    <p>Share your calculation by sending the link below to your contact</p>
+    <div class="input-group">
+      <input type="text" class="form-control" value="{{ sharableUrl }}" readonly>
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="button">
+          <span class="glyphicon glyphicon-copy"></span>
+          Copy
+        </button>
+      </span>
+    </div>
+
+  </modal-info>
+  <a class="btn btn-default btn-lg button-save" (click)="shareModal.show()">
+    <span class="glyphicon glyphicon-share"></span>
+    Share
+  </a>
+
+  <a (click)="confirmReset.show()" class="btn btn-link">
+    <span class="glyphicon glyphicon-trash"></span>
+    Start Again
+  </a>
+  <modal-confirm #confirmReset 
+    title="Reset the Calculator" question="By starting again you'll lose everything you've typed into this calculator." 
+    positive="Start Again" (positive)="reset()">
+  </modal-confirm>
 </div>
