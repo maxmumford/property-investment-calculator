@@ -138,7 +138,7 @@
       tooltip="Will you repay the entire mortgage, or just pay the interest? If you are unsure, choose repayment."
       [(model)]="calculator.property.paymentBasis"
       [options]="[
-        {label: 'Repayment', value: 'repayment', class: 'primary' }, 
+        {label: 'Repayment', value: 'repayment', class: 'default' }, 
         {label: 'Interest Only', value: 'interestOnly', class: 'default' } 
       ]">
     </widget-calculator-radio>
@@ -148,7 +148,7 @@
       tooltip="The type of mortgage you will take out. If you are unsure, choose 'Market Value'."
       [(model)]="calculator.property.mortgageType"
       [options]="[
-        {label: 'Buy To Let', value: 'buyToLet', class: 'primary' }, 
+        {label: 'Buy To Let', value: 'buyToLet', class: 'default' }, 
         {label: 'Commercial', value: 'commercial', class: 'default' } 
       ]">
     </widget-calculator-radio>
@@ -171,7 +171,7 @@
       tooltip="If the banks offer to loan you more than your total capital investment, do you want to borrow the difference? For example, if you buy the property for 70k, the conversion costs 50k (total of 120k) and the banks offer to loan you 130k, do you want to borrow the extra 10k? This will effectively put you in negative equity."
       [(model)]="calculator.property.pullOutExtraMoney"
       [options]="[
-        {label: 'No', value: false, class: 'primary' }, 
+        {label: 'No', value: false, class: 'default' }, 
         {label: 'Yes', value: true, class: 'default' } 
       ]">
     </widget-calculator-radio>

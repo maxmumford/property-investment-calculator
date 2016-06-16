@@ -15,8 +15,12 @@ export class ModalInfoComponent {
 
   @ViewChild(ModalDirective) modal: ModalDirective;
 
-  show(){
+  show() {
     this.modal.show();
+  }
+
+  hide() {
+    this.modal.hide();
   }
 
 }

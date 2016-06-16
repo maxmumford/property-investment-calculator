@@ -10,12 +10,18 @@ import { PropertyService } from '../../services/property.service';
 import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
 import { ModalInfoComponent } from '../widgets/modal-info.component';
 
+import { ClipboardDirective } from 'angular2-clipboard';
+
 @Component({
   selector: 'calculator-controls',
   moduleId: module.id,
   templateUrl: 'calculator-controls.component.html',
   styleUrls: ['calculator-controls.component.css'],
-  directives: [ ModalConfirmComponent, ModalInfoComponent ]
+  directives: [ 
+    ModalConfirmComponent, 
+    ModalInfoComponent,
+    ClipboardDirective
+  ]
 })
 export class CalculatorControlsComponent {
   @Input() calculator;
@@ -60,6 +66,22 @@ export class CalculatorControlsComponent {
     this.router.navigate(['Calculator']);
     this.calculator = new Calculator();
     this.calculatorChange.emit(this.calculator);
+  }
+
+  sharableUrlCopied(){
+    this.notificationService.success("Sharable URL Copied",
+      "Your calculator's sharable URL has been copied."
+      + " You can now send it to other people so they can view your calculation."
+      + " Just press CTRL + C (or CMD + C on a Mac) to paste it into an email or message etc.",
+      {timeOut: 20000});
+  }
+
+  sharableUrlCopyFailed($event){
+    console.log($event);
+    this.notificationService.error("Couldn't Copy",
+      "Oops, couldn't copy the URL to your clipboard. Maybe your web browser isn't supported."
+      + " You can instead copy the text manually by highlighting it and pressing"
+      + " CTRL + C (or CMD + C on a Mac).", { timeOut: 20000 });
   }
 
 }
