@@ -7,6 +7,7 @@ import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
   selector: 'widget-calculator-radio',
   moduleId: module.id,
   templateUrl: 'widget-calculator-radio.component.html',
+  styleUrls: ['widget-calculator-radio.component.css'],
   directives: [ TOOLTIP_DIRECTIVES, BUTTON_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class WidgetCalculatorRadioComponent implements OnInit {
@@ -14,6 +15,7 @@ export class WidgetCalculatorRadioComponent implements OnInit {
   @Input() options : Array<any>;
   @Input() tooltip : string;
   @Input() model: any;
+  @Input() containerClass: string;
   @Output() modelChange: any = new EventEmitter();
 
   updateData(event) {

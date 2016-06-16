@@ -1,13 +1,21 @@
 <div *ngIf="calculator != null">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-12">
       <div class="btn-group">
-        <label class="btn btn-primary" [(ngModel)]="calculator.advanced" [btnRadio]="false">Simple Mode</label>
-        <label class="btn btn-danger" [(ngModel)]="calculator.advanced" [btnRadio]="true">Advanced Mode</label>
+        <label class="btn btn-primary" [(ngModel)]="calculator.advanced" [btnRadio]="false">
+          <span class="glyphicon glyphicon-baby-formula"></span>
+          Simple Mode
+        </label>
+        <label class="btn btn-danger" [(ngModel)]="calculator.advanced" [btnRadio]="true"
+          tooltip="Get expense and more mortgage options as well as more detailed calculations in advanced mode" tooltipPlacement="bottom">
+          <span class="glyphicon glyphicon-flash"></span>
+          Advanced Mode
+        </label>
       </div>
-    </div>
-    <div class="col-md-3" *ngIf="calculator.property.isNewDocument()">
-      <a (click)="confirmExample.show()" class="btn">
+      <span tooltip="Get expense and more mortgage options as well as more detailed calculations in advanced mode" tooltipPlacement="bottom">
+        <span class="glyphicon glyphicon-chevron-left"></span> Get more features in Advanced mode
+      </span>
+      <a (click)="confirmExample.show()" *ngIf="calculator.property.isNewDocument()" class="btn">
         <span class="glyphicon glyphicon-question-sign"></span>
         Load some example data
       </a>
@@ -16,7 +24,6 @@
         positive="Load Data" (positive)="loadExampleProperty()"
         negative="Don't Load">
       </modal-confirm>
-
     </div>
   </div>
   <div class="row">

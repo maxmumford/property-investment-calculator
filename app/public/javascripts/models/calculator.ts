@@ -58,7 +58,14 @@ export class Calculator {
       return +this._property.purchasePrice + +this._property.refurbCost;
   }
 
+  mortgage(){
+    return this._property.mortgage;
+  }
+
   mortgagePrincipal(){
+    if ( !this.mortgage() )
+      return 0;
+
     let valuation = this.valuation();
     if(this._property.mortgageType == 'buyToLet'){
       return valuation * (this._property.loanToValue / 100);
@@ -90,6 +97,9 @@ export class Calculator {
   }
 
   mortgagePaymentsMonthly(){
+    if ( !this.mortgage() )
+      return 0;
+
     if( this._property.paymentBasis == 'repayment' ){
       var pmt = - this.PMT(((this._property.apr / 100) / 12), (this._property.term * 12), this.mortgagePrincipal());
       return ( !isNaN(pmt) ) ? pmt : 0;
@@ -99,6 +109,9 @@ export class Calculator {
   }
 
   mortgagePaymentsYearly(){
+    if ( !this.mortgage() )
+      return 0;
+    
     return this.mortgagePaymentsMonthly() * 12;
   }
 

@@ -17,12 +17,22 @@
         </button>
       </span>
     </div>
-
   </modal-info>
-  <a class="btn btn-default btn-lg button-save" (click)="shareModal.show()">
-    <span class="glyphicon glyphicon-share"></span>
-    Share
-  </a>
+  <span [ngSwitch]="calculator.property.isNewDocument()">
+    <div *ngSwitchWhen="true" 
+      tooltip="You must save your calculation before you can share it" class="share-tooltip-container">
+      <a class="btn btn-default btn-lg button-save disabled" disabled="disabled">
+        <span class="glyphicon glyphicon-share"></span>
+        Share
+      </a>
+    </div>
+    <div *ngSwitchWhen="false" class="share-tooltip-container">
+      <a class="btn btn-default btn-lg button-save" (click)="shareModal.show()">
+        <span class="glyphicon glyphicon-share"></span>
+        Share
+      </a>
+    </div>
+  </span>
 
   <a (click)="confirmReset.show()" class="btn btn-link">
     <span class="glyphicon glyphicon-trash"></span>

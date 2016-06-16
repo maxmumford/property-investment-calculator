@@ -1,3 +1,7 @@
 .sharableUrl {
   width: 100%;
 }
+
+.share-tooltip-container {
+  display: inline-block;
+}

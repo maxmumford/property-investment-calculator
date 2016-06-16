@@ -1,5 +1,5 @@
-<div class="form-group">
-  <label class="control-label">
+<div class="{{ containerClass || 'form-group' }}">
+  <label class="control-label" *ngIf="label">
     <a href="#" [tooltip]="tooltip" tabindex="-1">
       <span class="glyphicon glyphicon-question-sign"></span>
     </a>
@@ -7,7 +7,7 @@
   </label>
   <div class="input-group">
     <div class="btn-group">
-      <label *ngFor="let option of options" class="btn btn-{{ option.class }}" 
+      <label *ngFor="let option of options" class="btn btn-{{ option.class || 'default' }}" 
         [(ngModel)]="model" (ngModelChange)="updateData($event)" 
         [btnRadio]="option.value">{{ option.label }}</label>
     </div>

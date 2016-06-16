@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgSwitch, NgSwitchWhen } from '@angular/common';
 import { Router, RouteParams } from '@angular/router-deprecated';
 
 import { Calculator } from '../../models/calculator';
@@ -11,6 +12,7 @@ import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
 import { ModalInfoComponent } from '../widgets/modal-info.component';
 
 import { ClipboardDirective } from 'angular2-clipboard';
+import { TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
   selector: 'calculator-controls',
@@ -20,7 +22,10 @@ import { ClipboardDirective } from 'angular2-clipboard';
   directives: [ 
     ModalConfirmComponent, 
     ModalInfoComponent,
-    ClipboardDirective
+    ClipboardDirective,
+    TOOLTIP_DIRECTIVES,
+    NgSwitch, 
+    NgSwitchWhen
   ]
 })
 export class CalculatorControlsComponent {
@@ -82,6 +87,13 @@ export class CalculatorControlsComponent {
       "Oops, couldn't copy the URL to your clipboard. Maybe your web browser isn't supported."
       + " You can instead copy the text manually by highlighting it and pressing"
       + " CTRL + C (or CMD + C on a Mac).", { timeOut: 20000 });
+  }
+
+  shareTooltip(){
+    if (this.calculator.property.isNewDocument())
+      return "You must save your calculation before you can share it";
+    else
+      return "";
   }
 
 }

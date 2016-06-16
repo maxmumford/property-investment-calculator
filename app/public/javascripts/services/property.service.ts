@@ -47,6 +47,7 @@ export class PropertyService {
     property.stampDuty = 4500;
 
     // mortgage
+    property.mortgage = true;
     property.paymentBasis = 'repayment';
     property.mortgageType = 'buyToLet';
     property.valuationBuyToLet = 180000;

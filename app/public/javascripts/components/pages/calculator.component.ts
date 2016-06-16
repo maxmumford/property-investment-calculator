@@ -14,6 +14,8 @@ import { CalculatorOutputComponent } from '../calculator/calculator-output.compo
 import { CalculatorControlsComponent } from '../calculator/calculator-controls.component';
 import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
 
+import { TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+
 @Component({
   selector: 'calculator',
   moduleId: module.id,
@@ -25,7 +27,8 @@ import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
     CalculatorInputComponent,
     CalculatorOutputComponent,
     CalculatorControlsComponent,
-    ModalConfirmComponent
+    ModalConfirmComponent,
+    TOOLTIP_DIRECTIVES
   ],
 })
 export class CalculatorComponent implements OnInit {

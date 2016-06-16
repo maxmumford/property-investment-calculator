@@ -1,7 +1,7 @@
 import { Calculator } from './calculator';
 import { Property } from './property';
 
-describe('Calculator Simple', () => {
+describe('Calculator Simple No Mortgage', () => {
 
   let property = new Property();
   property.tenantNumber = 5;
@@ -10,6 +10,57 @@ describe('Calculator Simple', () => {
   property.maintenanceYearly = 1000;
   property.purchasePrice = 70000;
   property.refurbCost = 50000;
+  property.mortgage = false;
+
+  let calculator = new Calculator(property);
+
+  // test default values
+  it('has property name', () => {
+    expect(property.name).toEqual('');
+  });
+
+  it('has advanced', () => {
+    expect(calculator.advanced).toEqual(false);
+  });
+
+  // test calculations
+  it('has correct yearly profit', () => {
+    expect(calculator.profitYearly()).toEqual(23000);
+  });
+  it('has correct monthly profit', () => {
+    expect(calculator.profitMonthly()).toEqual(1916.6666666666667);
+  });
+  it('has correct yearly revenue', () => {
+    expect(calculator.revenueYearly()).toEqual(26000.00);
+  });
+  it('has correct yearly gross profit', () => {
+    expect(calculator.grossProfitYearly()).toEqual(23000.00);
+  });
+  it('has correct mortgage principal', () => {
+    expect(calculator.mortgagePrincipal()).toEqual(0);
+  });
+  it('has correct yearly mortgage payments', () => {
+    expect(calculator.mortgagePaymentsYearly()).toEqual(0);
+  });
+  it('has correct capital invested', () => {
+    expect(calculator.capitalInvested()).toEqual(120000);
+  });
+  it('has correct money left in', () => {
+    expect(calculator.moneyLeftIn()).toEqual(120000);
+  });
+
+});
+
+describe('Calculator Simple BuyToLet Repayment', () => {
+
+  let property = new Property();
+  property.tenantNumber = 5;
+  property.rentPerTenantWeekly = 100;
+  property.billsYearly = 2000;
+  property.maintenanceYearly = 1000;
+  property.purchasePrice = 70000;
+  property.refurbCost = 50000;
+  property.mortgage = true;
   property.paymentBasis = 'repayment';
   property.mortgageType = 'buyToLet';
   property.valuationBuyToLet = 180000;
@@ -68,6 +119,7 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
   property.refurbCost = 20000;
   property.legalFees = 1000;
   property.stampDuty = 4500;
+  property.mortgage = true;
   property.paymentBasis = 'repayment';
   property.mortgageType = 'buyToLet';
   property.valuationBuyToLet = 180000;
@@ -118,6 +170,7 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
   property.refurbCost = 20000;
   property.legalFees = 1000;
   property.stampDuty = 4500;
+  property.mortgage = true;
   property.paymentBasis = 'interestOnly';
   property.mortgageType = 'buyToLet';
   property.valuationBuyToLet = 180000;
@@ -169,6 +222,7 @@ describe('Calculator Advanced Commercial Repayment', () => {
   property.refurbCost = 20000;
   property.legalFees = 1000;
   property.stampDuty = 4500;
+  property.mortgage = true;
   property.paymentBasis = 'repayment';
   property.mortgageType = 'commercial';
   property.pullOutExtraMoney = false;
@@ -219,6 +273,7 @@ describe('Calculator Advanced Commercial Interest Only', () => {
   property.refurbCost = 20000;
   property.legalFees = 1000;
   property.stampDuty = 4500;
+  property.mortgage = true;
   property.paymentBasis = 'interestOnly';
   property.mortgageType = 'commercial';
   property.valuationBuyToLet = 180000;
@@ -270,6 +325,7 @@ describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
   property.refurbCost = 20000;
   property.legalFees = 1000;
   property.stampDuty = 4500;
+  property.mortgage = true;
   property.paymentBasis = 'interestOnly';
   property.mortgageType = 'commercial';
   property.valuationBuyToLet = 180000;

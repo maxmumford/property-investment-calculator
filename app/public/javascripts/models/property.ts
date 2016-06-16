@@ -21,6 +21,7 @@ export class Property {
   public stampDuty: number = 0;
 
   // mortgage
+  public mortgage: boolean = false;
   public paymentBasis: string = 'repayment';
   public mortgageType: string = 'buyToLet';
   public valuationBuyToLet: number = 0;
