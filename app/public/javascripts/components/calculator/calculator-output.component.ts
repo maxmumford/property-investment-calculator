@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import {LocaleService, LocaleCurrencyPipe} from 'angular2localization/angular2localization';
+import { LocaleService, LocaleCurrencyPipe } from 'angular2localization/angular2localization';
+
+import { CalculatorInputComponent } from './calculator-input.component';
 
 @Component({
   selector: 'calculator-output',
@@ -9,8 +11,7 @@ import {LocaleService, LocaleCurrencyPipe} from 'angular2localization/angular2lo
   pipes: [LocaleCurrencyPipe]
 })
 export class CalculatorOutputComponent {
-  @Input()
-  calculator;
+  @Input() calculator;
 
   constructor(public locale: LocaleService) {
   }

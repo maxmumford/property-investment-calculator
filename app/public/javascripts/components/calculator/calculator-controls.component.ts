@@ -67,7 +67,8 @@ export class CalculatorControlsComponent {
     this.propertyService.save(this.calculator.property);
   }
 
-  reset(){
+  reset(confirmReset){
+    confirmReset.hide();
     this.router.navigate(['Calculator']);
     this.calculator = new Calculator();
     this.calculatorChange.emit(this.calculator);

@@ -40,6 +40,6 @@
   </a>
   <modal-confirm #confirmReset 
     title="Reset the Calculator" question="By starting again you'll lose everything you've typed into this calculator." 
-    positive="Start Again" (positive)="reset()">
+    positive="Start Again" (positive)="reset(confirmReset)">
   </modal-confirm>
 </div>

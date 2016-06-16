@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost/property-investment-calculator');
 // static files
 app.use(express.static('app/public'));
 app.use('/node_modules', express.static('node_modules'));
+app.use('/bower_components', express.static('bower_components'));
 
 // routing
 app.get('/test', function (req, res) {
