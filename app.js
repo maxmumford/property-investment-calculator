@@ -26,7 +26,8 @@ app.get(['/', '/calculator', '/calculator/:propertyId'], function (req, res) {
 });
 
 // api
-require('./routes/api.js')(app);
+require('./routes/api/property.js')(app);
+require('./routes/api/user.js')(app);
 
 // let's go!
 app.listen(3000, function () {

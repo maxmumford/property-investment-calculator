@@ -13,10 +13,14 @@
       <ul class="nav navbar-nav">
         <li><a [routerLink]="['Home']">Saved Calculations</a></li>
         <li><a [routerLink]="['Calculator']">New Calculation</a></li>
+        <li *ngIf="user"><a (click)="logout();">Logout ({{ user.username }})</a></li>
+        <li *ngIf="!user"><a (click)="loginModal.show();">Log In</a></li>
       </ul>
     </div><!--/.navbar-collapse -->
   </div>
 </nav>
+
+<modal-login (onLogin)="onLogin($event)"></modal-login>
 
 <div class="container">
   <router-outlet></router-outlet>

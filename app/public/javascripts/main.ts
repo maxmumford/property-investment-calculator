@@ -5,6 +5,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 
 import { LocaleService } from 'angular2localization/angular2localization';
 import { PropertyService } from './services/property.service';
+import { UserService } from './services/user.service';
 import { NotificationsService } from "angular2-notifications";
 
 import { AppComponent } from './components/app.component';
@@ -16,5 +17,6 @@ bootstrap(AppComponent, [
   LocaleService,
   NotificationsService,
   PropertyService,
-  NotificationsService
+  NotificationsService,
+  UserService
 ]);

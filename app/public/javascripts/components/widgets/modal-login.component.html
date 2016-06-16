@@ -1,0 +1,45 @@
+<modal-info title="Log In Or Register" #loginModal>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Login</h3>
+        <form (ngSubmit)="login()" class="form" #loginForm="ngForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input ngControl="loginUsername" required class="form-control" type="text" id="loginUsername" name="loginUsername" placeholder="Username" [(ngModel)]="loginUsername">
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input ngControl="loginPassword" required class="form-control" id="loginPassword" type="password" name="loginPassword" placeholder="password" [(ngModel)]="loginPassword">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit"
+              [disabled]="!loginForm.valid">Login</button>
+            <button class="btn btn-link" (click)="loginModal.hide()">Cancel</button>
+          </div>
+        </form>
+        <div *ngIf="loginError" class="alert alert-danger">{{ loginError }}</div>
+      </div>
+
+      <div class="col-md-6">
+        <h3>Register</h3>
+        <form (ngSubmit)="register()" #registerForm="ngForm" class="form">
+          <div class="form-group">
+            <label for="registerUsername">Username</label>
+            <input ngControl="registerUsername" required class="form-control" type="text" id="registerUsername" name="registerUsername" placeholder="Username" [(ngModel)]="registerUsername">
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <input ngControl="registerPassword" required class="form-control" id="registerPassword" type="password" name="registerPassword" placeholder="password" [(ngModel)]="registerPassword">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="submit" 
+              [disabled]="!registerForm.valid">Register</button>
+            <button class="btn btn-link" (click)="loginModal.hide()">Cancel</button>
+          </div>
+        </form>
+        <div *ngIf="registerError" class="alert alert-danger">{{ registerError }}</div>
+      </div>
+    </div>
+  </div>
+</modal-info>

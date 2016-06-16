@@ -4,9 +4,11 @@ import { Router, RouteParams } from '@angular/router-deprecated';
 
 import { Calculator } from '../../models/calculator';
 import { Property } from '../../models/property';
+import { User } from '../../models/user';
 
 import { NotificationsService } from "angular2-notifications";
 import { PropertyService } from '../../services/property.service';
+import { UserService } from '../../services/user.service';
 
 import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
 import { ModalInfoComponent } from '../widgets/modal-info.component';
@@ -38,14 +40,25 @@ export class CalculatorControlsComponent {
     private propertyService: PropertyService,
     private notificationService: NotificationsService,
     private router: Router,
-    private params: RouteParams) {
+    private params: RouteParams,
+    private userService: UserService) {
     let propertyId = params.get('propertyId');
     if (propertyId)
       this.sharableUrl = window.location.href;
   }
 
   save(){
-    let self = this;
+    // if user is not logged in show the login dialog
+    if (this.userService.getUser() == null){
+      var self = this;
+      this.userService.showLoginModal(function(user: any){
+        self.save();
+      });
+      return;
+    }
+
+    // otherwise save their property
+    var self = this;
     this.propertyService.save(this.calculator.property).subscribe(
       function(property) {
         if (self.calculator.property.isNewDocument()) {

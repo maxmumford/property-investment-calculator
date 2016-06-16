@@ -13,3 +13,11 @@
 .router-link-active {
   color: #ffffff !important;
 }
+
+a {
+  cursor: pointer;
+}
+
+.ng-invalid.ng-touched {
+  border: solid 1px red !important;
+}

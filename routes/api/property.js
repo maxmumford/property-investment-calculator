@@ -1,5 +1,5 @@
 var express = require('express');
-var Property = require('../models/property');
+var Property = require('../../models/property');
 
 module.exports = function(app){
 

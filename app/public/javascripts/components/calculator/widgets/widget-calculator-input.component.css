@@ -2,7 +2,3 @@ label {
   color: #555;
   font-weight: normal;
 }
-
-.ng-invalid {
-  border: solid 1px red;
-}

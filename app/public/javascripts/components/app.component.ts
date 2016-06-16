@@ -1,12 +1,17 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { LocaleService } from 'angular2localization/angular2localization';
 import { NotificationsService, SimpleNotificationsComponent } from "angular2-notifications";
+import { UserService } from "../services/user.service";
+
+import { User } from "../models/user";
 
 import { ListComponent } from './pages/list.component';
 import { CalculatorComponent } from './pages/calculator.component';
+import { ModalLoginComponent } from './widgets/modal-login.component';
 
 @RouteConfig([
   {
@@ -31,12 +36,15 @@ import { CalculatorComponent } from './pages/calculator.component';
   templateUrl: 'app.component.html',
   directives: [
     ROUTER_DIRECTIVES,
-    SimpleNotificationsComponent
+    SimpleNotificationsComponent,
+    ModalLoginComponent
   ]
 })
 export class AppComponent {
   title = 'Property Investment Calculator';
   viewContainerRef;
+  user: User;
+  @ViewChild(ModalLoginComponent) loginModal: ModalLoginComponent;
   
   notificationOptions = {
     timeOut: 10000,
@@ -45,10 +53,24 @@ export class AppComponent {
 
   constructor(
     public locale: LocaleService,
-    privateviewContainerRef: ViewContainerRef
+    private privateviewContainerRef: ViewContainerRef,
+    private userService: UserService,
+    private notificaionService: NotificationsService
   ) {
     this.viewContainerRef = privateviewContainerRef;
     this.locale.definePreferredLocale('en', 'GB');
     this.locale.definePreferredCurrency('GBP');
+
+    this.user = this.userService.getUser();
+  }
+
+  onLogin($user){
+    this.user = $user;
+  }
+
+  logout(){
+    this.userService.logout();
+    this.user = null;
+    this.notificaionService.success("Logged Out", "You've been logged out, see you soon!")
   }
 }
