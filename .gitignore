@@ -10,6 +10,9 @@ app/public/javascripts/models/**/*.js.map
 app/public/javascripts/services/**/*.js
 app/public/javascripts/services/**/*.js.map
 
+app/public/javascripts/validators/**/*.js
+app/public/javascripts/validators/**/*.js.map
+
 app/public/javascripts/main.js.map
 app/public/javascripts/main.js
 

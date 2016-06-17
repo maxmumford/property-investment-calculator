@@ -2,11 +2,22 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
+// setup schema
 var User = new Schema({
-    username: String,
+    email: String,
     password: String
 });
 
-User.plugin(passportLocalMongoose);
+// validation
+User.path('email').validate(function (email) {
+   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+   return emailRegex.test(email.text);
+}, 'The email field cannot be empty.');
+
+// mongoose - use email for username
+User.plugin(passportLocalMongoose, { 
+    usernameField: 'email',
+    usernameQueryFields: ['email']
+});
 
 module.exports = mongoose.model('User', User);

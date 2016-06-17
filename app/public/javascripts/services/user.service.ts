@@ -21,7 +21,7 @@ export class UserService {
   }
 
   logout() {
-    localStorage.removeItem("username");
+    localStorage.removeItem("email");
   }
 
   login(user: User): Observable<Response> {
@@ -39,7 +39,7 @@ export class UserService {
     observable.subscribe(function(user) {
       // save the user in the localstorage
       if (user)
-        localStorage.setItem("username", user.username);
+        localStorage.setItem("email", user.email);
     }, function(error) {
       // nothing to do here - responsibility of the caller
     });
@@ -77,15 +77,15 @@ export class UserService {
   }
 
   getUser(): User {
-    let username = localStorage.getItem("username");
-    if (username)
-      return new User(username, "");
+    let email = localStorage.getItem("email");
+    if (email)
+      return new User(email, "");
     else
       return null;
   }
 
   enforceLogin() {
-    if (localStorage.getItem("username") === null) {
+    if (localStorage.getItem("email") === null) {
       this._router.navigate(['Home']);
     }
   }

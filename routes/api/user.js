@@ -3,10 +3,10 @@ var session = require('express-session')
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
 var User = require('../../models/user');
 
-passport.use(new LocalStrategy(User.authenticate()));
+// setup passport to use user model
+passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -27,9 +27,9 @@ module.exports = function(app){
   // router for user routes
   var router = express.Router();
 
-  // register
+  // sign up
   router.post('/user', function(req, res) {
-    User.register(new User({ username: req.body.username }),
+    User.register(new User({ email: req.body.email }),
       req.body.password, function(err, user) {
       if (err) {
         return res.status(500).json({
@@ -48,8 +48,8 @@ module.exports = function(app){
 
         // return feedback
         return res.status(200).json({
-          status: 'Registration successful and user logged in',
-          user: {username: user.username}
+          status: 'Sign up successful and user logged in',
+          user: {email: user.email}
         });
       });
     });
@@ -72,13 +72,13 @@ module.exports = function(app){
             err: 'Could not log in user'
           });
         }
-        // login successful so save username to the session
-        req.session.user = {username: user.username};
+        // login successful so save email to the session
+        req.session.user = {email: user.email};
 
         // and return a success message
         res.status(200).json({
           status: 'Login successful!',
-          user: {username: user.username}
+          user: {email: user.email}
         });
       });
     })(req, res, next);

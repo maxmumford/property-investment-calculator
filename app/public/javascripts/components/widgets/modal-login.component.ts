@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/common';
+import { FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
+import { EmailValidator, validateEmailFactory } from '../../validators/email-validator';
 
 import { UserService } from '../../services/user.service';
 import { NotificationsService } from "angular2-notifications";
@@ -12,20 +13,22 @@ import { ModalInfoComponent } from './modal-info.component';
   selector: 'modal-login',
   moduleId: module.id,
   templateUrl: 'modal-login.component.html',
-  directives: [ModalInfoComponent, NgForm]
+  directives: [
+    ModalInfoComponent,
+    FORM_DIRECTIVES,
+    EmailValidator
+  ]
 })
 export class ModalLoginComponent {
   @ViewChild(ModalInfoComponent) modal: ModalInfoComponent;
   @Output() onLogin = new EventEmitter();
   @Output() onLogout = new EventEmitter();
 
-  loginUsername: string = "max";
-  loginPassword: string = "781871ui";
-  loginError: string;
+  loginForm: any;
+  signUpForm: any;
 
-  registerUsername: string;
-  registerPassword: string;
-  registerError: string;
+  loginError: string;
+  signUpError: string;
 
   // array of callables 
   // http://stackoverflow.com/questions/15670245/typescript-array-of-callbacks
@@ -33,8 +36,23 @@ export class ModalLoginComponent {
 
   constructor(
     private userService: UserService,
-    private notificationService: NotificationsService) {
+    private notificationService: NotificationsService,
+    private fb: FormBuilder) {
+    // give user service reference to the login dialog 
+    // so it can be shown by other components in the app
     userService.loginModal = this;
+  }
+
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      'email': ['', Validators.compose([Validators.required, validateEmailFactory()])],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    });
+
+    this.signUpForm = this.fb.group({
+      'email': ['', Validators.compose([Validators.required, validateEmailFactory()])],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    });
   }
 
   show() {
@@ -46,8 +64,16 @@ export class ModalLoginComponent {
   }
 
   login(){
+    // validate form and extract data
+    if(!this.loginForm.dirty || !this.loginForm.valid){
+      return
+    }
+    let email = this.loginForm.value.email;
+    let password = this.loginForm.value.password;
+
+    // make call to api
     var self = this;
-    let user = new User(this.loginUsername, this.loginPassword);
+    let user = new User(email, password);
     this.userService.login(user).subscribe(function(user){
       if (user) {
         self._onLogin(user);
@@ -58,16 +84,26 @@ export class ModalLoginComponent {
         self.notificationService.error("Couldn't log in", "Those login details are not correct I'm afraid, please try again")  
       }
     }, function(error){
+      let errorJson = JSON.parse(error._body);
+      if (errorJson.err && errorJson.err.name == "IncorrectPasswordError") {
+        self.loginError = "We weren't able to match the email and password you entered. Please check your entries and try again.";
+        return;
+      }
       console.log(error);
       self.notificationService.error("Couldn't Login", "There was a problem with the server while trying to login."
         + " We are aware of this issue and should have it fixed soon. Please try again in a few hours. Thanks.")
     });
-    
   }
 
-  register(){
+  signUp(){
+    if (!this.signUpForm.dirty || !this.signUpForm.valid) {
+      return
+    }
+    let email = this.signUpForm.value.email;
+    let password = this.signUpForm.value.password;
+
     var self = this;
-    let user = new User(this.registerUsername, this.registerPassword);
+    let user = new User(email, password);
     this.userService.register(user).subscribe(function(user) {
       if (user) {
         self._onLogin(user);
@@ -82,8 +118,8 @@ export class ModalLoginComponent {
       console.log(error);
       let errorJson = JSON.parse(error._body);
       if (errorJson.err && errorJson.err.name == "UserExistsError") {
-        self.notificationService.error("Duplicate Username", "A user already exists with that username, please try another one")
-        self.registerError = "A user aleady exists with that username, please choose another one";
+        self.notificationService.error("Duplicate Email", "An account already exists with that email address. Did you forget your password?")
+        self.signUpError = "A user aleady exists with that email, please choose another one";
       }
       else{
         self.notificationService.error("Couldn't Register", "There was a problem with the server while trying to register your user."

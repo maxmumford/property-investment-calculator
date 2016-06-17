@@ -1,45 +1,84 @@
-<modal-info title="Log In Or Register" #loginModal>
+<modal-info title="Log In Or Sign Up" #loginModal>
   <div class="container-fluid">
     <div class="row">
+
       <div class="col-md-6">
         <h3>Login</h3>
-        <form (ngSubmit)="login()" class="form" #loginForm="ngForm">
+
+        <!-- email -->
+        <form [ngFormModel]="loginForm" (submit)="login()" class="form">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input ngControl="loginUsername" required class="form-control" type="text" id="loginUsername" name="loginUsername" placeholder="Username" [(ngModel)]="loginUsername">
+            <label for="email">Email</label>
+            <input ngControl="email" id="email" #loginEmail="ngForm" class="form-control" />
+            <div [hidden]="loginEmail.valid || loginEmail.pristine" 
+              class="alert alert-danger">
+              Sorry, that email doesn't look correct
+            </div>
           </div>
+
+          <!-- password -->
           <div class="form-group">
-            <label for="loginPassword">Password</label>
-            <input ngControl="loginPassword" required class="form-control" id="loginPassword" type="password" name="loginPassword" placeholder="password" [(ngModel)]="loginPassword">
+            <label for="password">Passphrase</label>
+            <input ngControl="password" type="password" id="password" #loginPassword="ngForm" class="form-control" />
+            <div [hidden]="loginPassword.valid || loginPassword.pristine" 
+              class="alert alert-danger">
+              Please type your password
+            </div>
           </div>
+
+          <!-- buttons -->
           <div class="form-group">
-            <button class="btn btn-primary" type="submit"
-              [disabled]="!loginForm.valid">Login</button>
+            <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">
+              <span class="glyphicon glyphicon-log-in"></span>
+              Login
+            </button>
             <button class="btn btn-link" (click)="loginModal.hide()">Cancel</button>
           </div>
         </form>
+
+        <!-- errors form server -->
         <div *ngIf="loginError" class="alert alert-danger">{{ loginError }}</div>
       </div>
 
       <div class="col-md-6">
-        <h3>Register</h3>
-        <form (ngSubmit)="register()" #registerForm="ngForm" class="form">
+        <h3>Sign Up</h3>
+
+        <!-- email -->
+        <form [ngFormModel]="signUpForm" (submit)="signUp()" class="form">
           <div class="form-group">
-            <label for="registerUsername">Username</label>
-            <input ngControl="registerUsername" required class="form-control" type="text" id="registerUsername" name="registerUsername" placeholder="Username" [(ngModel)]="registerUsername">
+            <label for="email">Email</label>
+            <input ngControl="email" id="email" #signUpEmail="ngForm" class="form-control" />
+            <div [hidden]="signUpEmail.valid || signUpEmail.pristine" 
+              class="alert alert-danger">
+              Sorry, that email doesn't look correct
+            </div>
           </div>
+
+          <!-- password -->
           <div class="form-group">
-            <label for="registerPassword">Password</label>
-            <input ngControl="registerPassword" required class="form-control" id="registerPassword" type="password" name="registerPassword" placeholder="password" [(ngModel)]="registerPassword">
+            <label for="password">Passphrase</label>
+            <input ngControl="password" type="password" id="password" #signUpPassword="ngForm" class="form-control" />
+            <div [hidden]="signUpPassword.valid || signUpPassword.pristine" 
+              class="alert alert-danger">
+              Choose a <a target="_blank" href="https://xkcd.com/936/">passphrase</a> (longer than 6 characters)
+            </div>
           </div>
+
+          <!-- buttons -->
           <div class="form-group">
-            <button class="btn btn-primary" type="submit" 
-              [disabled]="!registerForm.valid">Register</button>
+            <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-primary">
+              <span class="glyphicon glyphicon-log-in"></span>
+              Login
+            </button>
             <button class="btn btn-link" (click)="loginModal.hide()">Cancel</button>
           </div>
         </form>
-        <div *ngIf="registerError" class="alert alert-danger">{{ registerError }}</div>
+
+        <!-- errors form server -->
+        <div *ngIf="signUpError" class="alert alert-danger">{{ signUpError }}</div>
       </div>
-    </div>
-  </div>
+
+
+    </div><!-- /row -->
+  </div><!-- /container-fluid -->
 </modal-info>

@@ -19,5 +19,5 @@ a {
 }
 
 .ng-invalid.ng-touched {
-  border: solid 1px red !important;
+  border: solid 2px #a94442 !important;
 }
