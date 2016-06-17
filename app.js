@@ -1,6 +1,12 @@
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(session);
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+var User = require('./models/user.js');
 
 // setup app
 app.set('view engine', 'ejs');
@@ -11,10 +17,23 @@ app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost/property-investment-calculator');
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 300000 },
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+app.use(passport.initialize());
+app.use(passport.session());
+
 // static files
 app.use(express.static('app/public'));
 app.use('/node_modules', express.static('node_modules'));
-app.use('/bower_components', express.static('bower_components'));
 
 // routing
 app.get('/test', function (req, res) {

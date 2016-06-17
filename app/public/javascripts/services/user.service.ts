@@ -14,22 +14,31 @@ export class UserService {
 
   loginUrl = '/api/1/login';
   registerUrl = '/api/1/user';
+  logoutUrl = "/api/1/logout";
+  getUserUrl = "/api/1/user";
+
+  user: User;
 
   constructor(
     private _router: Router,
     private http: Http) { 
   }
 
-  logout() {
-    localStorage.removeItem("email");
+  logout(): Observable<Response> {
+    let observable = this.http.get(this.logoutUrl);
+    observable.subscribe(function(response) {
+      if(response.status == 200){
+        this.user = null;
+      }
+    });
+    return observable;
   }
 
-  login(user: User): Observable<Response> {
+  login(user: User): Observable<User> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    // make call to the api
     let observable = this.http.post(
       this.loginUrl,
       JSON.stringify(user),
@@ -37,18 +46,14 @@ export class UserService {
     ).map(this.extractData)
 
     observable.subscribe(function(user) {
-      // save the user in the localstorage
       if (user)
-        localStorage.setItem("email", user.email);
-    }, function(error) {
-      // nothing to do here - responsibility of the caller
+        this.user = user;
     });
 
-    // return the observable so the caller can subscribe and do something with the returned value
     return observable;
   }
 
-  register(user: User): Observable<Response> {
+  register(user: User): Observable<User> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -70,24 +75,21 @@ export class UserService {
       this.loginModal.addLoginCallback(callback);
   }
 
-  private extractData(response: Response) {
+  private extractData(response: Response): User {
     let body = response.json();
     let user = body.user || body;
-    return user;
+    return User.fromJson(user);
   }
 
-  getUser(): User {
-    let email = localStorage.getItem("email");
-    if (email)
-      return new User(email, "");
-    else
-      return null;
-  }
+  getUser(): Observable<User> {
+    let observable = this.http.get(this.getUserUrl).map(this.extractData);
+    var self = this;
+    observable.subscribe(function(user) {
+      if (user)
+        self.user = user;
+    });
 
-  enforceLogin() {
-    if (localStorage.getItem("email") === null) {
-      this._router.navigate(['Home']);
-    }
+    return observable;
   }
 
 }

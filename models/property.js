@@ -1,9 +1,11 @@
 // grab the things we need
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var User = require("./user.js");
 
 // create a schema
 var propertySchema = new Schema({
+  user:                 {type: Schema.ObjectId, ref: "User", reqired: true},
   name:                 {type: String, required: true},
   calculatorAdvanced:   {type: Boolean},
 

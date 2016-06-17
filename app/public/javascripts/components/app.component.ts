@@ -61,7 +61,11 @@ export class AppComponent {
     this.locale.definePreferredLocale('en', 'GB');
     this.locale.definePreferredCurrency('GBP');
 
-    this.user = this.userService.getUser();
+    var self = this;
+    this.userService.getUser().subscribe(function(user) {
+      if (user)
+        self.user = user;
+    });;
   }
 
   onLogin($user){
@@ -69,8 +73,10 @@ export class AppComponent {
   }
 
   logout(){
-    this.userService.logout();
-    this.user = null;
-    this.notificaionService.success("Logged Out", "You've been logged out, see you soon!")
+    var self = this;
+    this.userService.logout().subscribe(function(resopnse){
+      self.user = null;
+      self.notificaionService.success("Logged Out", "You've been logged out, see you soon!")
+    });
   }
 }

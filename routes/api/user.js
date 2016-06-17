@@ -1,28 +1,10 @@
 var express = require('express');
 var session = require('express-session')
-
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+
 var User = require('../../models/user');
 
-// setup passport to use user model
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
 module.exports = function(app){
-
-  // configure sessions
-  app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-  }))
-
-  // setup passport
-  app.use(passport.initialize());
-  app.use(passport.session());
 
   // router for user routes
   var router = express.Router();
@@ -32,6 +14,7 @@ module.exports = function(app){
     User.register(new User({ email: req.body.email }),
       req.body.password, function(err, user) {
       if (err) {
+        console.log(err);
         return res.status(500).json({
           err: err
         });
@@ -73,7 +56,7 @@ module.exports = function(app){
           });
         }
         // login successful so save email to the session
-        req.session.user = {email: user.email};
+        req.session.user = user;
 
         // and return a success message
         res.status(200).json({

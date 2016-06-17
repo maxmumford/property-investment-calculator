@@ -1,4 +1,7 @@
 var express = require('express');
+var passport = require('passport');
+var isAuthenticated = require('../../middleware.js');
+
 var Property = require('../../models/property');
 
 module.exports = function(app){
@@ -7,10 +10,11 @@ module.exports = function(app){
 
   // create a property
   router.route('/property')
-  .post(function(req, res) {
+  .post( isAuthenticated, function(req, res) {
     delete req.body._id; // otherwise returned property._id === req.body._id
     var property = new Property();
     property = Object.assign(property, req.body);
+    property.user = req.user;
 
     property.save(function(error, property) {
       if (error)
@@ -23,10 +27,11 @@ module.exports = function(app){
 
   // update a property
   router.route('/property/:id')
-  .put(function(req, res) {
+  .put(isAuthenticated, function(req, res) {
     delete req.body._id;
     var id = req.params.id;
-    Property.findByIdAndUpdate(id, { $set: req.body }, function (error, property) {
+    Property.findOneAndUpdate({_id: req.params.id, user: req.user._id}, 
+      { $set: req.body }, function (error, property) {
       if (error)
         res.status(500).send(error);
       else
@@ -36,8 +41,8 @@ module.exports = function(app){
 
   // get a property
   router.route('/property/:id')
-  .get(function(req, res) {
-    Property.findById(req.params.id, function(error, property) {
+  .get(isAuthenticated, function(req, res) {
+    Property.findOne({_id: req.params.id, user: req.user._id}, function(error, property) {
       if (error)
         res.status(500).send(error);
       else if (property == null)
@@ -49,10 +54,10 @@ module.exports = function(app){
 
   // delete a property
   router.route('/property/:id')
-  .delete(function(req, res) {
+  .delete(isAuthenticated, function(req, res) {
     var propertyId = req.params.id;
 
-    Property.findByIdAndRemove(propertyId, function (error,property){
+    Property.findOneAndRemove({_id: req.params.id, user: req.user._id}, function (error,property){
       if (error)
         res.status(500).send(error);
       else
@@ -62,8 +67,8 @@ module.exports = function(app){
 
   // list properties
   router.route('/properties')
-    .get(function(req, res){
-      Property.find({}, function(error, properties) {
+    .get(isAuthenticated, function(req, res){
+      Property.find({user: req.user._id}, function(error, properties) {
         res.json({data: properties});
       });
     });
