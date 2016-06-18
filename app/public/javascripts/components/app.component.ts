@@ -4,6 +4,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Rx';
 
+import 'jquery';
+import 'bootstrap-js';
+
 import { LocaleService } from 'angular2localization/angular2localization';
 import { NotificationsService, SimpleNotificationsComponent } from "angular2-notifications";
 import { UserService } from "../services/user.service";

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgSwitch, NgSwitchWhen } from '@angular/common';
 import { Router, RouteParams } from '@angular/router-deprecated';
+import { Response } from '@angular/http';
 
 import { Calculator } from '../../models/calculator';
 import { Opportunity } from '../../models/opportunity';
@@ -31,7 +32,7 @@ import { TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
   ]
 })
 export class CalculatorControlsComponent {
-  @Input() calculator;
+  @Input() calculator: Calculator;
   @Output('calculator') calculatorChange = new EventEmitter();
 
   sharableUrl;
@@ -87,11 +88,22 @@ export class CalculatorControlsComponent {
     this.calculatorChange.emit(this.calculator);
   }
 
+  makePublic(){
+    var self = this;
+    this.opportunityService.makePublic(this.calculator.opportunity).subscribe(function(opportunity){
+      self.calculator.opportunity.isPublic = true;
+    }, function(error: Response){
+      self.notificationService.error("Could Not Make Sharable",
+        "Something went wrong while trying to make your calculation sharable."
+        + " We are aware of this issue and hope to have it fixed soon.");
+    });
+  }
+
   sharableUrlCopied(){
     this.notificationService.success("Sharable URL Copied",
       "Your calculator's sharable URL has been copied."
       + " You can now send it to other people so they can view your calculation."
-      + " Just press CTRL + C (or CMD + C on a Mac) to paste it into an email or message etc.",
+      + " Just press CTRL + V (or CMD + V on a Mac) to paste it into an email or message etc.",
       {timeOut: 20000});
   }
 

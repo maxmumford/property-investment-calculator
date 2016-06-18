@@ -3,6 +3,7 @@ export class Opportunity {
   private _id: string = null;
   public name: string = "";
   public calculatorAdvanced: boolean = false;
+  public isPublic: boolean = false;
 
   // tenant
   public tenantNumber: number = 0; 

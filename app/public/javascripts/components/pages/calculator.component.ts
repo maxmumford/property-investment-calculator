@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteParams } from '@angular/router-deprecated';
+import { Router, RouteParams } from '@angular/router-deprecated';
+import { Response } from '@angular/http';
 
 import { CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
 import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
@@ -7,6 +8,7 @@ import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import { Calculator } from '../../models/calculator';
 import { Opportunity } from '../../models/opportunity';
 import { OpportunityService } from '../../services/opportunity.service';
+import { UserService } from '../../services/user.service';
 import { NotificationsService } from "angular2-notifications";
 
 import { CalculatorInputComponent } from '../calculator/calculator-input.component';
@@ -38,11 +40,20 @@ export class CalculatorComponent implements OnInit {
   constructor(
     private routeParams: RouteParams,
     private opportunityService: OpportunityService,
-    private notificationService: NotificationsService) {
+    private notificationService: NotificationsService,
+    private userService: UserService,
+    private router: Router) {
     // start with an empty calculator
     this.opportunityId = this.routeParams.get('opportunityId') || null;
     if (!this.opportunityId)
       this.calculator = new Calculator();
+
+    // subscribe to logout event and redirect to home (unless public)
+    var self = this;
+    this.userService.onLogout.subscribe(function(user){
+      if (!self.calculator.opportunity.isPublic)
+        self.router.navigate(["Home"]);
+    });
   }
 
   setCalculator(calculator:Calculator){
@@ -59,16 +70,29 @@ export class CalculatorComponent implements OnInit {
 
   ngOnInit() {
     if (this.opportunityId) {
-      this.opportunityService.getOpportunity(this.opportunityId)
-        .subscribe(
+      var self = this;
+      this.opportunityService.getOpportunity(this.opportunityId).subscribe(
         opportunity => this.setOpportunity(opportunity),
-          function(error){
-            console.log('Got an error when trying to get an opportunity', error);
-            this.notificationService.error("Couldn't Find The Calculator", 
+        function(error: Response){
+          if (error.status == 403) {
+            self.notificationService.error("Not Allowed",
+              "Sorry, we can't show you that calculator. It must either be made sharable"
+              + " (by clicking the 'share' button in the editor), or you must be logged in"
+              + " as the owner of the calculator.", {timeOut: 60000});
+          }
+          else if (error.status == 404) {
+            self.notificationService.error("Couldn't Find The Calculator",
               "We weren't able to find the calculator that your link points to."
               + " Maybe it has been deleted?");
           }
-        );
+          else {
+            console.log('Got an error when trying to get an opportunity', error);
+            self.notificationService.error("Whoops, something went wrong",
+              "Something misfired and we're all 1's and 0's..."
+              + "We know about this error and are workin on it. Please try again in a few hours.");
+          }
+        }
+      );
     }
   }
 }

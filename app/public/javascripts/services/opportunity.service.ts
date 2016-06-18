@@ -13,6 +13,7 @@ export class OpportunityService {
   private opportunityAddUrl = '/api/1/opportunity';
   private opportunityUpdateUrl = '/api/1/opportunity';
   private opportunityDeleteUrl = '/api/1/opportunity';
+  private opportunityMakePublicUrl = '/api/1/opportunity/:id/make-public';
 
   constructor(private http: Http) { }
 
@@ -41,6 +42,11 @@ export class OpportunityService {
 
     return this.http
       .delete(url, headers)
+  }
+
+  public makePublic(opportunity: Opportunity): Observable<Opportunity>{
+    let url = this.opportunityMakePublicUrl.replace(':id', opportunity.id);
+    return this.http.get(url).map(this.extractData);
   }
 
   public exampleOpportunity(): Opportunity {

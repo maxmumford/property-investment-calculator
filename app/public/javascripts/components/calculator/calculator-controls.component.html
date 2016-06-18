@@ -5,17 +5,26 @@
   </a>
 
   <modal-info #shareModal title="Share your Calculation">
-    <p>Share your calculation by sending the link below to your contact</p>
-    <div class="input-group">
-      <input #sharableUrlInput type="text" class="form-control" value="{{ sharableUrl }}" readonly>
-      <span class="input-group-btn">
-        <button class="btn btn-primary" type="button" [ngIIclipboard]="sharableUrlInput"
-          (cbOnSuccess)="sharableUrlCopied()" (cbOnError)="sharableUrlCopyFailed($event)"
-          (click)="shareModal.hide()">
-          <span class="glyphicon glyphicon-copy"></span>
-          Copy
-        </button>
-      </span>
+    <div *ngIf="calculator.opportunity.isPublic == false">
+      <button class="btn btn-primary" tooltip="Turn on link sharing and get a sharable link for this calculation" (click)="makePublic()">
+        <span class="glyphicon glyphicon-link"></span>
+        Get Sharable Link
+      </button>
+    </div>
+
+    <div *ngIf="calculator.opportunity.isPublic">
+      <p>Share your calculation by sending the link below to your contact</p>
+      <div class="input-group">
+        <input #sharableUrlInput type="text" class="form-control" value="{{ sharableUrl }}" readonly>
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" [ngIIclipboard]="sharableUrlInput"
+            (cbOnSuccess)="sharableUrlCopied()" (cbOnError)="sharableUrlCopyFailed($event)"
+            (click)="shareModal.hide()">
+            <span class="glyphicon glyphicon-copy"></span>
+            Copy
+          </button>
+        </span>
+      </div>
     </div>
   </modal-info>
   <span [ngSwitch]="calculator.opportunity.isNewDocument()">

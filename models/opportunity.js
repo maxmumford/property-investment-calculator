@@ -8,6 +8,7 @@ var opportunitySchema = new Schema({
   user:                 {type: Schema.ObjectId, ref: "User", reqired: true},
   name:                 {type: String, required: true},
   calculatorAdvanced:   {type: Boolean},
+  isPublic:             {type: Boolean},
 
   // tenant
   tenantNumber:         {type: Number},

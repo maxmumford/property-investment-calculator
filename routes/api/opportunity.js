@@ -8,7 +8,7 @@ module.exports = function(app){
 
   var router = express.Router();
 
-  // create a opportunity
+  // create an opportunity
   router.route('/opportunity')
   .post( isAuthenticated, function(req, res) {
     delete req.body._id; // otherwise returned opportunity._id === req.body._id
@@ -25,7 +25,7 @@ module.exports = function(app){
     });
   });
 
-  // update a opportunity
+  // update an opportunity
   router.route('/opportunity/:id')
   .put(isAuthenticated, function(req, res) {
     delete req.body._id;
@@ -34,25 +34,51 @@ module.exports = function(app){
       { $set: req.body }, function (error, opportunity) {
       if (error)
         res.status(500).send(error);
+      else if(opportunity == null)
+        res.status(404).send();
       else
         res.json({ message: 'Your opportunity has been updated', data: opportunity });
     });
   });
 
-  // get a opportunity
-  router.route('/opportunity/:id')
+  // update an opportunity
+  router.route('/opportunity/:id/make-public')
   .get(isAuthenticated, function(req, res) {
-    Opportunity.findOne({_id: req.params.id, user: req.user._id}, function(error, opportunity) {
+    var id = req.params.id;
+    Opportunity.findOneAndUpdate({_id: req.params.id, user: req.user._id}, 
+      { $set: {isPublic: true} }, function (error, opportunity) {
       if (error)
         res.status(500).send(error);
-      else if (opportunity == null)
+      else if(opportunity == null)
         res.status(404).send();
       else
-        res.json( {data: opportunity });
+        res.json({ message: 'Your opportunity has been set to public', data: opportunity });
     });
   });
 
-  // delete a opportunity
+  // get an opportunity
+  router.route('/opportunity/:id')
+  .get(function(req, res) {
+    Opportunity.findOne({_id: req.params.id}, function(error, opportunity){
+      if(error)
+        res.status(500).send(error);
+      else if (opportunity == null)
+        res.status(404).send();
+      else {
+        // if public, return it
+        if(opportunity.isPublic)
+          res.status(200).json({data: opportunity});  
+        // otherwise if owner, return it
+        else if(req.session.user && opportunity.user.equals(req.session.user._id))
+          res.status(200).json({data: opportunity});
+        // otherwise deny access
+        else
+          res.status(403).json({ "error": "Access denied", "message": "Either you are not the owner or the opportunity is not set to public" });
+      }
+    });
+  });
+
+  // delete an opportunity
   router.route('/opportunity/:id')
   .delete(isAuthenticated, function(req, res) {
     var opportunityId = req.params.id;
