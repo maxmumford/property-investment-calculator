@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var User = require("./user.js");
 
 // create a schema
-var propertySchema = new Schema({
+var opportunitySchema = new Schema({
   user:                 {type: Schema.ObjectId, ref: "User", reqired: true},
   name:                 {type: String, required: true},
   calculatorAdvanced:   {type: Boolean},
@@ -26,6 +26,7 @@ var propertySchema = new Schema({
   stampDuty:            {type: Number},
 
   // mortgage
+  mortgage:             {type: Boolean},
   paymentBasis:         {type: String},
   mortgageType:         {type: String},
   valuationBuyToLet:    {type: Number},
@@ -41,7 +42,7 @@ var propertySchema = new Schema({
 });
 
 // create a model using it
-var Property = mongoose.model('Property', propertySchema);
+var Opportunity = mongoose.model('Opportunity', opportunitySchema);
 
 // make this available to our properties in our Node applications
-module.exports = Property;
+module.exports = Opportunity;

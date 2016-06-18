@@ -1,7 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router-deprecated';
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 
 import { User } from '../models/user';
@@ -9,7 +9,7 @@ import { User } from '../models/user';
 import { ModalLoginComponent } from '../components/widgets/modal-login.component';
  
 @Injectable()
-export class UserService implements OnInit{
+export class UserService {
 
   public loginModal: ModalLoginComponent;
 
@@ -27,9 +27,7 @@ export class UserService implements OnInit{
   constructor(
     private _router: Router,
     private http: Http) {
-  }
 
-  ngOnInit(){
     // get logged in user, then refresh it every 2 minutes
     this.getUser();
     var self = this;

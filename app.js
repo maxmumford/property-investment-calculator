@@ -40,12 +40,12 @@ app.get('/test', function (req, res) {
   res.render('pages/unit-tests');
 });
 
-app.get(['/', '/calculator', '/calculator/:propertyId'], function (req, res) {
+app.get(['/', '/calculator', '/calculator/:opportunityId'], function (req, res) {
   res.render('pages/index');
 });
 
 // api
-require('./routes/api/property.js')(app);
+require('./routes/api/opportunity.js')(app);
 require('./routes/api/user.js')(app);
 
 // let's go!

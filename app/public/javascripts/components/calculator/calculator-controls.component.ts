@@ -3,11 +3,11 @@ import { NgSwitch, NgSwitchWhen } from '@angular/common';
 import { Router, RouteParams } from '@angular/router-deprecated';
 
 import { Calculator } from '../../models/calculator';
-import { Property } from '../../models/property';
+import { Opportunity } from '../../models/opportunity';
 import { User } from '../../models/user';
 
 import { NotificationsService } from "angular2-notifications";
-import { PropertyService } from '../../services/property.service';
+import { OpportunityService } from '../../services/opportunity.service';
 import { UserService } from '../../services/user.service';
 
 import { ModalConfirmComponent } from '../widgets/modal-confirm.component';
@@ -37,19 +37,19 @@ export class CalculatorControlsComponent {
   sharableUrl;
 
   constructor(
-    private propertyService: PropertyService,
+    private opportunityService: OpportunityService,
     private notificationService: NotificationsService,
     private router: Router,
     private params: RouteParams,
     private userService: UserService) {
-    let propertyId = params.get('propertyId');
-    if (propertyId)
+    let opportunityId = params.get('opportunityId');
+    if (opportunityId)
       this.sharableUrl = window.location.href;
   }
 
   save(){
     // if user is not logged in show the login dialog
-    if (this.userService.getUser() == null){
+    if (!this.userService.user){
       var self = this;
       this.userService.showLoginModal(function(user: any){
         self.save();
@@ -57,27 +57,27 @@ export class CalculatorControlsComponent {
       return;
     }
 
-    // otherwise save their property
+    // otherwise save their opportunity
     var self = this;
-    this.propertyService.save(this.calculator.property).subscribe(
-      function(property) {
-        if (self.calculator.property.isNewDocument()) {
+    this.opportunityService.save(this.calculator.opportunity).subscribe(
+      function(opportunity) {
+        if (self.calculator.opportunity.isNewDocument()) {
           self.notificationService.success("Saved", "Your new calculation has been saved; huzzah!");
-          self.router.navigate(['CalculatorLoad', { propertyId: property.id }]);
+          self.router.navigate(['CalculatorLoad', { opportunityId: opportunity.id }]);
         }
         else{
           self.notificationService.success("Saved", "Your calculation has been saved; huzzah!");
         }
       },
       function(error) {
-        console.log('Got an error while trying to save a property', error);
+        console.log('Got an error while trying to save an opportunity', error);
         self.notificationService.error("Can't Save Right Now",
-          "Something went wrong while trying to save the property."
+          "Something went wrong while trying to save the calculator."
           + " Keep this window open and try again in an hour or so."
           + " We'll get this issue fixed asap.");
       }
     );
-    this.propertyService.save(this.calculator.property);
+    this.opportunityService.save(this.calculator.opportunity);
   }
 
   reset(confirmReset){
@@ -104,7 +104,7 @@ export class CalculatorControlsComponent {
   }
 
   shareTooltip(){
-    if (this.calculator.property.isNewDocument())
+    if (this.calculator.opportunity.isNewDocument())
       return "You must save your calculation before you can share it";
     else
       return "";

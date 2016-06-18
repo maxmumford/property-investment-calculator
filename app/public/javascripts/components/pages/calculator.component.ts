@@ -5,8 +5,8 @@ import { CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
 import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { Calculator } from '../../models/calculator';
-import { Property } from '../../models/property';
-import { PropertyService } from '../../services/property.service';
+import { Opportunity } from '../../models/opportunity';
+import { OpportunityService } from '../../services/opportunity.service';
 import { NotificationsService } from "angular2-notifications";
 
 import { CalculatorInputComponent } from '../calculator/calculator-input.component';
@@ -33,15 +33,15 @@ import { TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 })
 export class CalculatorComponent implements OnInit {
   calculator: Calculator = null;
-  propertyId: string = null;
+  opportunityId: string = null;
 
   constructor(
     private routeParams: RouteParams,
-    private propertyService: PropertyService,
+    private opportunityService: OpportunityService,
     private notificationService: NotificationsService) {
     // start with an empty calculator
-    this.propertyId = this.routeParams.get('propertyId') || null;
-    if (!this.propertyId)
+    this.opportunityId = this.routeParams.get('opportunityId') || null;
+    if (!this.opportunityId)
       this.calculator = new Calculator();
   }
 
@@ -49,24 +49,24 @@ export class CalculatorComponent implements OnInit {
     this.calculator = calculator;
   }
 
-  setProperty(property:Property){
-    this.calculator = new Calculator(property);
+  setOpportunity(opportunity: Opportunity) {
+    this.calculator = new Calculator(opportunity);
   }
 
-  loadExampleProperty(){
-    this.setProperty(this.propertyService.exampleProperty());
+  loadExampleOpportunity() {
+    this.setOpportunity(this.opportunityService.exampleOpportunity());
   }
 
   ngOnInit() {
-    if (this.propertyId) {
-      this.propertyService.getProperty(this.propertyId)
+    if (this.opportunityId) {
+      this.opportunityService.getOpportunity(this.opportunityId)
         .subscribe(
-          property => this.setProperty(property),
+        opportunity => this.setOpportunity(opportunity),
           function(error){
-            console.log('Got an error when trying to get a property', error);
-            this.notificationService.error("Couldn't Find The Property", 
-              "We weren't able to find the property that your link points to."
-              + " Maybe it has been deleted.");
+            console.log('Got an error when trying to get an opportunity', error);
+            this.notificationService.error("Couldn't Find The Calculator", 
+              "We weren't able to find the calculator that your link points to."
+              + " Maybe it has been deleted?");
           }
         );
     }

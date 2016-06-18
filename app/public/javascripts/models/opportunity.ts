@@ -1,4 +1,4 @@
-export class Property {
+export class Opportunity {
 
   private _id: string = null;
   public name: string = "";
@@ -45,4 +45,4 @@ export class Property {
 
 }
 
-module.exports = { Property: Property };
+module.exports = { Opportunity: Opportunity };

@@ -1,79 +1,78 @@
-import { Property } from './property';
+import { Opportunity } from './opportunity';
 
 export class Calculator {
 
-  // properties
-  constructor(private _property: Property = new Property()){
+  constructor(private _opportunity: Opportunity = new Opportunity()) {
   }
 
   // getters and setters
-  get property():Property {
-    return this._property;
+  get opportunity(): Opportunity {
+    return this._opportunity;
   }
-  set property(property:Property){
-    this._property = property;
+  set opportunity(opportunity: Opportunity) {
+    this._opportunity = opportunity;
   }
 
-  get advanced():boolean {
-      return this._property.calculatorAdvanced;
+  get advanced(): boolean {
+    return this._opportunity.calculatorAdvanced;
   }
-  set advanced(advanced:boolean) {
-    this._property.calculatorAdvanced = advanced;
+  set advanced(advanced: boolean) {
+    this._opportunity.calculatorAdvanced = advanced;
     // reset hidden fields to their default values
-    if(!advanced){
-      this._property.paymentBasis = 'repayment';
-      this._property.mortgageType = 'buyToLet';
-      this._property.loanToValue = 75;
-      this._property.term = 25;
+    if (!advanced) {
+      this._opportunity.paymentBasis = 'repayment';
+      this._opportunity.mortgageType = 'buyToLet';
+      this._opportunity.loanToValue = 75;
+      this._opportunity.term = 25;
     }
   }
 
   // calculations
-  revenueYearly(): number{
-    if (this._property.tenantNumber && this._property.rentPerTenantWeekly)
-      return this._property.tenantNumber * this._property.rentPerTenantWeekly * 52;
+  revenueYearly(): number {
+    if (this._opportunity.tenantNumber && this._opportunity.rentPerTenantWeekly)
+      return this._opportunity.tenantNumber * this._opportunity.rentPerTenantWeekly * 52;
     else 
       return 0;
   }
 
-  voidsCost(){
-    return this.revenueYearly() * (this._property.voids / 100);
+  voidsCost() {
+    return this.revenueYearly() * (this._opportunity.voids / 100);
   }
 
-  managementCost(){
-    return this.revenueYearly() * (this._property.management / 100);
+  managementCost() {
+    return this.revenueYearly() * (this._opportunity.management / 100);
   }
 
-  expensesYearly(){
-    if(this.advanced)
-      return +this._property.billsYearly + +this.voidsCost() + +this.managementCost() + +this._property.maintenanceYearly;
+  expensesYearly() {
+    if (this.advanced)
+      return +this._opportunity.billsYearly + +this.voidsCost() + +this.managementCost() + +this._opportunity.maintenanceYearly;
     else
-      return +this._property.billsYearly + +this._property.maintenanceYearly;
+      return +this._opportunity.billsYearly + +this._opportunity.maintenanceYearly;
   }
 
-  capitalInvested(){
-    if(this.advanced)
-      return +this._property.legalFees + +this._property.stampDuty + +this._property.purchasePrice + +this._property.refurbCost;
+  capitalInvested() {
+    if (this.advanced)
+      return +this._opportunity.legalFees + +this._opportunity.stampDuty + +this._opportunity.purchasePrice + +this._opportunity.refurbCost;
     else
-      return +this._property.purchasePrice + +this._property.refurbCost;
+      return +this._opportunity.purchasePrice + +this._opportunity.refurbCost;
   }
 
-  mortgage(){
-    return this._property.mortgage;
+  mortgage() {
+    return this._opportunity.mortgage;
   }
 
-  mortgagePrincipal(){
-    if ( !this.mortgage() )
+  mortgagePrincipal() {
+    if (!this.mortgage())
       return 0;
 
     let valuation = this.valuation();
-    if(this._property.mortgageType == 'buyToLet'){
-      return valuation * (this._property.loanToValue / 100);
+    if (this._opportunity.mortgageType == 'buyToLet') {
+      return valuation * (this._opportunity.loanToValue / 100);
     }
-    else if (this._property.mortgageType == 'commercial'){
-      let financeAvailable = valuation * (this._property.loanToValue / 100);
+    else if (this._opportunity.mortgageType == 'commercial') {
+      let financeAvailable = valuation * (this._opportunity.loanToValue / 100);
       let capitalInvested = this.capitalInvested();
-      if (financeAvailable > capitalInvested && this._property.pullOutExtraMoney)
+      if (financeAvailable > capitalInvested && this._opportunity.pullOutExtraMoney)
         return financeAvailable;
       else if( financeAvailable < capitalInvested)
         return financeAvailable;
@@ -87,8 +86,8 @@ export class Calculator {
     return (moneyLeftIn >= 0) ? moneyLeftIn : 0;
   }
 
-  moneyPulledOut(){
-    if (this._property.pullOutExtraMoney) {
+  moneyPulledOut() {
+    if (this._opportunity.pullOutExtraMoney) {
       let moneyPulledOut = this.mortgagePrincipal() - this.capitalInvested();
       return (moneyPulledOut >= 0) ? moneyPulledOut : 0;
     }
@@ -96,30 +95,30 @@ export class Calculator {
       return 0;
   }
 
-  mortgagePaymentsMonthly(){
-    if ( !this.mortgage() )
+  mortgagePaymentsMonthly() {
+    if (!this.mortgage())
       return 0;
 
-    if( this._property.paymentBasis == 'repayment' ){
-      var pmt = - this.PMT(((this._property.apr / 100) / 12), (this._property.term * 12), this.mortgagePrincipal());
-      return ( !isNaN(pmt) ) ? pmt : 0;
+    if (this._opportunity.paymentBasis == 'repayment') {
+      var pmt = - this.PMT(((this._opportunity.apr / 100) / 12), (this._opportunity.term * 12), this.mortgagePrincipal());
+      return (!isNaN(pmt)) ? pmt : 0;
     }
-    else if ( this._property.paymentBasis == 'interestOnly' )
-      return this.mortgagePrincipal() * ((this._property.apr / 100) / 12);
+    else if (this._opportunity.paymentBasis == 'interestOnly')
+      return this.mortgagePrincipal() * ((this._opportunity.apr / 100) / 12);
   }
 
-  mortgagePaymentsYearly(){
-    if ( !this.mortgage() )
+  mortgagePaymentsYearly() {
+    if (!this.mortgage())
       return 0;
-    
+
     return this.mortgagePaymentsMonthly() * 12;
   }
 
-  valuation(){
-    if( this._property.mortgageType == 'buyToLet' )
-      return this._property.valuationBuyToLet;
-    else if( this._property.mortgageType == 'commercial' )
-      return this.revenueYearly() * this._property.multiplier;
+  valuation() {
+    if (this._opportunity.mortgageType == 'buyToLet')
+      return this._opportunity.valuationBuyToLet;
+    else if (this._opportunity.mortgageType == 'commercial')
+      return this.revenueYearly() * this._opportunity.multiplier;
   }
 
   valueUplift(){

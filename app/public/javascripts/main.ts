@@ -4,7 +4,7 @@ import { FORM_PROVIDERS } from '@angular/common';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
 import { LocaleService } from 'angular2localization/angular2localization';
-import { PropertyService } from './services/property.service';
+import { OpportunityService } from './services/opportunity.service';
 import { UserService } from './services/user.service';
 import { NotificationsService } from "angular2-notifications";
 
@@ -16,7 +16,7 @@ bootstrap(AppComponent, [
   FORM_PROVIDERS,
   LocaleService,
   NotificationsService,
-  PropertyService,
+  OpportunityService,
   NotificationsService,
   UserService
 ]);

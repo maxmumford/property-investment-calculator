@@ -1,22 +1,22 @@
 import { Calculator } from './calculator';
-import { Property } from './property';
+import { Opportunity } from './opportunity';
 
 describe('Calculator Simple No Mortgage', () => {
 
-  let property = new Property();
-  property.tenantNumber = 5;
-  property.rentPerTenantWeekly = 100;
-  property.billsYearly = 2000;
-  property.maintenanceYearly = 1000;
-  property.purchasePrice = 70000;
-  property.refurbCost = 50000;
-  property.mortgage = false;
+  let opportunity = new Opportunity();
+  opportunity.tenantNumber = 5;
+  opportunity.rentPerTenantWeekly = 100;
+  opportunity.billsYearly = 2000;
+  opportunity.maintenanceYearly = 1000;
+  opportunity.purchasePrice = 70000;
+  opportunity.refurbCost = 50000;
+  opportunity.mortgage = false;
 
-  let calculator = new Calculator(property);
+  let calculator = new Calculator(opportunity);
 
   // test default values
-  it('has property name', () => {
-    expect(property.name).toEqual('');
+  it('has name', () => {
+    expect(opportunity.name).toEqual('');
   });
 
   it('has advanced', () => {
@@ -53,24 +53,24 @@ describe('Calculator Simple No Mortgage', () => {
 
 describe('Calculator Simple BuyToLet Repayment', () => {
 
-  let property = new Property();
-  property.tenantNumber = 5;
-  property.rentPerTenantWeekly = 100;
-  property.billsYearly = 2000;
-  property.maintenanceYearly = 1000;
-  property.purchasePrice = 70000;
-  property.refurbCost = 50000;
-  property.mortgage = true;
-  property.paymentBasis = 'repayment';
-  property.mortgageType = 'buyToLet';
-  property.valuationBuyToLet = 180000;
-  property.apr = 6;
+  let opportunity = new Opportunity();
+  opportunity.tenantNumber = 5;
+  opportunity.rentPerTenantWeekly = 100;
+  opportunity.billsYearly = 2000;
+  opportunity.maintenanceYearly = 1000;
+  opportunity.purchasePrice = 70000;
+  opportunity.refurbCost = 50000;
+  opportunity.mortgage = true;
+  opportunity.paymentBasis = 'repayment';
+  opportunity.mortgageType = 'buyToLet';
+  opportunity.valuationBuyToLet = 180000;
+  opportunity.apr = 6;
 
-  let calculator = new Calculator(property);
+  let calculator = new Calculator(opportunity);
 
   // test default values
-  it('has property name', () => {
-    expect(property.name).toEqual('');
+  it('has name', () => {
+    expect(opportunity.name).toEqual('');
   });
 
   it('has advanced', () => {
@@ -108,28 +108,28 @@ describe('Calculator Simple BuyToLet Repayment', () => {
 describe('Calculator Advanced BuyToLet Repayment', () => {
 
   // setup advanced test
-  let property = new Property();
-  property.tenantNumber = 5;
-  property.rentPerTenantWeekly = 100;
-  property.billsYearly = 2000;
-  property.maintenanceYearly = 1000;
-  property.management = 10;
-  property.voids = 10;
-  property.purchasePrice = 140000;
-  property.refurbCost = 20000;
-  property.legalFees = 1000;
-  property.stampDuty = 4500;
-  property.mortgage = true;
-  property.paymentBasis = 'repayment';
-  property.mortgageType = 'buyToLet';
-  property.valuationBuyToLet = 180000;
-  property.pullOutExtraMoney = false;
-  property.loanToValue = 75;
-  property.apr = 6;
-  property.term = 25;
-  property.calculatorAdvanced = true;
+  let opportunity = new Opportunity();
+  opportunity.tenantNumber = 5;
+  opportunity.rentPerTenantWeekly = 100;
+  opportunity.billsYearly = 2000;
+  opportunity.maintenanceYearly = 1000;
+  opportunity.management = 10;
+  opportunity.voids = 10;
+  opportunity.purchasePrice = 140000;
+  opportunity.refurbCost = 20000;
+  opportunity.legalFees = 1000;
+  opportunity.stampDuty = 4500;
+  opportunity.mortgage = true;
+  opportunity.paymentBasis = 'repayment';
+  opportunity.mortgageType = 'buyToLet';
+  opportunity.valuationBuyToLet = 180000;
+  opportunity.pullOutExtraMoney = false;
+  opportunity.loanToValue = 75;
+  opportunity.apr = 6;
+  opportunity.term = 25;
+  opportunity.calculatorAdvanced = true;
 
-  let calculator = new Calculator(property);
+  let calculator = new Calculator(opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -159,29 +159,29 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
 describe('Calculator Advanced BuyToLet Interest Only', () => {
 
   // setup advanced test
-  let property = new Property();
-  property.tenantNumber = 5;
-  property.rentPerTenantWeekly = 100;
-  property.billsYearly = 2000;
-  property.maintenanceYearly = 1000;
-  property.management = 10;
-  property.voids = 10;
-  property.purchasePrice = 140000;
-  property.refurbCost = 20000;
-  property.legalFees = 1000;
-  property.stampDuty = 4500;
-  property.mortgage = true;
-  property.paymentBasis = 'interestOnly';
-  property.mortgageType = 'buyToLet';
-  property.valuationBuyToLet = 180000;
-  property.pullOutExtraMoney = false;
-  property.multiplier = 7;
-  property.loanToValue = 75;
-  property.apr = 6;
-  property.term = 25;
-  property.calculatorAdvanced = true;
-  
-  let calculator = new Calculator(property);
+  let opportunity = new Opportunity();
+  opportunity.tenantNumber = 5;
+  opportunity.rentPerTenantWeekly = 100;
+  opportunity.billsYearly = 2000;
+  opportunity.maintenanceYearly = 1000;
+  opportunity.management = 10;
+  opportunity.voids = 10;
+  opportunity.purchasePrice = 140000;
+  opportunity.refurbCost = 20000;
+  opportunity.legalFees = 1000;
+  opportunity.stampDuty = 4500;
+  opportunity.mortgage = true;
+  opportunity.paymentBasis = 'interestOnly';
+  opportunity.mortgageType = 'buyToLet';
+  opportunity.valuationBuyToLet = 180000;
+  opportunity.pullOutExtraMoney = false;
+  opportunity.multiplier = 7;
+  opportunity.loanToValue = 75;
+  opportunity.apr = 6;
+  opportunity.term = 25;
+  opportunity.calculatorAdvanced = true;
+
+  let calculator = new Calculator(opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -211,28 +211,28 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
 describe('Calculator Advanced Commercial Repayment', () => {
 
   // setup advanced test
-  let property = new Property();
-  property.tenantNumber = 5;
-  property.rentPerTenantWeekly = 100;
-  property.billsYearly = 2000;
-  property.maintenanceYearly = 1000;
-  property.management = 10;
-  property.voids = 10;
-  property.purchasePrice = 140000;
-  property.refurbCost = 20000;
-  property.legalFees = 1000;
-  property.stampDuty = 4500;
-  property.mortgage = true;
-  property.paymentBasis = 'repayment';
-  property.mortgageType = 'commercial';
-  property.pullOutExtraMoney = false;
-  property.multiplier = 7;
-  property.loanToValue = 75;
-  property.apr = 6;
-  property.term = 25;
-  property.calculatorAdvanced = true;
-  
-  let calculator = new Calculator(property);
+  let opportunity = new Opportunity();
+  opportunity.tenantNumber = 5;
+  opportunity.rentPerTenantWeekly = 100;
+  opportunity.billsYearly = 2000;
+  opportunity.maintenanceYearly = 1000;
+  opportunity.management = 10;
+  opportunity.voids = 10;
+  opportunity.purchasePrice = 140000;
+  opportunity.refurbCost = 20000;
+  opportunity.legalFees = 1000;
+  opportunity.stampDuty = 4500;
+  opportunity.mortgage = true;
+  opportunity.paymentBasis = 'repayment';
+  opportunity.mortgageType = 'commercial';
+  opportunity.pullOutExtraMoney = false;
+  opportunity.multiplier = 7;
+  opportunity.loanToValue = 75;
+  opportunity.apr = 6;
+  opportunity.term = 25;
+  opportunity.calculatorAdvanced = true;
+
+  let calculator = new Calculator(opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -262,29 +262,29 @@ describe('Calculator Advanced Commercial Repayment', () => {
 describe('Calculator Advanced Commercial Interest Only', () => {
 
   // setup advanced test
-  let property = new Property();
-  property.tenantNumber = 5;
-  property.rentPerTenantWeekly = 100;
-  property.billsYearly = 2000;
-  property.maintenanceYearly = 1000;
-  property.management = 10;
-  property.voids = 10;
-  property.purchasePrice = 140000;
-  property.refurbCost = 20000;
-  property.legalFees = 1000;
-  property.stampDuty = 4500;
-  property.mortgage = true;
-  property.paymentBasis = 'interestOnly';
-  property.mortgageType = 'commercial';
-  property.valuationBuyToLet = 180000;
-  property.pullOutExtraMoney = false;
-  property.multiplier = 7;
-  property.loanToValue = 75;
-  property.apr = 6;
-  property.term = 25;
-  property.calculatorAdvanced = true;
-  
-  let calculator = new Calculator(property);
+  let opportunity = new Opportunity();
+  opportunity.tenantNumber = 5;
+  opportunity.rentPerTenantWeekly = 100;
+  opportunity.billsYearly = 2000;
+  opportunity.maintenanceYearly = 1000;
+  opportunity.management = 10;
+  opportunity.voids = 10;
+  opportunity.purchasePrice = 140000;
+  opportunity.refurbCost = 20000;
+  opportunity.legalFees = 1000;
+  opportunity.stampDuty = 4500;
+  opportunity.mortgage = true;
+  opportunity.paymentBasis = 'interestOnly';
+  opportunity.mortgageType = 'commercial';
+  opportunity.valuationBuyToLet = 180000;
+  opportunity.pullOutExtraMoney = false;
+  opportunity.multiplier = 7;
+  opportunity.loanToValue = 75;
+  opportunity.apr = 6;
+  opportunity.term = 25;
+  opportunity.calculatorAdvanced = true;
+
+  let calculator = new Calculator(opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -314,29 +314,29 @@ describe('Calculator Advanced Commercial Interest Only', () => {
 describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
 
   // setup advanced test
-  let property = new Property();
-  property.tenantNumber = 5;
-  property.rentPerTenantWeekly = 100;
-  property.billsYearly = 2000;
-  property.maintenanceYearly = 1000;
-  property.management = 10;
-  property.voids = 10;
-  property.purchasePrice = 140000;
-  property.refurbCost = 20000;
-  property.legalFees = 1000;
-  property.stampDuty = 4500;
-  property.mortgage = true;
-  property.paymentBasis = 'interestOnly';
-  property.mortgageType = 'commercial';
-  property.valuationBuyToLet = 180000;
-  property.pullOutExtraMoney = true;
-  property.multiplier = 9;
-  property.loanToValue = 75;
-  property.apr = 6;
-  property.term = 25;
-  property.calculatorAdvanced = true;
-  
-  let calculator = new Calculator(property);
+  let opportunity = new Opportunity();
+  opportunity.tenantNumber = 5;
+  opportunity.rentPerTenantWeekly = 100;
+  opportunity.billsYearly = 2000;
+  opportunity.maintenanceYearly = 1000;
+  opportunity.management = 10;
+  opportunity.voids = 10;
+  opportunity.purchasePrice = 140000;
+  opportunity.refurbCost = 20000;
+  opportunity.legalFees = 1000;
+  opportunity.stampDuty = 4500;
+  opportunity.mortgage = true;
+  opportunity.paymentBasis = 'interestOnly';
+  opportunity.mortgageType = 'commercial';
+  opportunity.valuationBuyToLet = 180000;
+  opportunity.pullOutExtraMoney = true;
+  opportunity.multiplier = 9;
+  opportunity.loanToValue = 75;
+  opportunity.apr = 6;
+  opportunity.term = 25;
+  opportunity.calculatorAdvanced = true;
+
+  let calculator = new Calculator(opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {

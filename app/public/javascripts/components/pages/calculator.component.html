@@ -15,13 +15,13 @@
       <span tooltip="Get expense and more mortgage options as well as more detailed calculations in advanced mode" tooltipPlacement="bottom">
         <span class="glyphicon glyphicon-chevron-left"></span> Get more features in Advanced mode
       </span>
-      <a (click)="confirmExample.show()" *ngIf="calculator.property.isNewDocument()" class="btn">
+      <a (click)="confirmExample.show()" *ngIf="calculator.opportunity.isNewDocument()" class="btn">
         <span class="glyphicon glyphicon-question-sign"></span>
         Load some example data
       </a>
       <modal-confirm #confirmExample 
         title="Load Example Calculation?" question="You will lose any data you have already entered into the calculator below" 
-        positive="Load Data" (positive)="loadExampleProperty()"
+        positive="Load Data" (positive)="loadExampleOpportunity()"
         negative="Don't Load">
       </modal-confirm>
     </div>

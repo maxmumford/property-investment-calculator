@@ -1,25 +1,25 @@
-<div class="alert alert-info" *ngIf="properties && properties.length == 0">
+<div class="alert alert-info" *ngIf="opportunities && opportunities.length == 0">
   <h3>Looks like you're new here</h3>
   <p>
     To get started, click the "New Calculation" button below. Enjoy!
   </p>
 </div>
 
-<table *ngIf="properties">
+<table *ngIf="opportunities">
   <tbody>
-    <tr *ngFor="let property of properties">
-      <td class="property-name">
-        {{ property.name }}
+    <tr *ngFor="let opportunity of opportunities">
+      <td class="opportunity-name">
+        {{ opportunity.name }}
       </td>
       <td>
         <button type="button" class="btn btn-primary" 
-          [routerLink]="['CalculatorLoad', {propertyId: property.id}]">
+          [routerLink]="['CalculatorLoad', {opportunityId: opportunity.id}]">
           <span class="glyphicon glyphicon-circle-arrow-right"></span>
           Load
         </button>    
       </td>
       <td>
-        <button type="button" class="btn btn-danger" (click)="deleteProperty(property)">
+        <button type="button" class="btn btn-danger" (click)="deleteOpportunity(opportunity)">
           <span class="glyphicon glyphicon-trash"></span>
           Delete
         </button>

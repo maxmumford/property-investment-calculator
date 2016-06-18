@@ -21,7 +21,7 @@ import { ModalLoginComponent } from './widgets/modal-login.component';
     component: ListComponent
   },
   {
-    path: '/calculator/:propertyId',
+    path: '/calculator/:opportunityId',
     name: 'CalculatorLoad',
     component: CalculatorComponent
   },
