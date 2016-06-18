@@ -19,13 +19,28 @@ export class PropertyService {
   public getProperties(): Observable<Property[]> {
     return this.http.get(this.propertiesUrl)
       .map(this.extractData)
-      .catch(this.handleError);
   }
 
   public getProperty(id: string): Observable<Property> {
     return this.http.get(`${this.propertyGetUrl}/${id}`)
       .map(this.extractData)
-      .catch(this.handleError);
+  }
+
+  public save(property: Property): Observable<Property> {
+    if (property.id) {
+      return this.put(property);
+    }
+    return this.post(property);
+  }
+
+  public delete(property: Property) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let url = `${this.propertyDeleteUrl}/${property.id}`;
+
+    return this.http
+      .delete(url, headers)
   }
 
   public exampleProperty(): Property{
@@ -59,24 +74,6 @@ export class PropertyService {
     return property;
   }
 
-  public save(property: Property): Observable<Property> {
-    if (property.id) {
-      return this.put(property);
-    }
-    return this.post(property);
-  }
-
-  public delete(property: Property) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    let url = `${this.propertyDeleteUrl}/${property.id}`;
-
-    return this.http
-      .delete(url, headers)
-      .catch(this.handleError);
-  }
-
   private extractData(res: Response) {
     let extractDataSingle = function(property: Object) {
       return Object.assign(new Property(), property);
@@ -100,7 +97,6 @@ export class PropertyService {
     return this.http
       .post(this.propertyAddUrl, JSON.stringify(property), { headers: headers })
       .map(this.extractData)
-      .catch(this.handleError);
   }
 
   // Update existing Property
@@ -113,13 +109,6 @@ export class PropertyService {
     return this.http
       .put(url, JSON.stringify(property), { headers: headers })
       .map(this.extractData)
-      .catch(this.handleError);
   }
 
-  private handleError (error: any) {
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
 }

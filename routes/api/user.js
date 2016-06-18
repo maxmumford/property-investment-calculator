@@ -80,7 +80,7 @@ module.exports = function(app){
     if(req.session.user)
       res.status(200).json({user: req.user});
     else
-      res.status(404).json({user: null, message: "Not logged in"});
+      res.status(200).json({user: null, message: "Not logged in"});
   });
 
   app.use('/api/1/', router);

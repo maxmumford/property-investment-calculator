@@ -2,6 +2,7 @@ import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { Observable } from 'rxjs/Rx';
 
 import { LocaleService } from 'angular2localization/angular2localization';
 import { NotificationsService, SimpleNotificationsComponent } from "angular2-notifications";
@@ -43,7 +44,6 @@ import { ModalLoginComponent } from './widgets/modal-login.component';
 export class AppComponent {
   title = 'Property Investment Calculator';
   viewContainerRef;
-  user: User;
   @ViewChild(ModalLoginComponent) loginModal: ModalLoginComponent;
   
   notificationOptions = {
@@ -60,23 +60,17 @@ export class AppComponent {
     this.viewContainerRef = privateviewContainerRef;
     this.locale.definePreferredLocale('en', 'GB');
     this.locale.definePreferredCurrency('GBP');
-
-    var self = this;
-    this.userService.getUser().subscribe(function(user) {
-      if (user)
-        self.user = user;
-    });;
   }
 
-  onLogin($user){
-    this.user = $user;
+  get user(): User{
+    return this.userService.user;
   }
 
   logout(){
     var self = this;
     this.userService.logout().subscribe(function(resopnse){
-      self.user = null;
       self.notificaionService.success("Logged Out", "You've been logged out, see you soon!")
     });
   }
+
 }

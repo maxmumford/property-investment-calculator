@@ -1,34 +1,63 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router-deprecated';
 import { Headers, Http, Response } from '@angular/http';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { User } from '../models/user';
 
 import { ModalLoginComponent } from '../components/widgets/modal-login.component';
  
 @Injectable()
-export class UserService {
+export class UserService implements OnInit{
 
-  loginModal: ModalLoginComponent;
+  public loginModal: ModalLoginComponent;
 
-  loginUrl = '/api/1/login';
-  registerUrl = '/api/1/user';
-  logoutUrl = "/api/1/logout";
-  getUserUrl = "/api/1/user";
+  private loginUrl = '/api/1/login';
+  private registerUrl = '/api/1/user';
+  private logoutUrl = "/api/1/logout";
+  private getUserUrl = "/api/1/user";
 
-  user: User;
+  private _user: User;
+
+  // events
+  public onLogin: Subject<User> = new Subject<User>();
+  public onLogout: Subject<User> = new Subject<User>();
 
   constructor(
     private _router: Router,
-    private http: Http) { 
+    private http: Http) {
+  }
+
+  ngOnInit(){
+    // get logged in user, then refresh it every 2 minutes
+    this.getUser();
+    var self = this;
+    Observable.interval(2000 * 60).subscribe(x => {
+      self.getUser();
+    });
+  }
+
+  get user(): User{
+    return this._user;
+  }
+
+  set user(user){
+    // trigger login or logout depending on change
+    if (!this._user && user)
+      this.onLogin.next(user);
+    if (this._user && !user)
+      this.onLogout.next(user);
+
+    this._user = user;
   }
 
   logout(): Observable<Response> {
+    var self = this;
     let observable = this.http.get(this.logoutUrl);
     observable.subscribe(function(response) {
       if(response.status == 200){
-        this.user = null;
+        self.user = null;
       }
     });
     return observable;
@@ -39,6 +68,7 @@ export class UserService {
       'Content-Type': 'application/json'
     });
 
+    var self = this;
     let observable = this.http.post(
       this.loginUrl,
       JSON.stringify(user),
@@ -47,9 +77,20 @@ export class UserService {
 
     observable.subscribe(function(user) {
       if (user)
-        this.user = user;
+        self.user = user;
     });
 
+    return observable;
+  }
+
+  getUser(): Observable<User> {
+    let observable = this.http.get(this.getUserUrl).map(this.extractData);
+    var self = this;
+    observable.subscribe(function(user) {
+      console.log(user);
+      if (user)
+        self.user = user;
+    });
     return observable;
   }
 
@@ -81,15 +122,12 @@ export class UserService {
     return User.fromJson(user);
   }
 
-  getUser(): Observable<User> {
-    let observable = this.http.get(this.getUserUrl).map(this.extractData);
-    var self = this;
-    observable.subscribe(function(user) {
-      if (user)
-        self.user = user;
-    });
-
-    return observable;
+  private _triggerOnLogin(user) {
+    this.onLogin.next(user);
   }
 
+  private _triggerOnLogout(user) {
+    this.onLogout.next(user);
+  }
+  
 }

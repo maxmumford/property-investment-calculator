@@ -1,4 +1,11 @@
-<table *ngIf="properties != null">
+<div class="alert alert-info" *ngIf="properties && properties.length == 0">
+  <h3>Looks like you're new here</h3>
+  <p>
+    To get started, click the "New Calculation" button below. Enjoy!
+  </p>
+</div>
+
+<table *ngIf="properties">
   <tbody>
     <tr *ngFor="let property of properties">
       <td class="property-name">
