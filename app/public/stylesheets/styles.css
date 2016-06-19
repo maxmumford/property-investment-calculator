@@ -1,3 +1,9 @@
+.loading {
+  text-align: center;
+  font-size: 48px;
+  margin-top:100px;
+}
+
 .label.big {
   font-size: 1.1em;
 }

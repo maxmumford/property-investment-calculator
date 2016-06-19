@@ -18,6 +18,9 @@ app/public/javascripts/main.js
 
 typings
 
+# capistratno
+/config/secrets.json
+
 ################
 # angular.js 2 #
 ################
