@@ -37,6 +37,8 @@
     "es6-shim": "^0.35.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "font-awesome": "^4.6.3",
+    "jquery": "^3.0.0",
     "moment": "^2.13.0",
     "mongoose": "^4.5.0",
     "ng2-bootstrap": "^1.0.17",
