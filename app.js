@@ -19,7 +19,8 @@ mongoose.connect('mongodb://localhost/property-investment-calculator');
 
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
+  rolling: true,
+  resave: true, 
   saveUninitialized: true,
   cookie: { maxAge: 300000 },
   store: new MongoStore({ mongooseConnection: mongoose.connection })

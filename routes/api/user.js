@@ -55,8 +55,6 @@ module.exports = function(app){
             err: 'Could not log in user'
           });
         }
-        // login successful so save email to the session
-        req.session.user = user;
 
         // and return a success message
         res.status(200).json({
@@ -77,7 +75,7 @@ module.exports = function(app){
 
   // get current user
   router.get('/user', function(req, res) {
-    if(req.session.user)
+    if(req.user)
       res.status(200).json({user: req.user});
     else
       res.status(200).json({user: null, message: "Not logged in"});

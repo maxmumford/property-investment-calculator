@@ -85,8 +85,7 @@ export class UserService {
     let observable = this.http.get(this.getUserUrl).map(this.extractData);
     var self = this;
     observable.subscribe(function(user) {
-      if (user)
-        self.user = user;
+      self.user = user;
     });
     return observable;
   }
