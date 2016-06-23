@@ -116,10 +116,10 @@ module.exports = function(app, nodemailer, secrets, config){
           subject: 'Reset Your Password for PropertyInvestmentCalculator.com',
           'h:Reply-To': secrets.MAILGUN_NOREPLY,
           //html: '<b>Wow Big powerful letters</b> testing mailgun transport',
-          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account on PropertyInvestmentCalculator.com\n\n' +
+            'Please click on the following link, or paste it into your browser:\n\n' +
             config.BASE_URL + '/reset-password/' + token + '\n\n' +
-            'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            'If you did not want to reset your password you can safely ignore this email and it will remain unchanged.\n'
         }, function (err, info) {
           if (err) {
             res.status(500).json({ error: "MailgunError", message: "Error sending password reset email", mailgun: err })
@@ -191,7 +191,7 @@ module.exports = function(app, nodemailer, secrets, config){
           to: user.email,
           subject: 'Password Changed for PropertyInvestmentCalculator.com',
           'h:Reply-To': secrets.MAILGUN_NOREPLY,
-          text: "Just to let you know, the password on your PropertyInvestmentCalculator.com account has been changed."
+          text: "Just a quick confirmation email to let you know that the password on your PropertyInvestmentCalculator.com account has been changed."
             + " If this wasn't you, please get in touch with the link below:\n\nhttps://www.cocept.io/contact"
         }, function (err, info) {
           if (err) {
