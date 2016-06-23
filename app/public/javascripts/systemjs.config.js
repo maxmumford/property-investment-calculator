@@ -14,9 +14,9 @@
     'angular2-notifications':     'node_modules/angular2-notifications',
     'angular2-clipboard':         'node_modules/angular2-clipboard',
     'clipboard':                  'node_modules/clipboard/dist/clipboard.js',
-
     'jquery':                     'node_modules/jquery/dist/jquery.min.js',
-    'bootstrap-js':               'node_modules/bootstrap/dist/js/bootstrap.min.js'
+    'bootstrap-js':               'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    'angulartics2':               'node_modules/angulartics2'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -26,6 +26,7 @@
     'angular2-notifications':     { main: 'components.js', defaultExtension: 'js' },
     'clipboard' :                 { defaultExtension: 'js' },
     'angular2-clipboard':         { main: 'index.js', defaultExtension: 'js' },
+    "angulartics2":               { defaultExtension: "js", main: 'index.js' }
   };
   var ngPackageNames = [
     'common',

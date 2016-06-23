@@ -14,7 +14,8 @@ gulp.task('server', function () {
     'app.js', 
     'app/public/javascripts/systemjs.config', 
     'models/**/*.js', 
-    'routes/**/*.js'
+    'routes/**/*.js',
+    'config/**/*.json'
   ], [server.run]);
 });
 

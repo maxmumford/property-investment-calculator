@@ -68,13 +68,18 @@ app.get('/test', function (req, res) {
 });
 
 // routes handled by angular2
+var analyticsPolicy = ( config.ENV == "PRODUCTION" ) ? "auto" : "none";
+var production = ( config.ENV == "PRODUCTION" );
 app.get([
     '/', 
     '/calculator', 
     '/calculator/:opportunityId',
     '/reset-password/:token'
   ], function (req, res) {
-  res.render('pages/index');
+  res.render('pages/index', { 
+    analyticsPolicy: analyticsPolicy, 
+    production: production 
+  });
 });
 
 // api

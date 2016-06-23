@@ -3,6 +3,9 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { FORM_PROVIDERS } from '@angular/common';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/src/providers/angulartics2-google-analytics';
+
 import { LocaleService } from 'angular2localization/angular2localization';
 import { OpportunityService } from './services/opportunity.service';
 import { UserService } from './services/user.service';
@@ -14,6 +17,8 @@ bootstrap(AppComponent, [
   HTTP_PROVIDERS, 
   ROUTER_PROVIDERS,
   FORM_PROVIDERS,
+  Angulartics2,
+  Angulartics2GoogleAnalytics,
   LocaleService,
   NotificationsService,
   OpportunityService,
