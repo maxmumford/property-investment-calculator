@@ -15,6 +15,7 @@ import { User } from "../models/user";
 
 import { ListComponent } from './pages/list.component';
 import { CalculatorComponent } from './pages/calculator.component';
+import { ResetPasswordComponent } from './pages/reset-password.component';
 import { ModalLoginComponent } from './widgets/modal-login.component';
 
 @RouteConfig([
@@ -32,6 +33,11 @@ import { ModalLoginComponent } from './widgets/modal-login.component';
     path: '/calculator',
     name: 'Calculator',
     component: CalculatorComponent
+  },
+  {
+    path: '/reset-password/:token',
+    name: 'ResetPassword',
+    component: ResetPasswordComponent
   }
 ])
 @Component({

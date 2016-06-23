@@ -1,6 +1,6 @@
 <modal-info title="Log In Or Sign Up" #loginModal>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" *ngIf="!showForgotPassword">
 
       <div class="col-md-6">
         <h3>Login</h3>
@@ -32,7 +32,14 @@
               <span class="glyphicon glyphicon-log-in"></span>
               Login
             </button>
-            <button class="btn btn-link" (click)="loginModal.hide()">Cancel</button>
+            <button type="button" class="btn btn-link" (click)="setShowForgotPassword(true)">
+              <span class="glyphicon glyphicon-question-sign"></span>
+              Help
+            </button>
+            <button type="button" class="btn btn-link" (click)="loginModal.hide()">
+              <span class="glyphicon glyphicon-remove-sign"></span>
+              Cancel
+            </button>
           </div>
         </form>
 
@@ -70,7 +77,7 @@
               <span class="glyphicon glyphicon-log-in"></span>
               Login
             </button>
-            <button class="btn btn-link" (click)="loginModal.hide()">Cancel</button>
+            <button type="button" class="btn btn-link" (click)="loginModal.hide()">Cancel</button>
           </div>
         </form>
 
@@ -80,5 +87,54 @@
 
 
     </div><!-- /row -->
+
+    <div class="row" *ngIf="showForgotPassword">
+
+      <div class="col-md-12">
+        <div>
+          <a (click)="setShowForgotPassword(false)">
+            <span class="glyphicon glyphicon-menu-left"></span>
+            Back to login
+          </a>
+        </div>
+
+        <h3>Forgot your password?</h3>
+        <p>If you're having trouble logging in we'll email you a link that will let you reset your password.</p>
+
+        <form [ngFormModel]="forgotPasswordForm" (submit)="forgotPassword()" 
+          class="form" *ngIf="!forgotPasswordSuccess">
+
+          <!-- email -->
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input ngControl="email" id="email" #forgotPasswordEmail="ngForm" class="form-control" />
+            <div [hidden]="forgotPasswordEmail.valid || forgotPasswordEmail.pristine" 
+              class="alert alert-danger">
+              Sorry, that email doesn't look correct
+            </div>
+          </div>
+
+          <!-- buttons -->
+          <div class="form-group">
+            <button type="submit" [disabled]="!forgotPasswordForm.valid" class="btn btn-primary">
+              <span class="glyphicon glyphicon-question-sign"></span>
+              Reset Your Password
+            </button>
+            <button type="button" class="btn btn-link" (click)="setShowForgotPassword(false)">Cancel</button>
+          </div>
+
+        </form>
+
+        <!-- error / success messages -->
+        <div class="alert alert-danger" *ngIf="forgotPasswordError">
+          {{ forgotPasswordError }}
+        </div>
+        <div class="alert alert-success" *ngIf="forgotPasswordSuccess">
+          {{ forgotPasswordSuccess }}
+        </div>
+
+      </div>
+
+    </div>
   </div><!-- /container-fluid -->
 </modal-info>

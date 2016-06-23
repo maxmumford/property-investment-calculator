@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { EmailValidator, validateEmailFactory } from '../../validators/email-validator';
+import { Response } from '@angular/http';
 
 import { UserService } from '../../services/user.service';
 import { NotificationsService } from "angular2-notifications";
@@ -24,11 +25,16 @@ export class ModalLoginComponent {
   @Output() onLogin = new EventEmitter();
   @Output() onLogout = new EventEmitter();
 
+  showForgotPassword: boolean = false;
+
   loginForm: any;
   signUpForm: any;
+  forgotPasswordForm: any;
 
   loginError: string;
   signUpError: string;
+  forgotPasswordError: string;
+  forgotPasswordSuccess: string;
 
   // array of callables 
   // http://stackoverflow.com/questions/15670245/typescript-array-of-callbacks
@@ -52,6 +58,10 @@ export class ModalLoginComponent {
     this.signUpForm = this.fb.group({
       'email': ['', Validators.compose([Validators.required, validateEmailFactory()])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    });
+
+    this.forgotPasswordForm = this.fb.group({
+      'email': ['', Validators.compose([Validators.required, validateEmailFactory()])]
     });
   }
 
@@ -125,6 +135,31 @@ export class ModalLoginComponent {
         self.notificationService.error("Couldn't Register", "There was a problem with the server while trying to register your user."
           + " We are aware of this issue and should have it fixed soon. Please try again in a few hours. Thanks.")
       }
+    });
+  }
+
+  setShowForgotPassword(forgotPassword){
+    this.showForgotPassword = forgotPassword;
+  }
+
+  forgotPassword(){
+    if(!this.forgotPasswordForm.dirty || !this.forgotPasswordForm.valid){
+      return;
+    }
+
+    this.forgotPasswordError = '';
+    this.forgotPasswordSuccess = '';
+
+    let email = this.forgotPasswordForm.value.email;
+    var self = this;
+
+    this.userService.forgotPassword(email).subscribe(function(response: Response) {
+      self.forgotPasswordSuccess = "We have sent an email to " + email + " with instructions for how to reset your password.";
+    }, function(error){
+      if (error.status == 404)
+        self.forgotPasswordError = "Could not find a user with that email address, did you type it correctly?";
+      else 
+        self.forgotPasswordError = "Something went wrong when trying to reset your password. Please try again later";
     });
   }
 

@@ -17,6 +17,8 @@ export class UserService {
   private registerUrl = '/api/1/user';
   private logoutUrl = "/api/1/logout";
   private getUserUrl = "/api/1/user";
+  private forgotPasswordUrl = "/api/1/user/forgot";
+  private resetPasswordUrl = "/api/1/user/forgot/:token";
 
   private _user: User;
 
@@ -104,6 +106,34 @@ export class UserService {
 
     // return the observable so the caller can subscribe and do something with the returned value
     return observable;
+  }
+
+  forgotPassword(email: string): Observable<Response> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    // make call to the api
+    let observable = this.http.post(
+      this.forgotPasswordUrl,
+      JSON.stringify({ email: email }),
+      { headers: headers }
+    );
+
+    // return the observable so the caller can subscribe and do something with the returned value
+    return observable;
+  }
+
+  resetPassword(token: string, password?: string): Observable<Response> {
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let body = (password) ? JSON.stringify( { password: password } ) : "";
+    return this.http.post(
+      this.resetPasswordUrl.replace(":token", token), 
+      body, 
+      {headers: headers}
+    );
   }
 
   showLoginModal(callback: { (param: any): void; }) {
