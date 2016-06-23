@@ -95,7 +95,8 @@ export class ModalLoginComponent {
       }
     }, function(error){
       let errorJson = JSON.parse(error._body);
-      if (errorJson.err && errorJson.err.name == "IncorrectPasswordError") {
+      if (errorJson.err && errorJson.err.name == "IncorrectPasswordError"
+        || errorJson.err && errorJson.err.name == "IncorrectUsernameError") {
         self.loginError = "We weren't able to match the email and password you entered. Please check your entries and try again.";
         return;
       }

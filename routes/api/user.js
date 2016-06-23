@@ -15,7 +15,6 @@ module.exports = function(app, nodemailer, secrets, config){
     User.register(new User({ email: req.body.email }),
       req.body.password, function(err, user) {
       if (err) {
-        console.log(err);
         return res.status(500).json({
           err: err
         });
