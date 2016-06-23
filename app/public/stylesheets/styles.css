@@ -66,6 +66,10 @@
 /* App wide styles  */
 /* **************** */
 
+app > .container {
+  padding-bottom: 37px;
+}
+
 .clear {
   clear: both;
 }
