@@ -10,6 +10,7 @@
     'moment':                     'node_modules/moment/moment.js',
     'rxjs':                       'node_modules/rxjs',
     'angular2localization':       'node_modules/angular2localization',
+    'angular2-cookie':            'node_modules/angular2-cookie',
     
     'angular2-notifications':     'node_modules/angular2-notifications',
     'angular2-clipboard':         'node_modules/angular2-clipboard',
@@ -23,6 +24,8 @@
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2localization':       { format: 'cjs', defaultExtension: 'js' },
+    'angular2-cookie':            { main: 'core.js',  defaultExtension: 'js' },
+
     'angular2-notifications':     { main: 'components.js', defaultExtension: 'js' },
     'clipboard' :                 { defaultExtension: 'js' },
     'angular2-clipboard':         { main: 'index.js', defaultExtension: 'js' },

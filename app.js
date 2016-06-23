@@ -74,7 +74,8 @@ app.get([
     '/', 
     '/calculator', 
     '/calculator/:opportunityId',
-    '/reset-password/:token'
+    '/reset-password/:token',
+    '/boring-legal-mumbo-jumbo'
   ], function (req, res) {
   res.render('pages/index', { 
     analyticsPolicy: analyticsPolicy, 
