@@ -69,7 +69,7 @@ module.exports = function(app){
         if(opportunity.isPublic)
           res.status(200).json({data: opportunity});  
         // otherwise if owner, return it
-        else if(req.session.user && opportunity.user.equals(req.session.user._id))
+        else if(req.user && opportunity.user.equals(req.user._id))
           res.status(200).json({data: opportunity});
         // otherwise deny access
         else
