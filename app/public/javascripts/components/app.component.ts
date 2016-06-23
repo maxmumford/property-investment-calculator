@@ -57,6 +57,7 @@ import { ModalLoginComponent } from './widgets/modal-login.component';
   selector: 'app',
   moduleId: module.id,
   templateUrl: 'app.component.html',
+  providers: [ Angulartics2GoogleAnalytics ],
   directives: [
     ROUTER_DIRECTIVES,
     SimpleNotificationsComponent,

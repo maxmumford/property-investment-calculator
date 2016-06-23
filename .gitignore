@@ -13,6 +13,9 @@ app/public/javascripts/services/**/*.js.map
 app/public/javascripts/validators/**/*.js
 app/public/javascripts/validators/**/*.js.map
 
+app/public/javascripts/Angulartics2Deprecated.js
+app/public/javascripts/Angulartics2Deprecated.js.map
+
 app/public/javascripts/main.js.map
 app/public/javascripts/main.js
 
