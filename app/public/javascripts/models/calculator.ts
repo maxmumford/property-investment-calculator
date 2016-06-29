@@ -155,6 +155,19 @@ export class Calculator {
     return this.profitYearly() / 12;
   }
 
+  yield(){
+    return this.revenueYearly() / this.valuation() * 100;
+  }
+
+  returnOnInvestment(){
+    let moneyLeftIn = this.moneyLeftIn();
+    if( moneyLeftIn <= 0 )
+      return Infinity;
+    else {
+      return this.profitYearly() / moneyLeftIn * 100;
+    }
+  }
+
   private PMT(ir, np, pv, fv = 0, type = 0) {
       /*
        * ir   - interest rate per month

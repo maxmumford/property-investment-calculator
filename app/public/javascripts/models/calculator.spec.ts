@@ -191,6 +191,14 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
     expect(calculator.moneyLeftIn()).toEqual(30500);
   });
 
+  // test formulas
+  it('has correct yield', () => {
+    expect(calculator.yield()).toEqual(14.444444444444443);
+  });
+  it('has correct roi', () => {
+    expect(calculator.returnOnInvestment()).toEqual(24.138745232572532);
+  });
+
 });
 
 describe('Calculator Advanced BuyToLet Interest Only', () => {

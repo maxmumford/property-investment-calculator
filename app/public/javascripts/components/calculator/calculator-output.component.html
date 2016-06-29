@@ -78,6 +78,30 @@
           <td>{{ calculator.moneyPulledOut() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
       </tbody>
+
+      <tbody *ngIf="calculator.advanced">
+        <tr>
+          <h3>Formulas</h3>
+        </tr>
+        <tr>
+          <th>
+            <a href="#" tooltip="Yield is calculated by your yearly revenue divided by the post refurbishment valuation of your property." tabindex="-1">
+              <span class="glyphicon glyphicon-question-sign"></span>
+            </a>
+            Yield
+          </th>
+          <td>{{ calculator.yield() / 100 | percent }}</td>
+        </tr>
+        <tr>
+          <th>
+            <a href="#" tooltip="ROI is calculated as your yearly net profit, divided by your money left in the deal. If the result is infinity, it's because you managed to get all of your money back again through financing. Congrats!" tabindex="-1">
+              <span class="glyphicon glyphicon-question-sign"></span>
+            </a>
+            Return On Investment
+          </th>
+          <td>{{ calculator.returnOnInvestment() / 100 | percent }}</td>
+        </tr>
+      </tbody>
     </table>
 
     <small>Note: All figures are yearly unless specified otherwise</small>
