@@ -22,4 +22,11 @@ User.plugin(passportLocalMongoose, {
   usernameQueryFields: ['email']
 });
 
+User.methods.toJSON = function() {
+  var obj = this.toObject();
+  delete obj.hash;
+  delete obj.salt;
+  return obj;
+}
+
 module.exports = mongoose.model('User', User);

@@ -9,6 +9,7 @@
     '@angular':                   'node_modules/@angular',
     'moment':                     'node_modules/moment/moment.js',
     'rxjs':                       'node_modules/rxjs',
+
     'angular2localization':       'node_modules/angular2localization',
     'angular2-cookie':            'node_modules/angular2-cookie',
     

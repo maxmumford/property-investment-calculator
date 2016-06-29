@@ -11,6 +11,7 @@ import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
   directives: [ TOOLTIP_DIRECTIVES, BUTTON_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES ]
 })
 export class WidgetCalculatorRadioComponent implements OnInit {
+  @Input() readonly: boolean;
   @Input() label : string;
   @Input() options : Array<any>;
   @Input() tooltip : string;

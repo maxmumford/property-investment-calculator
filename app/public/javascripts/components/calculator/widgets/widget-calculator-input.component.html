@@ -10,7 +10,7 @@
       <span *ngIf="inputSymbol == '£'">{{  0 | localecurrency:defaultLocale:currency:true:'1.2-2' | slice: 0:1 }}</span>
       <span *ngIf="inputSymbol != '£'">{{ inputSymbol }}</span>
     </span>
-    <input type="{{ type }}" class="form-control" [ngModel]="model" (ngModelChange)="updateData($event)" 
+    <input [attr.readonly]="readonly || null" type="{{ type }}" class="form-control" [ngModel]="model" (ngModelChange)="updateData($event)" 
       max="{{ max }}" min="{{ min }}" step="{{ step }}">
     <span class="input-group-addon" *ngIf="link">
       <a href="{{ link }}" target="_blank">

@@ -4,6 +4,7 @@ export class Opportunity {
   public name: string = "";
   public calculatorAdvanced: boolean = false;
   public isPublic: boolean = false;
+  public user: string;
 
   // tenant
   public tenantNumber: number = 0; 

@@ -91,6 +91,7 @@ export class AppComponent implements AfterViewInit {
     private angulartics2: Angulartics2, 
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
 
+    userService.init();
     this.viewContainerRef = privateviewContainerRef;
     this.locale.definePreferredLocale('en', 'GB');
     this.locale.definePreferredCurrency('GBP');

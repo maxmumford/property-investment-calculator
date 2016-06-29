@@ -20,9 +20,7 @@
   </div>
 </nav>
 
+<router-outlet></router-outlet>
+<simple-notifications [options]="notificationOptions"></simple-notifications>
 <modal-login></modal-login>
-
-<div class="container">
-  <router-outlet></router-outlet>
-  <simple-notifications [options]="notificationOptions"></simple-notifications>
-</div>
+<div class="bottom-spacer">&nbsp;</div>

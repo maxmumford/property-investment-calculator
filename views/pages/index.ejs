@@ -2,9 +2,15 @@
 <html lang="en">
   <head>
     <base href="/">
-    <title>Property Investment Calculator</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The World's Best Property Investment Calculator</title>
+    <meta name="keywords" content="property,investment,calculator,napkin,calculation,appraisal,appraiser,opportunity">
+    <meta name="description" content="We'll help you appraise potential property investments, quickly calculate formulas and compare  your opportunities.">
+    <meta name="author" content="Max Mumford">
+
+    <meta name="theme-color" content="#101010">
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
@@ -53,6 +59,55 @@
   <!-- Display the application -->
   <body>
     <app>
+
+      <div class="jumbotron static property">
+        <div class="welcome">
+          <h1>
+            <small>welcome to</small><br>
+            The World's Best Property Investment Calculator
+          </h1>
+        </div>
+
+        <div class="features container">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="thumbnail">
+                <div class="image-container">
+                  <span class="glyphicon glyphicon-piggy-bank"></span>
+                </div>
+                <div class="caption">
+                  <h3>Appraise Investments</h3>
+                  <p>Quickly and easily see if an investment opportunity is likely to be profitable</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="thumbnail">
+                <div class="image-container">
+                  <span class="glyphicon glyphicon-scale"></span>
+                </div>
+                <div class="caption">
+                  <h3>Calculate Formulas</h3>
+                  <p>Automatically calculate formulas like Yield and Return on Investment (ROI)</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="thumbnail">
+                <div class="image-container">
+                  <span class="glyphicon glyphicon-duplicate"></span>
+                </div>
+                <div class="caption">
+                  <h3>Compare Opportunities</h3>
+                  <p>Compare multiple investment opportunities on a like for like basis</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- / container -->
+
+      </div><!-- / hero -->
+
       <div class="loading">
         <div class="spinner__container">
           <div class="spinner one"></div>
@@ -64,6 +119,8 @@
         </div>
       </div>
     </app>
+
+    <div class="bottom-spacer">&nbsp;</div>
 
     <script type="text/javascript">
       // workaround for https://github.com/angulartics/angulartics2/issues/11

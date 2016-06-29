@@ -1,11 +1,37 @@
 /* **************** */
 /* Loading ******** */
 /* **************** */
+.jumbotron.static {
+  padding-top: 50px;
+}
+
+.jumbotron.property {
+  background-image: url(/images/property.jpg);
+  background-size: cover;
+  color: white;
+}
+
+.jumbotron.property h1 {
+  margin-bottom: 30px;
+}
+
+.welcome {
+  text-align: center;
+}
+
+.features .thumbnail {
+  text-align: center;
+}
+
+.features .image-container {
+  font-size: 90px;
+  color: #666666;
+  margin: 10px 0px -30px 0px;
+}
 
 .loading {
   text-align: center;
   font-size: 48px;
-  padding-top:100px;
 }
 
 .loading .spinner__container {
@@ -74,8 +100,17 @@ body {
   min-height: 100%;
 }
 
+.bottom-spacer {
+  height: 50px;
+}
+
 app > .container {
   padding-bottom: 37px;
+}
+
+/* First element of the component - so has space between itself and the navbar */
+.page {
+  margin-top: 20px;
 }
 
 .clear {
@@ -104,4 +139,27 @@ a {
 
 .ng-invalid.ng-touched {
   border: solid 2px #a94442 !important;
+}
+
+/* ***************** */
+/* Bootstrap ******* */
+/* ***************** */
+
+@media screen and (min-width: 768px){
+  app .jumbotron .h1, .jumbotron h1 {
+    font-size: 48px !important;
+  }
+}
+
+app .jumbotron {
+  padding-top: 1px;
+}
+
+app .navbar {
+  margin-bottom: 0px;
+}
+
+.btn-xl {
+  padding:20px 30px !important;
+  font-size: 1.5em !important;
 }

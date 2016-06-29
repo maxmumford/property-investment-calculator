@@ -14,7 +14,7 @@ export class UserService {
   public loginModal: ModalLoginComponent;
 
   private loginUrl = '/api/1/login';
-  private registerUrl = '/api/1/user';
+  private signUpUrl = '/api/1/user';
   private logoutUrl = "/api/1/logout";
   private getUserUrl = "/api/1/user";
   private forgotPasswordUrl = "/api/1/user/forgot";
@@ -29,7 +29,10 @@ export class UserService {
   constructor(
     private _router: Router,
     private http: Http) {
+  }
 
+  // called by app.component.ts
+  init(){
     // get logged in user, then refresh it every 2 minutes
     this.getUser();
     var self = this;
@@ -50,6 +53,10 @@ export class UserService {
       this.onLogout.next(user);
 
     this._user = user;
+  }
+
+  isLoggedIn(): boolean{
+    return (this.user ? true : false);
   }
 
   logout(): Observable<Response> {
@@ -92,17 +99,23 @@ export class UserService {
     return observable;
   }
 
-  register(user: User): Observable<User> {
+  signUp(user: User): Observable<User> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
 
     // make call to the api
     let observable = this.http.post(
-      this.registerUrl,
+      this.signUpUrl,
       JSON.stringify(user),
       { headers: headers }
     ).map(this.extractData)
+
+    var self = this;
+    observable.subscribe(function(user) {
+      if (user)
+        self.user = user;
+    });
 
     // return the observable so the caller can subscribe and do something with the returned value
     return observable;

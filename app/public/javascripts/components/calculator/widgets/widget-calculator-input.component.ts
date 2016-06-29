@@ -18,6 +18,7 @@ var ICONS = {
   pipes: [LocaleCurrencyPipe]
 })
 export class WidgetCalculatorInputComponent implements OnInit {
+  @Input() readonly : boolean;
   @Input() label : string;
   @Input() type : string;
   @Input() tooltip : string;

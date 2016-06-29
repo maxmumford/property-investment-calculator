@@ -6,6 +6,14 @@ export class User {
     private _id?: string
   ){}
 
+  public get id(): string{
+    return this._id;
+  }
+
+  public set id(id){
+    this._id = id;
+  }
+
   static fromJson(json){
     if (json.email == undefined)
       return null;

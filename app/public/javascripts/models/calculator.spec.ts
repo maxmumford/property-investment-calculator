@@ -1,9 +1,46 @@
+import { UserService } from '../services/user.service';
+
+import { User } from './user';
 import { Calculator } from './calculator';
 import { Opportunity } from './opportunity';
 
-describe('Calculator Simple No Mortgage', () => {
+let userService: UserService = new UserService(null, null);
+userService.user = new User("maxmumford@gmail.com", "test", "theuserid123");
+
+describe('Calculator Readonly', () => {
 
   let opportunity = new Opportunity();
+  opportunity.id = "1234567890567";
+  opportunity.user = "anotheruserid456";
+
+  let calculator = new Calculator(userService, opportunity);
+
+  it('is readonly', () => {
+    expect(calculator.isReadonly()).toEqual(true);
+  });
+
+});
+
+describe('Calculator Not Readonly', () => {
+
+  let opportunity = new Opportunity();
+  opportunity.id = "0987654327654";
+  opportunity.user = "theuserid123";
+
+  let calculator = new Calculator(userService, opportunity);
+
+  it('is readonly', () => {
+    expect(calculator.isReadonly()).toEqual(false);
+  });
+
+});
+
+describe('Calculator Simple No Mortgage', () => {
+
+  let opportunity;
+  let calculator;
+
+  opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
   opportunity.rentPerTenantWeekly = 100;
   opportunity.billsYearly = 2000;
@@ -12,7 +49,7 @@ describe('Calculator Simple No Mortgage', () => {
   opportunity.refurbCost = 50000;
   opportunity.mortgage = false;
 
-  let calculator = new Calculator(opportunity);
+  calculator = new Calculator(userService, opportunity);
 
   // test default values
   it('has name', () => {
@@ -66,7 +103,7 @@ describe('Calculator Simple BuyToLet Repayment', () => {
   opportunity.valuationBuyToLet = 180000;
   opportunity.apr = 6;
 
-  let calculator = new Calculator(opportunity);
+  let calculator = new Calculator(null, opportunity);
 
   // test default values
   it('has name', () => {
@@ -129,7 +166,7 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
   opportunity.term = 25;
   opportunity.calculatorAdvanced = true;
 
-  let calculator = new Calculator(opportunity);
+  let calculator = new Calculator(null, opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -181,7 +218,7 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
   opportunity.term = 25;
   opportunity.calculatorAdvanced = true;
 
-  let calculator = new Calculator(opportunity);
+  let calculator = new Calculator(null, opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -232,7 +269,7 @@ describe('Calculator Advanced Commercial Repayment', () => {
   opportunity.term = 25;
   opportunity.calculatorAdvanced = true;
 
-  let calculator = new Calculator(opportunity);
+  let calculator = new Calculator(null, opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -284,7 +321,7 @@ describe('Calculator Advanced Commercial Interest Only', () => {
   opportunity.term = 25;
   opportunity.calculatorAdvanced = true;
 
-  let calculator = new Calculator(opportunity);
+  let calculator = new Calculator(null, opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {
@@ -336,7 +373,7 @@ describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
   opportunity.term = 25;
   opportunity.calculatorAdvanced = true;
 
-  let calculator = new Calculator(opportunity);
+  let calculator = new Calculator(null, opportunity);
 
   // test advanced calculations
   it('has correct yearly profit', () => {

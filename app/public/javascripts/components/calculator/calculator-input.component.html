@@ -1,7 +1,9 @@
 <form [ngFormModel]="calculatorFormGroup">
   <div class="row">
     <div class="col-md-12">
-      <input class="opportunityName" type="text" ngControl="name" [(ngModel)]="calculator.opportunity.name" placeholder="Your property name" autofocus>
+      <input [attr.readonly]="calculator.isReadonly() || null" class="opportunityName" type="text" 
+        ngControl="name" [(ngModel)]="calculator.opportunity.name" 
+        placeholder="Your property name" autofocus>
     </div>
   </div>
 
@@ -14,6 +16,7 @@
   <div class="row">
     <div class="col-xs-6">
       <widget-calculator-input 
+        [readonly]="calculator.isReadonly()"
         label="Number of Tenants" 
         type="number" 
         tooltip="The total number of tenants that will live in the house" 
@@ -22,6 +25,7 @@
     </div>
     <div class="col-xs-6">
       <widget-calculator-input 
+        [readonly]="calculator.isReadonly()"
         label="Rent Per Tenant Per Week" 
         type="currency" 
         tooltip="test" 
@@ -40,6 +44,7 @@
   <div class="row">
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Bills Yearly"
         type="currency"
         tooltip="The amount you will pay in bills per year - gas, electricity, internet etc. Don't include bills paid by the tenant."
@@ -49,6 +54,7 @@
     </div>
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Maintenance Yearly"
         type="currency"
         tooltip="The amount of maintenance you will spend keeping the property per year. This includes fixing things like light bulbs, white goods, repaining etc."
@@ -61,6 +67,7 @@
   <div class="row" *ngIf="calculator.advanced">
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Management"
         type="percent"
         tooltip="The amount you will pay for property management as a percentage of your gross income. Usually 8-12%."
@@ -69,6 +76,7 @@
     </div>
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Voids"
         type="percent"
         tooltip="The percentage of the year that the property will remain empty"
@@ -86,6 +94,7 @@
   <div class="row">
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Purchase Price"
         type="currency"
         tooltip="The amount you'll spend to purchase the property"
@@ -95,6 +104,7 @@
     </div>
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Refurbishment Cost"
         type="currency"
         tooltip="The amount you'll spend to convert the property so it is suitable to let out. For example rennovating, adding ensuites etc."
@@ -107,6 +117,7 @@
   <div class="row" *ngIf="calculator.advanced">
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Legal Fees"
         type="currency"
         tooltip="The fees you will pay solicitors for conveyencing etc. Usually around £1,000 for a normal property purchase."
@@ -116,6 +127,7 @@
     </div>
     <div class="col-xs-6">
       <widget-calculator-input
+        [readonly]="calculator.isReadonly()"
         label="Stamp Duty"
         type="currency"
         tooltip="The Government charges Stamp Duty tax each time you purchase a property. Click the calculator icon to the right of the stamp duty text box to calculate this figure, then enter it here."
@@ -132,13 +144,14 @@
       <h3>
         Will You Take Out a Mortgage?
         <widget-calculator-radio
-        [(model)]="calculator.opportunity.mortgage"
-        containerClass="inline"
-        [options]="[
-          {label: 'No', value: false },
-          {label: 'Yes', value: true } 
-        ]">
-      </widget-calculator-radio>
+          [readonly]="calculator.isReadonly()"
+          [(model)]="calculator.opportunity.mortgage"
+          containerClass="inline"
+          [options]="[
+            {label: 'No', value: false },
+            {label: 'Yes', value: true } 
+          ]">
+        </widget-calculator-radio>
       </h3>
     </div>
   </div>
@@ -146,7 +159,9 @@
   <div *ngIf="calculator.opportunity.mortgage">
     <div class="row" *ngIf="calculator.advanced">
       <div class="col-xs-6">
-        <widget-calculator-radio label="Payment Basis" 
+        <widget-calculator-radio
+          [readonly]="calculator.isReadonly()" 
+          label="Payment Basis" 
           tooltip="Will you repay the entire mortgage, or just pay the interest? If you are unsure, choose repayment."
           [(model)]="calculator.opportunity.paymentBasis"
           [options]="[
@@ -156,7 +171,8 @@
         </widget-calculator-radio>
       </div>
       <div class="col-xs-6">
-        <widget-calculator-radio label="Mortgage Type" 
+        <widget-calculator-radio
+          [readonly]="calculator.isReadonly()" label="Mortgage Type" 
           tooltip="The type of mortgage you will take out. If you are unsure, choose 'Market Value'."
           [(model)]="calculator.opportunity.mortgageType"
           [options]="[
@@ -170,6 +186,7 @@
     <div class="row">
       <div class="col-xs-6" *ngIf="calculator.opportunity.mortgageType == 'buyToLet'">
         <widget-calculator-input
+          [readonly]="calculator.isReadonly()"
           label="Value After Conversion"
           type="currency"
           tooltip="What do you estimate your property will be worth after the conversion has been done? This determines how much the bank will loan to you."
@@ -178,7 +195,8 @@
         </widget-calculator-input>
       </div>
         <div class="col-xs-6" *ngIf="calculator.opportunity.mortgageType == 'commercial'">
-        <widget-calculator-radio 
+        <widget-calculator-radio
+          [readonly]="calculator.isReadonly()" 
           label="Pull Out Extra Money" 
           tooltip="If the banks offer to loan you more than your total capital investment, do you want to borrow the difference? For example, if you buy the property for 70k, the conversion costs 50k (total of 120k) and the banks offer to loan you 130k, do you want to borrow the extra 10k? This will effectively put you in negative equity."
           [(model)]="calculator.opportunity.pullOutExtraMoney"
@@ -190,6 +208,7 @@
       </div>
       <div class="col-xs-6">
         <widget-calculator-input
+          [readonly]="calculator.isReadonly()"
           *ngIf="calculator.opportunity.mortgageType == 'commercial'"
           label="Multiplier"
           type="number"
@@ -200,6 +219,7 @@
       </div>
       <div class="col-xs-6" *ngIf="calculator.advanced">
         <widget-calculator-input
+          [readonly]="calculator.isReadonly()"
           label="Percentage of Valuation to Borrow (LTV)"
           type="percent"
           tooltip="How much of the value of the property the banks will loan you. They will usually loan up to 75%."
@@ -209,6 +229,7 @@
       </div>
       <div class="col-xs-6">
         <widget-calculator-input
+          [readonly]="calculator.isReadonly()"
           label="Interest Rate (APR)"
           type="percent"
           tooltip="The interest rate the bank will charge per year."
@@ -218,6 +239,7 @@
       </div>
       <div class="col-xs-6" *ngIf="calculator.advanced">
         <widget-calculator-input
+          [readonly]="calculator.isReadonly()"
           label="Mortgage Length"
           type="number"
           tooltip="The length in years of the mortgage. Standard length is 25."

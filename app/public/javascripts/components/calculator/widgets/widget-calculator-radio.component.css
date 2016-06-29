@@ -1,3 +1,7 @@
 .inline {
   display: inline-flex;
 }
+
+label[readonly="true"] {
+  pointer-events: none;
+}

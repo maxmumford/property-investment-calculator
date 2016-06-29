@@ -32,7 +32,7 @@ module.exports = function(app, nodemailer, secrets, config){
         // return feedback
         return res.status(200).json({
           status: 'Sign up successful and user logged in',
-          user: {email: user.email}
+          user: user
         });
       });
     });
@@ -59,7 +59,7 @@ module.exports = function(app, nodemailer, secrets, config){
         // and return a success message
         res.status(200).json({
           status: 'Login successful!',
-          user: {email: user.email}
+          user: user
         });
       });
     })(req, res, next);

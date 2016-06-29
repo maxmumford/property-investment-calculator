@@ -115,7 +115,7 @@ export class ModalLoginComponent {
 
     var self = this;
     let user = new User(email, password);
-    this.userService.register(user).subscribe(function(user) {
+    this.userService.signUp(user).subscribe(function(user) {
       if (user) {
         self._onLogin(user);
         self.notificationService.success("Registered and Logged In", 

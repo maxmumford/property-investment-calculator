@@ -43,16 +43,23 @@ export class CalculatorComponent implements OnInit {
     private notificationService: NotificationsService,
     private userService: UserService,
     private router: Router) {
-    // start with an empty calculator
     this.opportunityId = this.routeParams.get('opportunityId') || null;
+
+    // start with an empty calculator if no opportunity ID specified
     if (!this.opportunityId)
-      this.calculator = new Calculator();
+      this.calculator = new Calculator(this.userService);
 
     // subscribe to logout event and redirect to home (unless public)
     var self = this;
     this.userService.onLogout.subscribe(function(user){
       if (!self.calculator.opportunity.isPublic)
         self.router.navigate(["Home"]);
+    });
+
+    // subscribe to login event and reload the calculator
+    var self = this;
+    this.userService.onLogin.subscribe(function(user){
+      self.getCalculator();
     });
   }
 
@@ -61,7 +68,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   setOpportunity(opportunity: Opportunity) {
-    this.calculator = new Calculator(opportunity);
+    this.calculator = new Calculator(this.userService, opportunity);
   }
 
   loadExampleOpportunity() {
@@ -69,6 +76,10 @@ export class CalculatorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCalculator();
+  }
+
+  getCalculator() {
     if (this.opportunityId) {
       var self = this;
       this.opportunityService.getOpportunity(this.opportunityId).subscribe(

@@ -1,8 +1,13 @@
 import { Opportunity } from './opportunity';
+import { UserService } from '../services/user.service';
 
 export class Calculator {
 
-  constructor(private _opportunity: Opportunity = new Opportunity()) {
+  public readonly: boolean = false;
+
+  constructor(
+    private userService: UserService,
+    private _opportunity: Opportunity = new Opportunity()) {
   }
 
   // getters and setters
@@ -25,6 +30,19 @@ export class Calculator {
       this._opportunity.loanToValue = 75;
       this._opportunity.term = 25;
     }
+  }
+
+  isReadonly(){
+    // not readonly if it's not yet been saved
+    if(null === this.opportunity.id)
+      return false;
+
+    // not readonly if user is owner
+    if(this.userService.isLoggedIn() && this.userService.user.id == this.opportunity.user)
+      return false;
+
+    // readonly    
+    return true;
   }
 
   // calculations

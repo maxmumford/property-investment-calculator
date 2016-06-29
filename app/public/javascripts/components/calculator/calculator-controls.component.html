@@ -1,54 +1,56 @@
-<div class="text-center">
-  <a class="btn btn-primary btn-lg button-save" (click)="save()">
-    <span class="glyphicon glyphicon-floppy-saved"></span>
-    Save
-  </a>
+<div *ngIf="calculator.isReadonly() == false">
+  <div class="text-center">
+    <a class="btn btn-primary btn-lg button-save" (click)="save()">
+      <span class="glyphicon glyphicon-floppy-saved"></span>
+      Save
+    </a>
 
-  <modal-info #shareModal title="Share your Calculation">
-    <div *ngIf="calculator.opportunity.isPublic == false">
-      <button class="btn btn-primary" tooltip="Turn on link sharing and get a sharable link for this calculation" (click)="makePublic()">
-        <span class="glyphicon glyphicon-link"></span>
-        Get Sharable Link
-      </button>
-    </div>
-
-    <div *ngIf="calculator.opportunity.isPublic">
-      <p>Share your calculation by sending the link below to your contact</p>
-      <div class="input-group">
-        <input #sharableUrlInput type="text" class="form-control" value="{{ sharableUrl }}" readonly>
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" [ngIIclipboard]="sharableUrlInput"
-            (cbOnSuccess)="sharableUrlCopied()" (cbOnError)="sharableUrlCopyFailed($event)"
-            (click)="shareModal.hide()">
-            <span class="glyphicon glyphicon-copy"></span>
-            Copy
-          </button>
-        </span>
+    <modal-info #shareModal title="Share your Calculation">
+      <div *ngIf="calculator.opportunity.isPublic == false">
+        <button class="btn btn-primary" tooltip="Turn on link sharing and get a sharable link for this calculation" (click)="makePublic()">
+          <span class="glyphicon glyphicon-link"></span>
+          Get Sharable Link
+        </button>
       </div>
-    </div>
-  </modal-info>
-  <span [ngSwitch]="calculator.opportunity.isNewDocument()">
-    <div *ngSwitchWhen="true" 
-      tooltip="You must save your calculation before you can share it" class="share-tooltip-container">
-      <a class="btn btn-default btn-lg button-save disabled" disabled="disabled">
-        <span class="glyphicon glyphicon-share"></span>
-        Share
-      </a>
-    </div>
-    <div *ngSwitchWhen="false" class="share-tooltip-container">
-      <a class="btn btn-default btn-lg button-save" (click)="shareModal.show()">
-        <span class="glyphicon glyphicon-share"></span>
-        Share
-      </a>
-    </div>
-  </span>
 
-  <a (click)="confirmReset.show()" class="btn btn-link">
-    <span class="glyphicon glyphicon-trash"></span>
-    Start Again
-  </a>
-  <modal-confirm #confirmReset 
-    title="Reset the Calculator" question="By starting again you'll lose everything you've typed into this calculator." 
-    positive="Start Again" (positive)="reset(confirmReset)">
-  </modal-confirm>
+      <div *ngIf="calculator.opportunity.isPublic">
+        <p>Share your calculation by sending the link below to your contact</p>
+        <div class="input-group">
+          <input #sharableUrlInput type="text" class="form-control" value="{{ sharableUrl }}" readonly>
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" [ngIIclipboard]="sharableUrlInput"
+              (cbOnSuccess)="sharableUrlCopied()" (cbOnError)="sharableUrlCopyFailed($event)"
+              (click)="shareModal.hide()">
+              <span class="glyphicon glyphicon-copy"></span>
+              Copy
+            </button>
+          </span>
+        </div>
+      </div>
+    </modal-info>
+    <span [ngSwitch]="calculator.opportunity.isNewDocument()">
+      <div *ngSwitchWhen="true" 
+        tooltip="You must save your calculation before you can share it" class="share-tooltip-container">
+        <a class="btn btn-default btn-lg button-save disabled" disabled="disabled">
+          <span class="glyphicon glyphicon-share"></span>
+          Share
+        </a>
+      </div>
+      <div *ngSwitchWhen="false" class="share-tooltip-container">
+        <a class="btn btn-default btn-lg button-save" (click)="shareModal.show()">
+          <span class="glyphicon glyphicon-share"></span>
+          Share
+        </a>
+      </div>
+    </span>
+
+    <a (click)="confirmReset.show()" class="btn btn-link">
+      <span class="glyphicon glyphicon-trash"></span>
+      Start Again
+    </a>
+    <modal-confirm #confirmReset 
+      title="Reset the Calculator" question="By starting again you'll lose everything you've typed into this calculator." 
+      positive="Start Again" (positive)="reset(confirmReset)">
+    </modal-confirm>
+  </div>
 </div>

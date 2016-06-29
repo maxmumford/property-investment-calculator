@@ -84,7 +84,7 @@ export class CalculatorControlsComponent {
   reset(confirmReset){
     confirmReset.hide();
     this.router.navigate(['Calculator']);
-    this.calculator = new Calculator();
+    this.calculator = new Calculator(this.userService);
     this.calculatorChange.emit(this.calculator);
   }
 
