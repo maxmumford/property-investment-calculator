@@ -61,7 +61,7 @@ export class UserService {
 
   logout(): Observable<Response> {
     var self = this;
-    let observable = this.http.get(this.logoutUrl);
+    let observable = this.http.get(this.logoutUrl).share();
     observable.subscribe(function(response) {
       if(response.status == 200){
         self.user = null;
@@ -81,6 +81,7 @@ export class UserService {
       JSON.stringify( Object.assign(user, {rememberMe: rememberMe}) ),
       { headers: headers }
     ).map(this.extractData)
+     .share()
 
     observable.subscribe(function(user) {
       if (user)
@@ -91,7 +92,8 @@ export class UserService {
   }
 
   getUser(): Observable<User> {
-    let observable = this.http.get(this.getUserUrl).map(this.extractData);
+    let observable = this.http.get(this.getUserUrl).map(this.extractData)
+                                                   .share();
     var self = this;
     observable.subscribe(function(user) {
       self.user = user;
@@ -110,6 +112,7 @@ export class UserService {
       JSON.stringify(user),
       { headers: headers }
     ).map(this.extractData)
+     .share();
 
     var self = this;
     observable.subscribe(function(user) {
@@ -131,7 +134,7 @@ export class UserService {
       this.forgotPasswordUrl,
       JSON.stringify({ email: email }),
       { headers: headers }
-    );
+    ).share();
 
     // return the observable so the caller can subscribe and do something with the returned value
     return observable;
@@ -142,11 +145,22 @@ export class UserService {
       'Content-Type': 'application/json'
     });
     let body = (password) ? JSON.stringify( { password: password } ) : "";
-    return this.http.post(
+
+    let observable = this.http.post(
       this.resetPasswordUrl.replace(":token", token), 
       body, 
       {headers: headers}
-    );
+    ).share();
+
+    var self = this;
+    observable.subscribe(function(response){
+      debugger;
+      let resp = response.json();
+      if(resp.user)
+        self.user = resp.user;
+    });
+
+    return observable;
   }
 
   showLoginModal(callback: { (param: any): void; }) {

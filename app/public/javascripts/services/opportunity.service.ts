@@ -20,11 +20,13 @@ export class OpportunityService {
   public getOpportunities(): Observable<Opportunity[]> {
     return this.http.get(this.opportunitiesUrl)
       .map(this.extractData)
+      .share()
   }
 
   public getOpportunity(id: string): Observable<Opportunity> {
     return this.http.get(`${this.opportunityGetUrl}/${id}`)
       .map(this.extractData)
+      .share()
   }
 
   public save(opportunity: Opportunity): Observable<Opportunity> {
@@ -42,11 +44,13 @@ export class OpportunityService {
 
     return this.http
       .delete(url, headers)
+      .share()
   }
 
   public makePublic(opportunity: Opportunity): Observable<Opportunity>{
     let url = this.opportunityMakePublicUrl.replace(':id', opportunity.id);
-    return this.http.get(url).map(this.extractData);
+    return this.http.get(url).map(this.extractData)
+                             .share();
   }
 
   public exampleOpportunity(): Opportunity {
@@ -103,6 +107,7 @@ export class OpportunityService {
     return this.http
       .post(this.opportunityAddUrl, JSON.stringify(opportunity), { headers: headers })
       .map(this.extractData)
+      .share()
   }
 
   // Update existing Opportunity
@@ -115,6 +120,7 @@ export class OpportunityService {
     return this.http
       .put(url, JSON.stringify(opportunity), { headers: headers })
       .map(this.extractData)
+      .share()
   }
 
 }
