@@ -8,39 +8,49 @@
     <table class="table">
       <tbody>
         <tr>
-            <h3>Gross Profit</h3>
+          <th class="no-border"><h3>Gross Profit</h3></th>
+          <th class="no-border">Yearly</th>
+          <th class="no-border">Monthly</th>
         </tr>
         <tr>
           <th>Revenue</th>
           <td>{{ calculator.revenueYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td>{{ calculator.revenueYearly() / 12 | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
         <tr>
           <th>Expenses</th>
           <td>{{ calculator.expensesYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td>{{ calculator.expensesYearly() / 12 | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
         <tr>
           <th>Gross Profit</th>
           <td>{{ calculator.grossProfitYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td>{{ calculator.grossProfitYearly() / 12 | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
       </tbody>
 
       <tbody *ngIf="calculator.mortgage()">
         <tr>
-          <h3>Mortgage</h3>
+          <th class="no-border"><h3>Mortgage</h3></th>
+          <th class="no-border">Yearly</th>
+          <th class="no-border">Monthly</th>
         </tr>
         <tr>
           <th>Amount Borrowed</th>
-          <td>{{ calculator.mortgagePrincipal() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td colspan="2">{{ calculator.mortgagePrincipal() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
         <tr>
           <th>Mortgage Payments</th>
           <td>{{ calculator.mortgagePaymentsYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td>{{ calculator.mortgagePaymentsYearly() / 12 | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
       </tbody>
 
       <tbody>
         <tr>
-          <h3>Net Profit</h3>
+          <th class="no-border"><h3>Net Profit</h3></th>
+          <th class="no-border">Yearly</th>
+          <th class="no-border">Monthly</th>
         </tr>
         <tr>
           <th>Net Profit</th>
@@ -52,11 +62,8 @@
               {{ calculator.profitYearly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
             </span>
           </td>
-        </tr>
-        <tr>
-          <th>Net Profit Monthly</th>
           <td>
-              {{ calculator.profitMonthly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
+            {{ calculator.profitMonthly() | localecurrency:defaultLocale:currency:true:'1.2-2' }}
           </td>
         </tr>
       </tbody>
@@ -67,15 +74,15 @@
         </tr>
         <tr>
           <th>Capital Invested</th>
-          <td>{{ calculator.capitalInvested() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td colspan="2">{{ calculator.capitalInvested() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
         <tr>
           <th>Money Left In</th>
-          <td>{{ calculator.moneyLeftIn() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td colspan="2">{{ calculator.moneyLeftIn() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
         <tr *ngIf="calculator.pullOutExtraMoney">
           <th>Money Pulled Out</th>
-          <td>{{ calculator.moneyPulledOut() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
+          <td colspan="2">{{ calculator.moneyPulledOut() | localecurrency:defaultLocale:currency:true:'1.2-2' }}</td>
         </tr>
       </tbody>
 
@@ -90,7 +97,7 @@
             </a>
             Yield
           </th>
-          <td>{{ calculator.yield() / 100 | percent }}</td>
+          <td colspan="2">{{ calculator.yield() / 100 | percent }}</td>
         </tr>
         <tr>
           <th>
@@ -99,7 +106,7 @@
             </a>
             Return On Investment
           </th>
-          <td>{{ calculator.returnOnInvestment() / 100 | percent }}</td>
+          <td colspan="2">{{ calculator.returnOnInvestment() / 100 | percent }}</td>
         </tr>
       </tbody>
     </table>
