@@ -52,7 +52,8 @@ export class ModalLoginComponent {
   ngOnInit() {
     this.loginForm = this.fb.group({
       'email': ['', Validators.compose([Validators.required, validateEmailFactory()])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      'rememberMe': ['']
     });
 
     this.signUpForm = this.fb.group({
@@ -80,11 +81,12 @@ export class ModalLoginComponent {
     }
     let email = this.loginForm.value.email;
     let password = this.loginForm.value.password;
+    let rememberMe = this.loginForm.value.rememberMe;
 
     // make call to api
     var self = this;
     let user = new User(email, password);
-    this.userService.login(user).subscribe(function(user){
+    this.userService.login(user, rememberMe).subscribe(function(user){
       if (user) {
         self._onLogin(user);
         self.notificationService.success("Logged In", "You've been logged in, welcome back :)");

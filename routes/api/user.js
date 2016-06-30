@@ -56,6 +56,10 @@ module.exports = function(app, nodemailer, secrets, config){
           });
         }
 
+        // handle 'rememeber-me' checkbox
+        if(req.body.rememberMe)
+          req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
+
         // and return a success message
         res.status(200).json({
           status: 'Login successful!',

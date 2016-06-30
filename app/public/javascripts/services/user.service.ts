@@ -70,7 +70,7 @@ export class UserService {
     return observable;
   }
 
-  login(user: User): Observable<User> {
+  login(user: User, rememberMe: boolean): Observable<User> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -78,7 +78,7 @@ export class UserService {
     var self = this;
     let observable = this.http.post(
       this.loginUrl,
-      JSON.stringify(user),
+      JSON.stringify( Object.assign(user, {rememberMe: rememberMe}) ),
       { headers: headers }
     ).map(this.extractData)
 

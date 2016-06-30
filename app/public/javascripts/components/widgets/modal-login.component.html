@@ -26,6 +26,14 @@
             </div>
           </div>
 
+          <!-- remember me -->
+          <div class="form-group">
+            <label for="rememberMe">
+              Keep Me Logged In 
+              <input ngControl="rememberMe" type="checkbox" name="rememberMe" id="rememberMe" #rememberMe="ngForm">
+            </label>
+          </div>
+
           <!-- buttons -->
           <div class="form-group">
             <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">
