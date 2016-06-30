@@ -45,7 +45,7 @@
     <div class="col-xs-6">
       <widget-calculator-input
         [readonly]="calculator.isReadonly()"
-        label="Bills Yearly"
+        label="Bills you will pay (yearly)"
         type="currency"
         tooltip="The amount you will pay in bills per year - gas, electricity, internet etc. Don't include bills paid by the tenant."
         [(model)]="calculator.opportunity.billsYearly"
@@ -55,7 +55,7 @@
     <div class="col-xs-6">
       <widget-calculator-input
         [readonly]="calculator.isReadonly()"
-        label="Maintenance Yearly"
+        label="Maintenance (yearly)"
         type="currency"
         tooltip="The amount of maintenance you will spend keeping the property per year. This includes fixing things like light bulbs, white goods, repaining etc."
         [(model)]="calculator.opportunity.maintenanceYearly"
