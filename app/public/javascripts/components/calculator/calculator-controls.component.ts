@@ -58,6 +58,14 @@ export class CalculatorControlsComponent {
       return;
     }
 
+    // check a name has been entered
+    if(this.calculator.opportunity.name.length == 0){
+      this.notificationService.error("Please Enter a Name", 
+        "You'll need to enter a name for this calculation before you can save it."
+        + " How about the address of the property?");
+      return;
+    }
+
     // otherwise save their opportunity
     var self = this;
     this.opportunityService.save(this.calculator.opportunity).subscribe(

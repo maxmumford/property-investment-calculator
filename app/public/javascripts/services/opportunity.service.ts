@@ -57,7 +57,7 @@ export class OpportunityService {
     let opportunity = new Opportunity();
     opportunity.name = "2 Example Street, Liverpool; 5 Bed HMO";
     opportunity.tenantNumber = 5;
-    opportunity.rentPerTenantWeekly = 100;
+    opportunity.rentPerTenantMonthly = 420;
 
     // expenses
     opportunity.billsYearly = 2000;

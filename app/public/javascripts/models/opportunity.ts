@@ -8,7 +8,7 @@ export class Opportunity {
 
   // tenant
   public tenantNumber: number = 0; 
-  public rentPerTenantWeekly: number = 0;
+  public rentPerTenantMonthly: number = 0;
   
   // expenses
   public billsYearly: number = 0;

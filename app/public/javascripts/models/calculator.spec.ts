@@ -42,7 +42,7 @@ describe('Calculator Simple No Mortgage', () => {
 
   opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
-  opportunity.rentPerTenantWeekly = 100;
+  opportunity.rentPerTenantMonthly = 420;
   opportunity.billsYearly = 2000;
   opportunity.maintenanceYearly = 1000;
   opportunity.purchasePrice = 70000;
@@ -62,16 +62,16 @@ describe('Calculator Simple No Mortgage', () => {
 
   // test calculations
   it('has correct yearly profit', () => {
-    expect(calculator.profitYearly()).toEqual(23000);
+    expect(calculator.profitYearly()).toEqual(22200);
   });
-  it('has correct monthly profit', () => {
-    expect(calculator.profitMonthly()).toEqual(1916.6666666666667);
+  it('has correct monthly profit', () => { // only have to test this once as it's based on a correct yearly profit
+    expect(calculator.profitMonthly()).toEqual(1850);
   });
   it('has correct yearly revenue', () => {
-    expect(calculator.revenueYearly()).toEqual(26000.00);
+    expect(calculator.revenueYearly()).toEqual(25200);
   });
   it('has correct yearly gross profit', () => {
-    expect(calculator.grossProfitYearly()).toEqual(23000.00);
+    expect(calculator.grossProfitYearly()).toEqual(22200.00);
   });
   it('has correct mortgage principal', () => {
     expect(calculator.mortgagePrincipal()).toEqual(0);
@@ -92,7 +92,7 @@ describe('Calculator Simple BuyToLet Repayment', () => {
 
   let opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
-  opportunity.rentPerTenantWeekly = 100;
+  opportunity.rentPerTenantMonthly = 420;
   opportunity.billsYearly = 2000;
   opportunity.maintenanceYearly = 1000;
   opportunity.purchasePrice = 70000;
@@ -116,16 +116,13 @@ describe('Calculator Simple BuyToLet Repayment', () => {
 
   // test calculations
   it('has correct yearly profit', () => {
-    expect(calculator.profitYearly()).toEqual(12562.317295934623);
-  });
-  it('has correct monthly profit', () => {
-    expect(calculator.profitMonthly()).toEqual(1046.8597746612186);
+    expect(calculator.profitYearly()).toEqual(11762.317295934623);
   });
   it('has correct yearly revenue', () => {
-    expect(calculator.revenueYearly()).toEqual(26000.00);
+    expect(calculator.revenueYearly()).toEqual(25200);
   });
   it('has correct yearly gross profit', () => {
-    expect(calculator.grossProfitYearly()).toEqual(23000.00);
+    expect(calculator.grossProfitYearly()).toEqual(22200);
   });
   it('has correct mortgage principal', () => {
     expect(calculator.mortgagePrincipal()).toEqual(135000);
@@ -147,7 +144,7 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
   // setup advanced test
   let opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
-  opportunity.rentPerTenantWeekly = 100;
+  opportunity.rentPerTenantMonthly = 420;
   opportunity.billsYearly = 2000;
   opportunity.maintenanceYearly = 1000;
   opportunity.management = 10;
@@ -170,13 +167,10 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
 
   // test advanced calculations
   it('has correct yearly profit', () => {
-    expect(calculator.profitYearly()).toEqual(7362.317295934623);
-  });
-  it('has correct monthly profit', () => {
-    expect(calculator.profitMonthly()).toEqual(613.5264413278852);
+    expect(calculator.profitYearly()).toEqual(6722.317295934623);
   });
   it('has correct yearly gross profit', () => {
-    expect(calculator.grossProfitYearly()).toEqual(17800);
+    expect(calculator.grossProfitYearly()).toEqual(17160);
   });
   it('has correct mortgage principal', () => {
     expect(calculator.mortgagePrincipal()).toEqual(135000);
@@ -193,10 +187,10 @@ describe('Calculator Advanced BuyToLet Repayment', () => {
 
   // test formulas
   it('has correct yield', () => {
-    expect(calculator.yield()).toEqual(14.444444444444443);
+    expect(calculator.yield()).toEqual(14.000000000000002);
   });
   it('has correct roi', () => {
-    expect(calculator.returnOnInvestment()).toEqual(24.138745232572532);
+    expect(calculator.returnOnInvestment()).toEqual(22.04038457683483);
   });
 
 });
@@ -206,7 +200,7 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
   // setup advanced test
   let opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
-  opportunity.rentPerTenantWeekly = 100;
+  opportunity.rentPerTenantMonthly = 420;
   opportunity.billsYearly = 2000;
   opportunity.maintenanceYearly = 1000;
   opportunity.management = 10;
@@ -230,13 +224,10 @@ describe('Calculator Advanced BuyToLet Interest Only', () => {
 
   // test advanced calculations
   it('has correct yearly profit', () => {
-    expect(calculator.profitYearly()).toEqual(9700);
-  });
-  it('has correct monthly profit', () => {
-    expect(calculator.profitMonthly()).toEqual(808.3333333333334);
+    expect(calculator.profitYearly()).toEqual(9060);
   });
   it('has correct yearly gross profit', () => {
-    expect(calculator.grossProfitYearly()).toEqual(17800);
+    expect(calculator.grossProfitYearly()).toEqual(17160);
   });
   it('has correct mortgage principal', () => {
     expect(calculator.mortgagePrincipal()).toEqual(135000);
@@ -258,7 +249,7 @@ describe('Calculator Advanced Commercial Repayment', () => {
   // setup advanced test
   let opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
-  opportunity.rentPerTenantWeekly = 100;
+  opportunity.rentPerTenantMonthly = 420;
   opportunity.billsYearly = 2000;
   opportunity.maintenanceYearly = 1000;
   opportunity.management = 10;
@@ -281,25 +272,22 @@ describe('Calculator Advanced Commercial Repayment', () => {
 
   // test advanced calculations
   it('has correct yearly profit', () => {
-    expect(calculator.profitYearly()).toEqual(7246.3430436672315);
-  });
-  it('has correct monthly profit', () => {
-    expect(calculator.profitMonthly()).toEqual(603.8619203056027);
+    expect(calculator.profitYearly()).toEqual(6931.070950015932);
   });
   it('has correct yearly gross profit', () => {
-    expect(calculator.grossProfitYearly()).toEqual(17800);
+    expect(calculator.grossProfitYearly()).toEqual(17160);
   });
   it('has correct mortgage principal', () => {
-    expect(calculator.mortgagePrincipal()).toEqual(136500);
+    expect(calculator.mortgagePrincipal()).toEqual(132300);
   });
   it('has correct yearly mortgage payments', () => {
-    expect(calculator.mortgagePaymentsYearly()).toEqual(10553.656956332768);
+    expect(calculator.mortgagePaymentsYearly()).toEqual(10228.929049984068);
   });
   it('has correct capital invested', () => {
     expect(calculator.capitalInvested()).toEqual(165500);
   });
   it('has correct money left in', () => {
-    expect(calculator.moneyLeftIn()).toEqual(29000);
+    expect(calculator.moneyLeftIn()).toEqual(33200);
   });
 
 });
@@ -309,7 +297,7 @@ describe('Calculator Advanced Commercial Interest Only', () => {
   // setup advanced test
   let opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
-  opportunity.rentPerTenantWeekly = 100;
+  opportunity.rentPerTenantMonthly = 420;
   opportunity.billsYearly = 2000;
   opportunity.maintenanceYearly = 1000;
   opportunity.management = 10;
@@ -333,25 +321,22 @@ describe('Calculator Advanced Commercial Interest Only', () => {
 
   // test advanced calculations
   it('has correct yearly profit', () => {
-    expect(calculator.profitYearly()).toEqual(9610);
-  });
-  it('has correct monthly profit', () => {
-    expect(calculator.profitMonthly()).toEqual(800.8333333333334);
+    expect(calculator.profitYearly()).toEqual(9222);
   });
   it('has correct yearly gross profit', () => {
-    expect(calculator.grossProfitYearly()).toEqual(17800);
+    expect(calculator.grossProfitYearly()).toEqual(17160);
   });
   it('has correct mortgage principal', () => {
-    expect(calculator.mortgagePrincipal()).toEqual(136500);
+    expect(calculator.mortgagePrincipal()).toEqual(132300);
   });
   it('has correct yearly mortgage payments', () => {
-    expect(calculator.mortgagePaymentsYearly()).toEqual(8190);
+    expect(calculator.mortgagePaymentsYearly()).toEqual(7938);
   });
   it('has correct capital invested', () => {
     expect(calculator.capitalInvested()).toEqual(165500);
   });
   it('has correct money left in', () => {
-    expect(calculator.moneyLeftIn()).toEqual(29000);
+    expect(calculator.moneyLeftIn()).toEqual(33200);
   });
 
 });
@@ -361,7 +346,7 @@ describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
   // setup advanced test
   let opportunity = new Opportunity();
   opportunity.tenantNumber = 5;
-  opportunity.rentPerTenantWeekly = 100;
+  opportunity.rentPerTenantMonthly = 420;
   opportunity.billsYearly = 2000;
   opportunity.maintenanceYearly = 1000;
   opportunity.management = 10;
@@ -385,19 +370,16 @@ describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
 
   // test advanced calculations
   it('has correct yearly profit', () => {
-    expect(calculator.profitYearly()).toEqual(7270);
-  });
-  it('has correct monthly profit', () => {
-    expect(calculator.profitMonthly()).toEqual(605.8333333333334);
+    expect(calculator.profitYearly()).toEqual(6954);
   });
   it('has correct yearly gross profit', () => {
-    expect(calculator.grossProfitYearly()).toEqual(17800);
+    expect(calculator.grossProfitYearly()).toEqual(17160);
   });
   it('has correct mortgage principal', () => {
-    expect(calculator.mortgagePrincipal()).toEqual(175500);
+    expect(calculator.mortgagePrincipal()).toEqual(170100);
   });
   it('has correct yearly mortgage payments', () => {
-    expect(calculator.mortgagePaymentsYearly()).toEqual(10530);
+    expect(calculator.mortgagePaymentsYearly()).toEqual(10206);
   });
   it('has correct capital invested', () => {
     expect(calculator.capitalInvested()).toEqual(165500);
@@ -406,7 +388,7 @@ describe('Calculator Advanced Commercial Interest Only Pull Money Out', () => {
     expect(calculator.moneyLeftIn()).toEqual(0);
   });
   it('has correct money pulled out', () => {
-    expect(calculator.moneyPulledOut()).toEqual(10000);
+    expect(calculator.moneyPulledOut()).toEqual(4600);
   });
 
 });

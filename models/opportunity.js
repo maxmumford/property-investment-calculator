@@ -12,7 +12,7 @@ var opportunitySchema = new Schema({
 
   // tenant
   tenantNumber:         {type: Number},
-  rentPerTenantWeekly:  {type: Number},
+  rentPerTenantMonthly:  {type: Number},
 
   // expenses
   billsYearly:          {type: Number},

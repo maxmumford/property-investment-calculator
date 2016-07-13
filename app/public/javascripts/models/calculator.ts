@@ -47,8 +47,8 @@ export class Calculator {
 
   // calculations
   revenueYearly(): number {
-    if (this._opportunity.tenantNumber && this._opportunity.rentPerTenantWeekly)
-      return this._opportunity.tenantNumber * this._opportunity.rentPerTenantWeekly * 52;
+    if (this._opportunity.tenantNumber && this._opportunity.rentPerTenantMonthly)
+      return this._opportunity.tenantNumber * this._opportunity.rentPerTenantMonthly * 12;
     else 
       return 0;
   }
