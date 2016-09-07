@@ -34,11 +34,12 @@ export class UserService {
   // called by app.component.ts
   init(){
     // get logged in user, then refresh it every 2 minutes
-    this.getUser();
+    let getUserObservable = this.getUser();
     var self = this;
     Observable.interval(2000 * 60).subscribe(x => {
       self.getUser();
     });
+    return getUserObservable;
   }
 
   get user(): User{

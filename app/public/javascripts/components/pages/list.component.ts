@@ -31,7 +31,8 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.getOpportunities();
+    if(this.userService.isLoggedIn())
+      this.getOpportunities();
   }
 
   deleteOpportunity(opportunityToDelete) {

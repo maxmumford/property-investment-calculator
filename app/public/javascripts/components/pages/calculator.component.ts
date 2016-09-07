@@ -43,11 +43,13 @@ export class CalculatorComponent implements OnInit {
     private notificationService: NotificationsService,
     private userService: UserService,
     private router: Router) {
+
     this.opportunityId = this.routeParams.get('opportunityId') || null;
 
     // start with an empty calculator if no opportunity ID specified
-    if (!this.opportunityId)
+    if (!this.opportunityId){
       this.calculator = new Calculator(this.userService);
+    }
 
     // subscribe to logout event and redirect to home (unless public)
     var self = this;
@@ -79,6 +81,10 @@ export class CalculatorComponent implements OnInit {
     this.getCalculator();
   }
 
+  /**
+   * on nginit, loads the calculator with opportunity id this.opportunityId
+   * if it exists. Otherwise does nothing.
+   */
   getCalculator() {
     if (this.opportunityId) {
       var self = this;
